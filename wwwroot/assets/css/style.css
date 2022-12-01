@@ -1,9 +1,10 @@
 @import url(https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap);
 /* ================================ Basic CSS =============================== */
 body {
-  margin: 0px;
-  padding: 0px;
-  font-family: 'PT Sans',sans-serif; }
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Cairo', sans-serif;
+}
 
 * {
   margin: 0px;
@@ -97,7 +98,7 @@ header .nav-items {
         transition: ease-in-out 0.1s;
         box-shadow: 0 2px 5px rgba(255, 255, 255, 0.6);
         background: #fd1b5b;
-        transform: translatey(-0.625rem); }
+        transform: translateY(-0.625rem); }
       header .nav-items .menu-toggle .menu-hamburger::after {
         position: absolute;
         content: "";
@@ -106,7 +107,7 @@ header .nav-items {
         transition: ease-in-out 0.1s;
         box-shadow: 0 2px 5px rgba(255, 255, 255, 0.6);
         background: #fd1b5b;
-        transform: translatey(0.625rem); }
+        transform: translateY(0.625rem); }
   header .nav-items .logo {
     width: 30%;
     flex: 1 1 30%;
@@ -756,7 +757,9 @@ footer {
     color: #fff; }
     footer ._pl_we_sq .last-01 {
       position: relative;
-      direction: inline-block; }
+      direction:inherit;
+
+    }
       footer ._pl_we_sq .last-01 p {
         letter-spacing: 0.5px;
         font-size: 16px;
