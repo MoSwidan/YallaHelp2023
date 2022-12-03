@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Marhey&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
     <style>
+
+        /*heart*/
         @keyframes ldio-82f56hyj5wn {
             0% {
                 transform: scale(.85)
@@ -48,34 +50,34 @@
             transform-origin: 100px 100px;
         }
 
-            .ldio-82f56hyj5wn > div div {
-                top: 72px;
-                left: 60px;
-                position: absolute;
-                width: 80px;
-                height: 80px;
-                background: #e90c59;
-                transform: rotate(45deg);
-            }
+        .ldio-82f56hyj5wn > div div {
+            top: 72px;
+            left: 60px;
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #e90c59;
+            transform: rotate(45deg);
+        }
 
-                .ldio-82f56hyj5wn > div div:after, .ldio-82f56hyj5wn > div div:before {
-                    content: " ";
-                    position: absolute;
-                    display: block;
-                    width: 80px;
-                    height: 80px;
-                    background: #e90c59;
-                }
+        .ldio-82f56hyj5wn > div div:after, .ldio-82f56hyj5wn > div div:before {
+            content: " ";
+            position: absolute;
+            display: block;
+            width: 80px;
+            height: 80px;
+            background: #e90c59;
+        }
 
-                .ldio-82f56hyj5wn > div div:before {
-                    left: -52px;
-                    border-radius: 50% 0 0 50%;
-                }
+        .ldio-82f56hyj5wn > div div:before {
+            left: -52px;
+            border-radius: 50% 0 0 50%;
+        }
 
-                .ldio-82f56hyj5wn > div div:after {
-                    top: -52px;
-                    border-radius: 50% 50% 0 0;
-                }
+        .ldio-82f56hyj5wn > div div:after {
+            top: -52px;
+            border-radius: 50% 50% 0 0;
+        }
 
         .loadingio-spinner-heart-u7c83x2dxkn {
             width: 200px;
@@ -89,72 +91,123 @@
             width: 100%;
             height: 100%;
             position: relative;
-            transform: translateZ(0) scale(1);
+            transform: translatez(0) scale(1);
             backface-visibility: hidden;
-            transform-origin: 0 0; /* see note above */
+            transform-origin: 0 0;  see note above 
         }
 
-            .ldio-82f56hyj5wn div {
-                box-sizing: content-box;
-            }
-
-        .loader {
-            position: relative;
-            display: inline-block;
+        .ldio-82f56hyj5wn div {
+            box-sizing: content-box;
         }
-        /*word*/
-        .loader {
-            text-align: center;
-            font-size: 25px;
-            font-family: 'Nerko One', cursive;
-            font-weight: bold;
-            display: inline-block;
-            color: #e90c59;
-            letter-spacing: 2px;
-            position: relative;
-            box-sizing: border-box;
+        /*pulse*/
+        .pulse {
+            height: 100px;
+            width: 200px;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        .pulse:after {
+            content: '';
+            display: block;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200px 100px" enable-background="new 0 0 200px 100px" xml:space="preserve"><polyline fill="none" stroke-width="3px" stroke="white" points="2.4,58.7 70.8,58.7 76.1,46.2 81.1,58.7 89.9,58.7 93.8,66.5 102.8,22.7 110.6,78.7 115.3,58.7 126.4,58.7 134.4,54.7 142.4,58.7 197.8,58.7 "/></svg>') 0 0 no-repeat;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            -webkit-animation: 2s pulse linear infinite;
+            -moz-animation: 2s pulse linear infinite;
+            -o-animation: 2s pulse linear infinite;
+            animation: 2s pulse linear infinite;
+            clip: rect(0, 0, 100px, 0);
+        }
+        .pulse:before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            left: 2px;
+            right: 2px;
+            bottom: 0;
+            top: 16px;
+            margin: auto;
+            height: 3px;
+
         }
 
-            .loader::after {
-                content: 'Never Stop Helping';
-                position: absolute;
-                left: 0;
-                top: 0;
-                color: #FFF;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-                animation: animloader 6s linear infinite;
-            }
 
-        @keyframes animloader {
+        @-webkit-keyframes pulse {
             0% {
-                height: 100%;
+            clip: rect(0, 0, 100px, 0);
+            opacity: 0.4;
+            }
+            4% {
+            clip: rect(0, 66.66667px, 100px, 0);
+            opacity: 0.6;
+            }
+            15% {
+            clip: rect(0, 133.33333px, 100px, 0);
+            opacity: 0.8;
+            }
+            20% {
+            clip: rect(0, 300px, 100px, 0);
+                opacity: 1;
+            }
+
+            80% {
+            clip: rect(0, 300px, 100px, 0);
+                opacity:0;
+            }
+
+            90% {
+            clip: rect(0, 300px, 100px, 0);
+            opacity: 0;
             }
 
             100% {
-                height: 0%;
+            clip: rect(0, 300px, 100px, 0);
+            opacity:0;
             }
         }
+        @keyframes pulse {
+            0% {
+            clip: rect(0, 0, 100px, 0);
+            }
+            4% {
+            clip: rect(0, 66.66667px, 100px, 0);
+            }
+            15% {
+            clip: rect(0, 133.33333px, 100px, 0);
+            }
+            20% {
+            clip: rect(0, 300px, 100px, 0);
+                opacity:1;
+            }
+
+            80% {
+            clip: rect(0, 300px, 100px, 0);
+                opacity:0;
+            }
+
+            90% {
+            opacity: 0;
+            }
+
+            100% {
+            clip: rect(0, 300px, 100px, 0);
+            opacity:0;
+            }
+  
+        }
+        
     </style>
 </head>
 
 <body>
     <div id="app">
-        <div class="container-fluid text-center" style="height:100vh;">
-            <div class="row justify-content-center align-content-center h-100 align-items-center">
-                <div class="loadingio-spinner-heart-u7c83x2dxkn">
-                    <div class="ldio-82f56hyj5wn">
-                        <div>
-                            <div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <!--<div id="blazor-error-ui">

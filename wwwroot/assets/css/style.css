@@ -484,7 +484,9 @@ header .nav-items {
       position: relative;
       border-top-right-radius: 8px;
       border-top-left-radius: 8px;
-      overflow: hidden; }
+      overflow: hidden;
+      height: 230px;
+    }
       .charity-01-main .bg-03 ._kl_cd ._i-tr:hover::before {
         width: 100%;
         opacity: 1;
@@ -817,7 +819,9 @@ footer {
         text-align: center;
         background-color: #fd1b5b;
         border-radius: 3px;
-        color: #fff; }
+        color: #fff;
+
+      }
       footer ._kl_ds_we .head-footer h3 {
         padding: 0 0 10px 0;
         position: relative;
@@ -832,6 +836,6 @@ footer {
           background: #fd1b5b;
           height: 2px;
           bottom: 0;
-          left: 0; }
+          right: 0; }
 
 /*# sourceMappingURL=style.css.map */
