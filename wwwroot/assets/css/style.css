@@ -486,12 +486,19 @@ header .nav-items {
       border-top-left-radius: 8px;
       overflow: hidden;
       height: 230px;
+      width:100%;
+      border-bottom:0.1px solid lightgrey;
+    }
+    ._i-tr img{
+        height: 100%;
     }
       .charity-01-main .bg-03 ._kl_cd ._i-tr:hover::before {
         width: 100%;
         opacity: 1;
         visibility: visible;
-        transition: 0.8s; }
+        transition: 0.8s; 
+        cursor:pointer;
+      }
       .charity-01-main .bg-03 ._kl_cd ._i-tr::before {
         position: absolute;
         content: "\f0c1";

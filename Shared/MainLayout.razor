@@ -1,20 +1,4 @@
 ﻿@inherits LayoutComponentBase
-
-@*<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>*@
 @if (IsLoaded)
 {
     <Header />
@@ -23,9 +7,9 @@
 }
 else
 {
-    <div class="container-fluid text-center" style="height:100vh;">
-        <div class="row justify-content-center align-content-center h-100 align-items-center">
-           <div class="loadingio-spinner-heart-u7c83x2dxkn">
+    <div class="container-fluid text-center" style="height:100vh;overflow:hidden;">
+        <div class="row justify-content-center align-content-center h-100 align-items-center" style="overflow:hidden;">
+           <div class="loadingio-spinner-heart-u7c83x2dxkn p-0">
                 <div class="ldio-82f56hyj5wn">
                     <div>
                         <div>
@@ -34,8 +18,8 @@ else
                 </div>
 
             </div>
-            <div class="pulse"></div>
-        
+            <div class="pulse p-0"></div>
+            <div class="position-absolute fs-5 fw-bold slide-top " style="top:62%; left:auto;"> لا تتوقف أبدا عن مساعدة الاخرين </div>
         </div>
     </div>
    
@@ -46,7 +30,7 @@ else
     private bool IsLoaded = false;
     public async Task Loading()
     {
-        await Task.Delay(5000);
+        await Task.Delay(2500);
         IsLoaded = true;
         await InvokeAsync(StateHasChanged);
     }
