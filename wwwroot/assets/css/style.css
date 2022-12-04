@@ -485,12 +485,13 @@ header .nav-items {
       border-top-right-radius: 8px;
       border-top-left-radius: 8px;
       overflow: hidden;
-      height: 230px;
+      height: 250px;
       width:100%;
       border-bottom:0.1px solid lightgrey;
     }
     ._i-tr img{
         height: 100%;
+        width:100%;
     }
       .charity-01-main .bg-03 ._kl_cd ._i-tr:hover::before {
         width: 100%;

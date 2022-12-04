@@ -38,4 +38,13 @@ else
     {
         await Loading();
     }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("All");
+        }
+        
+    }
 }

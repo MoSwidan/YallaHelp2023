@@ -17,11 +17,11 @@
                     <div class="menu-items" style="user-select:none;">
                         <div class="menu text-md-right text-center " id="menu">
                             <ul>
-                                <li style="cursor:pointer;"><a>الرئيسيه</a></li>
-                                <li style="cursor:pointer;"><a>من نحن</a></li>
-                                <li style="cursor:pointer;"><a>الخدمات</a></li>
+                                <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo("/")'><a>الرئيسيه</a></li>
                                 <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo("/Blog")'><a>المنشورات</a></li>
-                                <li style="cursor:pointer;"><a>تواصل معنا</a></li>
+                                <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo("/Services")'><a>خدماتنا</a></li>
+                                <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo("/Blog")'><a>من نحن</a></li>
+                                <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo("/Blog")'><a>تواصل معنا</a></li>
                             </ul>
                         </div>
                     </div>
