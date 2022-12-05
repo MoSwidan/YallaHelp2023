@@ -32,7 +32,11 @@ p {
 
 a:hover {
   text-decoration: none; }
-
+input:focus {
+    border:0px;
+    box-shadow:none;
+    outline:none;
+}
 .container {
   max-width: 1170px; }
   @media screen and (max-width: 575px) {
