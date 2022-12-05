@@ -1,0 +1,23 @@
+﻿<section class="abt-01">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading-wrapper">
+                    <h3>@SubRouteName</h3>
+                    <ol>
+                        <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo($"{BaseRouteUrl}")'>@BaseRouteName<i class="far fa-angle-double-right"></i></li>
+                        <li>@SubRouteName</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@code {
+    [Parameter]
+    public string? BaseRouteName { get; set; }
+    [Parameter]
+    public string? BaseRouteUrl { get; set; }
+    [Parameter]
+    public string? SubRouteName { get; set; }
+}
