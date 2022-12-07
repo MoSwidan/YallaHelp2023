@@ -707,9 +707,9 @@ header .nav-items {
         .charity-01-main .bg-0-b .main-card-contact .sup-card-contact-0a .dived .ca-ool {
           padding: 0px 10px; }
         .charity-01-main .bg-0-b .main-card-contact .sup-card-contact-0a .dived .form-group {
-          width: 50%;
-          max-width: 50%;
-          flex: 1 1 50%; }
+          width: 100%;
+          max-width: 100%;
+          flex: 1 1 100%; }
           .charity-01-main .bg-0-b .main-card-contact .sup-card-contact-0a .dived .form-group .form-sup {
             margin: 10px;
             position: relative; }
