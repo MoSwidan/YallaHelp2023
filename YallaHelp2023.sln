@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YallaHelp2023", "YallaHelp2023.csproj", "{EA8F9A74-336A-464D-B465-B587DD9AD70C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YallaHelpHybrid", "..\YallaHelpHybrid\YallaHelpHybrid.csproj", "{19A5B246-F2A4-4BAD-A689-BFC191D4D38C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YallaHelpHybrid", "..\YallaHelpHybrid\YallaHelpHybrid.csproj", "{19A5B246-F2A4-4BAD-A689-BFC191D4D38C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,11 +5,29 @@ body {
     padding: 0px;
     font-family: 'Cairo', sans-serif;
 }
+.slide-bottom {
+    -webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes slide-bottom {
+    0% {
+        -webkit-transform: translateY(-100px);
+        transform: translateY(-100px);
+    }
 
+    100% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+}
+.fa-thumbs-up, .fa-comment-dots {
+    cursor: pointer;
+}
 * {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box; }
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
 
 img {
   max-width: 100%; }
@@ -47,11 +65,11 @@ input:focus {
 
 /* ================================ Header CSS =============================== */
 header .my-nav {
+  z-index:4050;
   position: relative;
   width: 100%;
   left: 0;
   top: 0;
-  z-index: 999;
   padding: 10px 0px;
   -webkit-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.15); }
@@ -504,7 +522,7 @@ header .nav-items {
         transition: 0.8s; 
         cursor:pointer;
       }
-      .charity-01-main .bg-03 ._kl_cd ._i-tr::before {
+      /*.charity-01-main .bg-03 ._kl_cd ._i-tr::before {
         position: absolute;
         content: "\f0c1";
         font-size: 20px;
@@ -521,7 +539,7 @@ header .nav-items {
         background: rgba(0, 0, 0, 0.9);
         visibility: hidden;
         opacity: 0;
-        transition: 0.8s; }
+        transition: 0.8s; }*/
 .charity-01-main .bg-05 {
   padding: 3.125rem 0;
   position: relative;

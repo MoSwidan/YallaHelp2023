@@ -3,10 +3,26 @@
         <div class="row">
             <div class="col-12">
                 <div class="heading-wrapper">
-                    <h3>@SubRouteName</h3>
+                    @if (string.IsNullOrEmpty(SubSubRouteName))
+                    {
+                        <h3>@SubRouteName</h3>
+                    }
+                    else
+
+                    {
+                        <h3>@SubSubRouteName</h3>
+
+                    }
                     <ol>
-                        <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo($"{BaseRouteUrl}")'>@BaseRouteName<i class="far fa-angle-double-right"></i></li>
-                        <li>@SubRouteName</li>
+                        @if (string.IsNullOrEmpty(SubSubRouteName))
+                        {
+                            <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo($"{BaseRouteUrl}")'>@BaseRouteName<i class="far fa-angle-double-right"></i></li>
+                            <li>@SubRouteName</li>
+                        }else{
+                            <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo($"{BaseRouteUrl}")'>@BaseRouteName<i class="far fa-angle-double-right"></i></li>
+                            <li style="cursor:pointer;" @onclick='()=>Nv.NavigateTo($"{SubRouteUrl}")'>@SubRouteName<i class="far fa-angle-double-right"></i></li>
+                            <li>@SubSubRouteName</li>
+                        }
                     </ol>
                 </div>
             </div>
@@ -20,4 +36,8 @@
     public string? BaseRouteUrl { get; set; }
     [Parameter]
     public string? SubRouteName { get; set; }
+    [Parameter]
+    public string? SubRouteUrl { get; set; }
+    [Parameter]
+    public string? SubSubRouteName { get; set; }
 }
