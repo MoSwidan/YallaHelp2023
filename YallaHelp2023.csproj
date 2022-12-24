@@ -23,4 +23,16 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\AddPost.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\AddPost.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\AddPost.razor" />
+  </ItemGroup>
+
 </Project>

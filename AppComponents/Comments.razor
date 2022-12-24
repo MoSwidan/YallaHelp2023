@@ -1,0 +1,63 @@
+﻿<div dir="rtl" class="container-fluid scrollarea d-none" style="position:fixed;z-index:3060;top:0%;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:scroll;" id="comments">
+    <div class="justify-content-center rounded align-content-center row h-100 w-100" style="position:absolute;top:20%;">
+        <div class="d-flex flex-column  col-md-8 postion-fixed h-100">
+            <div class="coment-bottom  bg-light  p-2 px-2">
+                <div class="row  pt-2 me-1 justify-content-center  text-end">          
+                     <i onclick="document.getElementById('comments').classList.toggle('d-none')" class="fa fa-times text-danger fs-3" style="cursor:pointer;"></i>                    
+                </div>
+                <hr/>
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                    <img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38">
+                    <input type="text" class="form-control mx-3" placeholder="أضف تعليق">
+                    <button class="btn btn-primary" type="button">
+                        تأكيد
+                    </button>
+                </div>
+            </div>
+
+            <div class="coment-bottom  bg-light p-1 px-2">
+                <div class="commented-section  text-dark shadow rounded my-3 p-2">
+                    <div class="d-flex flex-column align-items-start commented-user ">
+                        <div class="row w-100 align-items-center justify-content-start ">
+                            <div style="width:60px;" class=" ms-2 me-3 p-0">
+                                <img style="height:60px;width:60px;" class="rounded-circle" src="https://img.freepik.com/free-photo/medium-shot-happy-man-smiling_23-2148221808.jpg?w=1380&t=st=1670615915~exp=1670616515~hmac=0674c5d5b2c0548cf79781e691e6c005b881c802f8a48bda69850f34eef94f4c">
+                            </div>
+                            <div class="col-6 text-end  p-0 ">
+                                <p class="fw-bold text-end fw-bold p-0 me-1"> أحمد صلاح حسيب</p>
+                                <p class="pt-1 px-0 m-0" style="font-size:12px;">12/10/2022 10:50 ص</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 text-end pe-2 my-3  p-2   text-secondary">
+                        لقد رأيت هذا في مكان قريب من القاهرة في محطة
+                    </div>
+                </div>
+                <div class="commented-section  text-dark shadow rounded my-3 p-2">
+                    <div class="d-flex flex-column align-items-start commented-user ">
+                        <div class="row w-100 align-items-center justify-content-start ">
+                            <div style="width:60px;" class=" ms-2 me-3 p-0">
+                                <img style="height:60px;width:60px;" class="rounded-circle" src="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=1380&t=st=1670717325~exp=1670717925~hmac=e327f7866e565be149d2f1ec79e5604e42b1dc2c5a0f0eda6f0f84dd247a40bf">
+                            </div>
+                            <div class="col-6 text-end  p-0 ">
+                                <p class="fw-bold text-end fw-bold p-0 me-1"> أحمد صلاح حسيب</p>
+                                <p class="pt-1 px-0 m-0" style="font-size:12px;">12/10/2022 10:50 ص</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-end pe-2 my-3  p-2   text-secondary">
+                        لقد رأيت هذا في مكان قريب من القاهرة في محطة
+                    </div>
+                </div>
+
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

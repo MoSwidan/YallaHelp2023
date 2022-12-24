@@ -1,35 +1,34 @@
 ﻿@page "/Profile"
 <style>
-    .scrollarea::-webkit-scrollbar{
-        display:none;
-    }
+    
 </style>
 <main class="charity-01-main" style="margin-top:102px;" dir="rtl">
     <!-- ======== Profile started ========= -->
     <section class="services-01 my-0 py-0 ">
-        <div class="container-fluid px-0 ">
+        <div class="container-fluid px-0  bg-">
+            <!-- ======== profile started ========= -->
             <div class="row shadow bg-light">
                 <div class="mb-3 mb-md-4 col-12 position-relative" style="height:23vh; background-image:url('assets/images/cover.jpg');background-position:center;background-size:cover;background-repeat:no-repeat;">
-                    <img class="img-thumbnail rounded-circle position-absolute" style="right:20px; top:55%; height:130px; width:130px;" src="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=1380&t=st=1670717325~exp=1670717925~hmac=e327f7866e565be149d2f1ec79e5604e42b1dc2c5a0f0eda6f0f84dd247a40bf" />
+                    <img class="img-thumbnail rounded-circle position-absolute " style="right:10%; top:55%; height:130px; width:130px;" src="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=1380&t=st=1670717325~exp=1670717925~hmac=e327f7866e565be149d2f1ec79e5604e42b1dc2c5a0f0eda6f0f84dd247a40bf" />
                     
                 </div>
-                <div class="col-12 py-4 py-md-1 px-md-4 px-1 mt-1">
-                    <div class="row p-3 mt-md-0 mt-2">
-                        <div class="col-md-4 col-12   pe-4">
+                <div class="col-12 py-4 py-md-1 px-md-5 px-1 mt-1">
+                    <div class="row p-3 px-md-5  mt-md-0 mt-2">
+                        <div class="col-md-4 col-12   pe-md-5 pe-4">
                             <h4 class="text-end">
                                 محمد مجدي سويدان
                             </h4>
                         </div>
                         <div class="col-md-8  col-12 my-md-0 mt-4 ">
-                            <div class="row pe-1">
-                                <div class="col-md-4 col-5 col-lg-3 text-end me-md-auto">
-                                    <button class="w-100 bg-primary shadow border-0 p-2 rounded text-white">
+                            <div class="row justify-content-start pe-1">
+                                <div class="col-md-5 col-6 col-lg-3 text-end me-md-auto">
+                                    <button @onclick='()=>Nv.NavigateTo("/addPost")' class="w-100 bg-primary shadow border-0 p-2 rounded text-white">
                                         <i class="fal fa-plus-circle ms-1"></i>
                                         أضف منشور
                                     </button>
                                 </div>
-                                <div class="col-md-4 col-5 col-lg-3 ">
-                                    <button class="w-100 bg-secondary shadow border-0 p-2 rounded text-white">
+                                <div class="col-md-5 col-6 col-lg-3 ">
+                                    <button class="w-100 bg-secondary shadow border-0 p-2 px-1 rounded text-white">
                                         <i class="fal fa-edit ms-1"></i>
                                         تعديل البيانات 
                                         
@@ -43,244 +42,438 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-4 shadow bg-light px-3 ">
-                <div class="d-flex flex-row  align-content-center py-3  scrollarea" style="width:100vw; height:70px;overflow-x:scroll;">
-                    <span class="btn me-md-0 mx-md-3 mx-1 text-white text-center d-inline-block shadow rounded-pill h-100" style="background:#fd1b5b;">
-                        <i class="fal fa-list-alt ps-1"></i>
-                        المنشورات
-                    </span>
-                    <span class="btn me-md-0 mx-md-3 mx-1  text-white text-center d-inline-block  shadow rounded-pill h-100" style="background:#fd1b5b;">
-                        <i class="fal fa-star ps-1"></i>
-                        المنشورات المفضلة
-                    </span>
-                    <span class="btn me-md-0 mx-md-3 mx-1 text-white text-center d-inline-block  shadow rounded-pill h-100" style="background:#fd1b5b;">
-                        <i class="fal fa-stars ps-1"></i>
-                        المنشورات المميزة
-                    </span>
-                    <span class="btn me-md-0 mx-md-3 mx-1 text-white text-center d-inline-block  shadow rounded-pill h-100" style="background:#fd1b5b;">
-                        <i class="fal fa-user-edit ps-1"></i>
-                         البيانات الشخصيه
-                    </span>
-                </div>
-                <hr/>
-                <div class="col-12">
-                    <section class="bg-03">
+            <!-- ======== scrollbar started ========= -->
+            <div class="d-flex flex-row bg-light my-2 shadow px-2 justify-content-md-center align-content-center py-3  scrollarea" style=" width:100%;height:70px;overflow-x:scroll;">
+                <span @onclick='()=>activesection = "Posts"' class="btn  ms-1 text-white text-center d-inline-block  rounded-pill h-100" style=" background:#fd1b5b;">
+                    <i class="fal fa-list-alt ps-1"></i>
+                    المنشورات
+                </span>
+                <span @onclick='()=>activesection = "Saved"' class="btn  mx-1  text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                    <i class="fal fa-star ps-1"></i>
+                    المنشورات المفضلة
+                </span>
+                <span @onclick='()=>activesection = "Stared"' class="btn  mx-1 text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                    <i class="fal fa-stars ps-1"></i>
+                    المنشورات المميزة
+                </span>
+                <span @onclick='()=>activesection = "PersonalData"' class="btn   mx-1 text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                    <i class="fal fa-user-edit ps-1"></i>
+                    البيانات الشخصيه
+                </span>
+            </div>
+            <!-- ======== body started ========= -->
+            <div class="row mt-2 shadow bg-light  px-3 ">
+                <div class="col-12 bg-light">
+                    <section class="bg-03 pt-4">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="head-01">
-                                        <h2>
-                                            <i class="fal fa-smile-beam"></i>
-                                        </h2>
-                                        <p>
-                                            <q class="fs-5">
-                                                حينما تساعد الاخرين تجد السعادة
-                                            </q>
-                                        </p>
+                           
+                            @switch (activesection)
+                            {
+                                case "Posts" :
+                                    <div class="row justify-content-center align-items-center">
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
+
+                                            <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+                                                <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
+                                                    <i onclick="let x = document.getElementById('dots-tools-1');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
+                                                </div>
+                                                <div id="dots-tools-1" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <hr class="mt-5 text-dark" />
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
+                                                            <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-pen-nib ps-2 fs-5"></i>
+                                                            <span class="text-dark"> تعديل المنشور </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-stars ps-2 fs-5"></i>
+                                                            <span class="text-dark">حذف من المفضلة</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-copy ps-2 fs-5"></i>
+                                                            <span class="text-dark"> نسخ الرابط </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="_i-tr">
+                                                    <img class="img-fluid" src="https://img.freepik.com/free-psd/white-car-isolated_176382-1481.jpg?w=1380&t=st=1670047416~exp=1670048016~hmac=7d26a38dbb3213f290076d1f4a722ae20d2357d5155fafbc35cb18f42443fb78">
+                                                </div>
+                                                <div class="_oi_er_we ">
+                                                    <h3>سيارة مفقودة</h3>
+                                                    <p>
+                                                        تم فقد السيارة مساء يوم  الخميس في مدينة السادس من أكتوبر من أمام مول مصر...
+                                                    </p>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
+                                                    <div class="col-6 text-end">
+                                                        10
+                                                        تعليق
+                                                    </div>
+                                                    <div class="col-6 text-start ">
+                                                        5
+                                                        <span>أعجبني</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
+                                                    <div class="col-6 text-center">
+
+                                                        <i class="fal fa-comment-dots ps-2 fs-5"></i>
+                                                        التعليقات
+                                                    </div>
+                                                    <div class="col-6 text-center border-right">
+
+                                                        <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+                                                        أعجبني
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+                                            <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+                                                <div class="text-end p-2 pr-3 pt-3 rounded position-absolute  border-2 w-100" style="z-index:3050; top:5px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <i onclick="let x = document.getElementById('dots-tools-2');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
+                                                </div>
+                                                <div id="dots-tools-2" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100 " style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <hr class="mt-5 text-dark" />
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
+                                                            <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-star ps-2 fs-5"></i>
+                                                            <span class="text-dark">أضف الي المفضلة</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-copy ps-2 fs-5"></i>
+                                                            <span class="text-dark"> نسخ الرابط </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="_i-tr">
+                                                    <img class="img-fluid" src="https://img.freepik.com/free-photo/laptop-wooden-table_53876-20635.jpg?w=1380&t=st=1670144347~exp=1670144947~hmac=e4152e9d1cf9ebdfcfc5d33dc25984caf80db059cfadfbbc18e818391ce2ca07">
+                                                </div>
+                                                <div class="_oi_er_we">
+                                                    <h3>لابتوب مفقودة</h3>
+                                                    <p>
+                                                        تم فقد اللابتوب مساء  يوم الخميس في مدينة السادس من أكتوبر في مول مصر...
+                                                    </p>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
+                                                    <div class="col-6 text-end">
+                                                        0
+                                                        تعليق
+                                                    </div>
+                                                    <div class="col-6 text-start ">
+                                                        5
+                                                        <span>أعجبني</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
+                                                    <div class="col-6 text-center">
+
+                                                        <i class="fal fa-comment-dots ps-2 fs-5"></i>
+                                                        التعليقات
+                                                    </div>
+                                                    <div class="col-6 text-center border-right">
+
+                                                        <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+                                                        أعجبني
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+                                            <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+                                                <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
+                                                    <i onclick="let x = document.getElementById('dots-tools-3');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
+                                                </div>
+                                                <div id="dots-tools-3" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <hr class="mt-5 text-dark" />
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
+                                                            <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-star ps-2 fs-5"></i>
+                                                            <span class="text-dark">أضف الي المفضلة</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-copy ps-2 fs-5"></i>
+                                                            <span class="text-dark"> نسخ الرابط </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="_i-tr">
+                                                    <img class="img-fluid" src="https://img.freepik.com/free-photo/suitcase-money-with-hundred-dollar-white-background_1232-2858.jpg?w=1380&t=st=1670147605~exp=1670148205~hmac=d5b5b8a95376fcab122447a8968989c751d7d0ada4c52cf73effce181a63cacb">
+                                                </div>
+                                                <div class="_oi_er_we">
+                                                    <h3>مبلغ مالي</h3>
+                                                    <p>
+                                                        تم فقد المبلغ مساء  يوم الخميس في مدينة السادس من أكتوبر في مول مصر...
+                                                    </p>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
+                                                    <div class="col-6 text-end">
+                                                        10
+                                                        تعليق
+                                                    </div>
+                                                    <div class="col-6 text-start ">
+                                                        5
+                                                        <span>أعجبني</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
+                                                    <div class="col-6 text-center">
+
+                                                        <i class="fal fa-comment-dots ps-2 fs-5"></i>
+                                                        التعليقات
+                                                    </div>
+                                                    <div class="col-6 text-center border-right">
+
+                                                        <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+                                                        أعجبني
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center align-items-center">
+                                    break;
+                                case "Saved":
+                                    <div class="row justify-content-center align-items-center">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-
-                                    <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
-                                        <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
-                                            <i onclick="let x = document.getElementById('dots-tools-1');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
-                                        </div>
-                                        <div id="dots-tools-1" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
-                                            <hr class="mt-5 text-dark" />
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
-                                                    <span class="text-dark">ابلاغ عن مخالفة</span>
+                                            <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+                                                <div class="text-end p-2 pr-3 pt-3 rounded position-absolute  border-2 w-100" style="z-index:3050; top:5px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <i onclick="let x = document.getElementById('dots-tools-2');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
                                                 </div>
+                                                <div id="dots-tools-2" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100 " style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <hr class="mt-5 text-dark" />
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
+                                                            <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                        </div>
 
-                                            </div>
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
 
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-pen-nib ps-2 fs-5"></i>
-                                                    <span class="text-dark"> تعديل المنشور </span>
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-star ps-2 fs-5"></i>
+                                                            <span class="text-dark">أضف الي المفضلة</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-copy ps-2 fs-5"></i>
+                                                            <span class="text-dark"> نسخ الرابط </span>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-stars ps-2 fs-5"></i>
-                                                    <span class="text-dark">حذف من المفضلة</span>
+                                                <div class="_i-tr">
+                                                    <img class="img-fluid" src="https://img.freepik.com/free-photo/laptop-wooden-table_53876-20635.jpg?w=1380&t=st=1670144347~exp=1670144947~hmac=e4152e9d1cf9ebdfcfc5d33dc25984caf80db059cfadfbbc18e818391ce2ca07">
                                                 </div>
-                                            </div>
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-copy ps-2 fs-5"></i>
-                                                    <span class="text-dark"> نسخ الرابط </span>
+                                                <div class="_oi_er_we">
+                                                    <h3>لابتوب مفقودة</h3>
+                                                    <p>
+                                                        تم فقد اللابتوب مساء  يوم الخميس في مدينة السادس من أكتوبر في مول مصر...
+                                                    </p>
                                                 </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="_i-tr">
-                                            <img class="img-fluid" src="https://img.freepik.com/free-psd/white-car-isolated_176382-1481.jpg?w=1380&t=st=1670047416~exp=1670048016~hmac=7d26a38dbb3213f290076d1f4a722ae20d2357d5155fafbc35cb18f42443fb78">
-                                        </div>
-                                        <div class="_oi_er_we ">
-                                            <h3>سيارة مفقودة</h3>
-                                            <p>
-                                                تم فقد السيارة مساء يوم  الخميس في مدينة السادس من أكتوبر من أمام مول مصر...
-                                            </p>
-                                        </div>
-                                        <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
-                                            <div class="col-6 text-end">
-                                                10
-                                                تعليق
-                                            </div>
-                                            <div class="col-6 text-start ">
-                                                5
-                                                <span>أعجبني</span>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
-                                            <div class="col-6 text-center">
-
-                                                <i class="fal fa-comment-dots ps-2 fs-5"></i>
-                                                التعليقات
-                                            </div>
-                                            <div class="col-6 text-center border-right">
-
-                                                <i class="fal fa-thumbs-up ps-2 fs-5"></i>
-                                                أعجبني
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-
-                                    <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
-                                        <div class="text-end p-2 pr-3 pt-3 rounded position-absolute  border-2 w-100" style="z-index:3050; top:5px; right:0px;cursor:pointer;color:#fd1b5b;">
-                                            <i onclick="let x = document.getElementById('dots-tools-2');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
-                                        </div>
-                                        <div id="dots-tools-2" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100 " style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
-                                            <hr class="mt-5 text-dark" />
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
-                                                    <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
+                                                    <div class="col-6 text-end">
+                                                        0
+                                                        تعليق
+                                                    </div>
+                                                    <div class="col-6 text-start ">
+                                                        5
+                                                        <span>أعجبني</span>
+                                                    </div>
                                                 </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
+                                                    <div class="col-6 text-center">
 
-                                            </div>
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                        <i class="fal fa-comment-dots ps-2 fs-5"></i>
+                                                        التعليقات
+                                                    </div>
+                                                    <div class="col-6 text-center border-right">
 
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-star ps-2 fs-5"></i>
-                                                    <span class="text-dark">أضف الي المفضلة</span>
+                                                        <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+                                                        أعجبني
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-copy ps-2 fs-5"></i>
-                                                    <span class="text-dark"> نسخ الرابط </span>
+                                            </article>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+                                            <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+                                                <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
+                                                    <i onclick="let x = document.getElementById('dots-tools-3');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
                                                 </div>
+                                                <div id="dots-tools-3" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <hr class="mt-5 text-dark" />
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
+                                                            <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                        </div>
 
-                                            </div>
-                                        </div>
-                                        <div class="_i-tr">
-                                            <img class="img-fluid" src="https://img.freepik.com/free-photo/laptop-wooden-table_53876-20635.jpg?w=1380&t=st=1670144347~exp=1670144947~hmac=e4152e9d1cf9ebdfcfc5d33dc25984caf80db059cfadfbbc18e818391ce2ca07">
-                                        </div>
-                                        <div class="_oi_er_we">
-                                            <h3>لابتوب مفقودة</h3>
-                                            <p>
-                                                تم فقد اللابتوب مساء  يوم الخميس في مدينة السادس من أكتوبر في مول مصر...
-                                            </p>
-                                        </div>
-                                        <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
-                                            <div class="col-6 text-end">
-                                                0
-                                                تعليق
-                                            </div>
-                                            <div class="col-6 text-start ">
-                                                5
-                                                <span>أعجبني</span>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
-                                            <div class="col-6 text-center">
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
 
-                                                <i class="fal fa-comment-dots ps-2 fs-5"></i>
-                                                التعليقات
-                                            </div>
-                                            <div class="col-6 text-center border-right">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-star ps-2 fs-5"></i>
+                                                            <span class="text-dark">أضف الي المفضلة</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-copy ps-2 fs-5"></i>
+                                                            <span class="text-dark"> نسخ الرابط </span>
+                                                        </div>
 
-                                                <i class="fal fa-thumbs-up ps-2 fs-5"></i>
-                                                أعجبني
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-
-                                    <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
-                                        <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
-                                            <i onclick="let x = document.getElementById('dots-tools-3');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
-                                        </div>
-                                        <div id="dots-tools-3" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
-                                            <hr class="mt-5 text-dark" />
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
-                                                    <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                    </div>
                                                 </div>
-
-                                            </div>
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-star ps-2 fs-5"></i>
-                                                    <span class="text-dark">أضف الي المفضلة</span>
+                                                <div class="_i-tr">
+                                                    <img class="img-fluid" src="https://img.freepik.com/free-photo/suitcase-money-with-hundred-dollar-white-background_1232-2858.jpg?w=1380&t=st=1670147605~exp=1670148205~hmac=d5b5b8a95376fcab122447a8968989c751d7d0ada4c52cf73effce181a63cacb">
                                                 </div>
-                                            </div>
-                                            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-                                                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                                                    <i class="fal fa-copy ps-2 fs-5"></i>
-                                                    <span class="text-dark"> نسخ الرابط </span>
+                                                <div class="_oi_er_we">
+                                                    <h3>مبلغ مالي</h3>
+                                                    <p>
+                                                        تم فقد المبلغ مساء  يوم الخميس في مدينة السادس من أكتوبر في مول مصر...
+                                                    </p>
                                                 </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
+                                                    <div class="col-6 text-end">
+                                                        10
+                                                        تعليق
+                                                    </div>
+                                                    <div class="col-6 text-start ">
+                                                        5
+                                                        <span>أعجبني</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
+                                                    <div class="col-6 text-center">
 
-                                            </div>
-                                        </div>
-                                        <div class="_i-tr">
-                                            <img class="img-fluid" src="https://img.freepik.com/free-photo/suitcase-money-with-hundred-dollar-white-background_1232-2858.jpg?w=1380&t=st=1670147605~exp=1670148205~hmac=d5b5b8a95376fcab122447a8968989c751d7d0ada4c52cf73effce181a63cacb">
-                                        </div>
-                                        <div class="_oi_er_we">
-                                            <h3>مبلغ مالي</h3>
-                                            <p>
-                                                تم فقد المبلغ مساء  يوم الخميس في مدينة السادس من أكتوبر في مول مصر...
-                                            </p>
-                                        </div>
-                                        <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
-                                            <div class="col-6 text-end">
-                                                10
-                                                تعليق
-                                            </div>
-                                            <div class="col-6 text-start ">
-                                                5
-                                                <span>أعجبني</span>
-                                            </div>
-                                        </div>
-                                        <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
-                                            <div class="col-6 text-center">
+                                                        <i class="fal fa-comment-dots ps-2 fs-5"></i>
+                                                        التعليقات
+                                                    </div>
+                                                    <div class="col-6 text-center border-right">
 
-                                                <i class="fal fa-comment-dots ps-2 fs-5"></i>
-                                                التعليقات
-                                            </div>
-                                            <div class="col-6 text-center border-right">
-
-                                                <i class="fal fa-thumbs-up ps-2 fs-5"></i>
-                                                أعجبني
-                                            </div>
+                                                        <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+                                                        أعجبني
+                                                    </div>
+                                                </div>
+                                            </article>
                                         </div>
-                                    </article>
-                                </div>
-                            </div>
+                                    </div>
+                                    break;
+                                case "Stared":
+                                    <div class="row justify-content-center align-items-center">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+                                            <article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+                                                <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
+                                                    <i onclick="let x = document.getElementById('dots-tools-3');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 "></i>
+                                                </div>
+                                                <div id="dots-tools-3" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
+                                                    <hr class="mt-5 text-dark" />
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
+                                                            <span class="text-dark">ابلاغ عن مخالفة</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-star ps-2 fs-5"></i>
+                                                            <span class="text-dark">أضف الي المفضلة</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                                                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                                                            <i class="fal fa-copy ps-2 fs-5"></i>
+                                                            <span class="text-dark"> نسخ الرابط </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="_i-tr">
+                                                    <img class="img-fluid" src="https://img.freepik.com/free-photo/suitcase-money-with-hundred-dollar-white-background_1232-2858.jpg?w=1380&t=st=1670147605~exp=1670148205~hmac=d5b5b8a95376fcab122447a8968989c751d7d0ada4c52cf73effce181a63cacb">
+                                                </div>
+                                                <div class="_oi_er_we">
+                                                    <h3>مبلغ مالي</h3>
+                                                    <p>
+                                                        تم فقد المبلغ مساء  يوم الخميس في مدينة السادس من أكتوبر في مول مصر...
+                                                    </p>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
+                                                    <div class="col-6 text-end">
+                                                        10
+                                                        تعليق
+                                                    </div>
+                                                    <div class="col-6 text-start ">
+                                                        5
+                                                        <span>أعجبني</span>
+                                                    </div>
+                                                </div>
+                                                <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
+                                                    <div class="col-6 text-center">
+
+                                                        <i class="fal fa-comment-dots ps-2 fs-5"></i>
+                                                        التعليقات
+                                                    </div>
+                                                    <div class="col-6 text-center border-right">
+
+                                                        <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+                                                        أعجبني
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                    break;
+                                default:
+                                    <NotFoundPage Message="لا يوجد بيانات" ImgUrl="assets/images/noting.jpg" />
+                                    break;
+                            }
                         </div>
                     </section>
 
@@ -290,5 +483,5 @@
     </section>
 </main>
 @code {
-
+    public string? activesection { get; set; } = "Posts";
 }

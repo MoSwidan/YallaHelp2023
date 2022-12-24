@@ -1,12 +1,14 @@
 ﻿@page "/Post"
-<!-- ======== main started ========= -->
-<main class="charity-01-main " style="margin-top:102px;">
 
+<!-- ======== main started ========= -->
+<main class="charity-01-main position-relative" style="margin-top:102px;">
+    <Comments />
     <!-- ============abt-01 Section  Start============ -->
     <BreadCrumb BaseRouteName="الرئيسيه" BaseRouteUrl="/" SubRouteName="المنشورات" SubSubRouteName="سيارة مفقودة" SubRouteUrl="Blog"/>
     <!-- ========bg-03 started ========= -->
    
     <section class="bg-03 " dir="rtl">
+        
         <div class="m-auto" style="width:80vw;">
             <div class="row ">
                 <div class="col-md-3 order-md-0 order-1 col-12 bg-light ">
@@ -53,7 +55,13 @@
                                 </span>
                                 مفقودة
                             </div>
-                           
+                            <div class="col-12  p-0 my-2">
+                                <i class="far fa-money-bill-wave ps-1 fs-5"></i>
+                                <span class="fw-bold">
+                                    يوجد مكافأة :
+                                </span>
+                                نعم
+                            </div>
                             <div class="col-12  p-0 my-2">
                                 <i class="far fa-map-marked-alt ps-1 fs-5"></i>
                                 <span class="fw-bold">
@@ -68,7 +76,7 @@
                                 </span>
                                 مدينة نصر
                             </div>
-                            <div class="col-12 m-0 p-0 my-2">
+                            <div class="col-12 m-0 p-0 my-2" onclick="document.getElementById('comments').classList.toggle('d-none')">
                                 <i class="far fa-comment-dots ps-2 fs-5"></i>
                                 <span class="fw-bold">
                                     التعليقات :

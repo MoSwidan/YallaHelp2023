@@ -1,9 +1,13 @@
-﻿<div class="container-fluid p-5">
-    <div class="col-12 text-center p-5">
-        <img style="height:350px;" src="assets/images/404.jpg" />
-        <h5 class="fs-3">تعذر الوصول</h5>
+﻿<div class="container-fluid p-0 " style="margin-top:102px;">
+    <div class="col-12 text-center p-5 pt-0">
+        <img style="height:300px; mix-blend-mode:multiply;" src="@(ImgUrl ?? "assets/images/404.jpg")" />
+        <h5 class="fs-3 mt-2">@(Message ?? "تعذر الوصول")</h5>
     </div>
 </div>
 @code {
+    [Parameter]
+    public string? ImgUrl { get; set; }
+    [Parameter]
+    public string? Message { get; set; }
 
 }

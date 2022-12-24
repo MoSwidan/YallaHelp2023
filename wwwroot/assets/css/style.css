@@ -9,6 +9,9 @@ body {
     -webkit-animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: slide-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
+.scrollarea::-webkit-scrollbar {
+    display: none;
+}
 @keyframes slide-bottom {
     0% {
         -webkit-transform: translateY(-100px);
@@ -50,18 +53,33 @@ p {
 
 a:hover {
   text-decoration: none; }
-input:focus {
+input, textarea:focus {
     border:0px;
     box-shadow:none;
     outline:none;
 }
 .container {
-  max-width: 1170px; }
-  @media screen and (max-width: 575px) {
+  max-width: 1170px; 
+
+}
+@media screen and (max-width: 575px) {
     .container {
-      padding: 0px 15px;
-      max-width: 100%;
-      width: 100%; } }
+        padding: 0px 15px;
+        max-width: 100%;
+        width: 100%; 
+
+    }
+    
+}
+#collapseExample1 {
+    right: 0%;
+}
+@media screen and (max-width: 991px) {
+    #collapseExample1 {
+        right: 30%;
+    }
+}
+
 
 /* ================================ Header CSS =============================== */
 header .my-nav {
@@ -131,9 +149,9 @@ header .nav-items {
         background: #fd1b5b;
         transform: translateY(0.625rem); }
   header .nav-items .logo {
-    width: 30%;
-    flex: 1 1 30%;
-    max-width: 280px; }
+    width: 20%;
+    flex: 1 1 20%;
+    max-width: 150px; }
     @media screen and (max-width: 767.98px) {
       header .nav-items .logo {
         width: 80%;
@@ -142,7 +160,7 @@ header .nav-items {
   header .nav-items .menu-items {
     width: 70%;
     flex: 1 1 70%;
-    max-width: 70%;
+    max-width: 80%;
     position: relative;
     align-items: center;
     justify-content: flex-end; }
@@ -168,7 +186,7 @@ header .nav-items {
           display: none; } }
       header .nav-items .menu-items .menu ul li {
         display: inline-block;
-        padding: 0.625rem; }
+        padding: 0.225rem; }
         @media screen and (max-width: 767.98px) {
           header .nav-items .menu-items .menu ul li {
             display: block; } }
