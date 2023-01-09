@@ -1,0 +1,127 @@
+/* /AppComponents/Comments.razor.rz.scp.css */
+.bdge[b-8m42ila71e] {
+    height: 21px;
+    background-color: orange;
+    color: #fff;
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 3px;
+}
+
+.comments[b-8m42ila71e] {
+    text-decoration: underline;
+    text-underline-position: under;
+    cursor: pointer;
+}
+
+.dot[b-8m42ila71e] {
+    height: 7px;
+    width: 7px;
+    margin-top: 3px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.hit-voting:hover[b-8m42ila71e] {
+    color: blue;
+}
+
+.hit-voting[b-8m42ila71e] {
+    cursor: pointer;
+}
+/* /Pages/Login.razor.rz.scp.css */
+.container-fluid[b-lptnmhmewz]{
+    height:100vh;
+/*    margin-top:120px;
+*/
+
+}
+/* /Pages/SignUp.razor.rz.scp.css */
+.container-fluid[b-6cnfnv0qhx] {
+    height: 100vh;
+    /*margin-top: 100px;*/
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.page[b-ioe9kqeoip] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main[b-ioe9kqeoip] {
+    flex: 1;
+}
+
+.sidebar[b-ioe9kqeoip] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-ioe9kqeoip] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-ioe9kqeoip]  a, .top-row[b-ioe9kqeoip]  .btn-link {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+        text-decoration: none;
+    }
+
+    .top-row[b-ioe9kqeoip]  a:hover, .top-row[b-ioe9kqeoip]  .btn-link:hover {
+        text-decoration: underline;
+    }
+
+    .top-row[b-ioe9kqeoip]  a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-ioe9kqeoip] {
+        display: none;
+    }
+
+    .top-row.auth[b-ioe9kqeoip] {
+        justify-content: space-between;
+    }
+
+    .top-row[b-ioe9kqeoip]  a, .top-row[b-ioe9kqeoip]  .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-ioe9kqeoip] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-ioe9kqeoip] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-ioe9kqeoip] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row.auth[b-ioe9kqeoip]  a:first-child {
+        flex: 1;
+        text-align: right;
+        width: 0;
+    }
+
+    .top-row[b-ioe9kqeoip], article[b-ioe9kqeoip] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
