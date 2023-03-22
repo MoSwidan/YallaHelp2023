@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+@using System.Data;
+@using Dapper;
+@using Microsoft.Data.SqlClient;
 @if (IsLoaded)
 {
     <div class="container-fluid px-0 m-0">
@@ -26,7 +29,6 @@ else
    
 }
 
-
 @code{
     private bool IsLoaded = false;
     public async Task Loading()
@@ -35,6 +37,7 @@ else
         IsLoaded = true;
         await InvokeAsync(StateHasChanged);
     }
+
     protected override async void OnInitialized()
     {
         await Loading();

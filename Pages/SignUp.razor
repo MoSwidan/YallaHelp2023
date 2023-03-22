@@ -1,27 +1,218 @@
 ﻿@page "/SignUp"
-<div class="container-fluid py-4 px-md-4 px-0" dir="rtl">
+<style>
+	.wrapper {
+		display: inline-flex;
+		height: 40px;
+		align-items: center;
+		justify-content: space-evenly;
+		border-radius: 5px;
+		background-color:#eee;
+	}
+
+	.wrapper .option {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		margin: 0 10px;
+		border-radius: 5px;
+		cursor: pointer;
+		padding: 0 45px;
+		transition: all 0.3s ease;
+	}
+
+	.wrapper .option .dot {
+		height: 20px;
+		width: 20px;
+		border-radius: 50%;
+		background: #fff;
+		position: relative;
+	}
+
+	.wrapper .option .dot::before {
+		position: absolute;
+		content: "";
+		top: 0px;
+		left: 0px;
+		width: 20px;
+		height: 20px;
+		background: #fd1b5b;
+		border-radius: 50%;
+		opacity: 0;
+		transform: scale(1.5);
+		transition: all 0.3s ease;
+	}
+
+	input[type="radio"] {
+		display: none;
+	}
+
+	#option-1:checked:checked ~ .option-1,
+	#option-2:checked:checked ~ .option-2 {
+		border-color: #0069d9;
+	}
+
+	#option-1:checked:checked ~ .option-1 .dot,
+	#option-2:checked:checked ~ .option-2 .dot {
+		background: #fff;
+	}
+
+	#option-1:checked:checked ~ .option-1 .dot::before,
+	#option-2:checked:checked ~ .option-2 .dot::before {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.wrapper .option span {
+		font-size: 20px;
+		color: #808080;
+	}
+
+	#option-1:checked:checked ~ .option-1 span,
+	#option-2:checked:checked ~ .option-2 span {
+		color: #fff;
+	}
+
+	.avatar-upload {
+		position: relative;
+		max-width: 205px;
+		margin: 10px auto 0px auto;
+	}
+
+	.avatar-upload .avatar-edit {
+		position: absolute;
+		right: 12px;
+		z-index: 1;
+		top: 10px;
+	}
+
+	.avatar-upload .avatar-edit input {
+		display: none;
+	}
+
+	.avatar-upload .avatar-edit input + label {
+		display: inline-block;
+		width: 34px;
+		height: 34px;
+		margin-bottom: 0;
+		border-radius: 100%;
+		background: #ffffff;
+		border: 1px solid transparent;
+		box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+		cursor: pointer;
+		font-weight: normal;
+		transition: all 0.2s ease-in-out;
+	}
+
+	.avatar-upload .avatar-edit input + label:hover {
+		background: #f1f1f1;
+		border-color: #d6d6d6;
+	}
+
+	.avatar-upload .avatar-edit input + label:after {
+		content: "\f040";
+		font-family: "FontAwesome";
+		color: #757575;
+		position: absolute;
+		top: 10px;
+		left: 0;
+		right: 0;
+		text-align: center;
+		margin: auto;
+	}
+
+	.avatar-upload .avatar-preview {
+		width: 192px;
+		height: 192px;
+		position: relative;
+		border-radius: 100%;
+		border: 6px solid #f8f8f8;
+		box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+	}
+
+	.avatar-upload .avatar-preview > div {
+		width: 100%;
+		height: 100%;
+		border-radius: 100%;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+</style>
+<div class="container-fluid py-4 px-md-4 px-0 d-block" dir="rtl">
 	<div class="row justify-content-center   align-items-center w-100 m-auto h-100 text-center">
 		<div style="background:#fd1b5b;" class="col-md-6 col-xl-5  d-md-flex d-none  h-100 p-md-4 p-xl-5 shadow  flex-column justify-content-center rounded-right">
 			<img style="height:100%;width:100%;"  src="assets/images/SignUp.svg">
 		</div>
 		<div class="col-md-6 col-xl-5 col-11 px-1 py-5 bg-white rounded-left shadow d-flex flex-column align-items-center justify-content-around h-100">
 			<h1 class="fw-bold fs-1 mb-md-0 mb-3">مستخدم جديد</h1>
-			<div class="row justify-content-center  p-2  p-md-5 " style="width:90%;">
-				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="text" placeholder="الاسم الاول" />
-				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="text" placeholder="الاسم الاخير" />
-				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="number" placeholder="رقم الهاتف" />
-				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="email" placeholder="البريد الالكتروني" />
-				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="number" placeholder="كلمة المرور" />
-				<input class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="number" placeholder="تأكيد كلمة المرور" />
+			<div class="row">
+				<div class="container">
+					<div class="avatar-upload">
+						<div class="avatar-edit">
+							<input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+							<label for="imageUpload"></label>
+						</div>
+						<div class="avatar-preview">
+							<div id="imagePreview" style="background-image: url(https://cdn-icons-png.flaticon.com/512/1057/1057089.png?w=826&t=st=1679464665~exp=1679465265~hmac=0134e6659c00ec58b378b3183f647581f5b960fde086c25093b1c696f0474b49);">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<button class="w-25 border-0 rounded p-2 mt-md-0 mt-3 text-white" style="background:#fd1b5b; cursor:pointer;">تأكيد</button>
+		    <div class="row justify-content-center  p-2  px-md-5 py-2" style="width:90%;">
+				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="UserData.First_Name" @bind:event="oninput" style="background:#eee;" type="text" placeholder="الاسم الاول" />
+				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="UserData.Last_Name" @bind:event="oninput" style="background:#eee;" type="text" placeholder="الاسم الاخير" />
+				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="AuthData.Phone_Number" @bind:event="oninput"  style="background:#eee;" type="number" placeholder="رقم الهاتف" />
+				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="AuthData.Email" @bind:event="oninput" style="background:#eee;" type="email" placeholder="البريد الالكتروني" />
+				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="AuthData.Password" @bind:event="oninput"  style="background:#eee;" type="password" placeholder="كلمة المرور" />
+				<input class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="password" placeholder="تأكيد كلمة المرور" />
+			</div>
+			<div class="row justify-content-center px-4 w-auto">
+				<div class="wrapper w-75">
+					<input type="radio" name="select" id="option-1" checked>
+					<input type="radio" name="select" id="option-2">
+					<label for="option-1" class="option option-1">
+						<div class="dot"></div>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="50px" height="30px" viewBox="0 0 24 24"><path d="M9.5,7H15a1,1,0,0,1,.949.684l2,6a1,1,0,0,1-1.9.632L14.5,9.662V22a1,1,0,0,1-2,0V16h-1v6a1,1,0,0,1-2,0V9.662L7.949,14.316a1,1,0,0,1-1.9-.632l2-6A1,1,0,0,1,9,7Zm0-3.5A2.5,2.5,0,1,0,12,1,2.5,2.5,0,0,0,9.5,3.5Z" /></svg>
+						</span>
+					</label>
+					<label for="option-2" class="option option-2">
+						<div class="dot"></div>
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="50px" height="30px" viewBox="0 0 24 24"><path d="M14.5,3.5V6h-5V3.5a2.5,2.5,0,0,1,5,0Zm0,18.5V16H16l-1.659-5.974,2.878,3.6a1,1,0,0,0,1.562-1.25l-4-5A1,1,0,0,0,14,7H10a1,1,0,0,0-.781.375l-4,5a1,1,0,0,0,1.562,1.25l2.878-3.6L8,16H9.5v6a1,1,0,0,0,2,0V16h1v6a1,1,0,0,0,2,0Z" /></svg>
+						</span>
+					</label>
+				</div>
+			</div>
+			<button @onclick="Register" class="w-25 border-0 rounded p-2 mt-md-0 mt-3 text-white" style="background:#fd1b5b; cursor:pointer;">تأكيد</button>
 			<div class="justify-content-center w-100 p-2">
 				<p @onclick='()=>{Nv.NavigateTo("/LogIn");}' class="mt-2" style="color:#fd1b5b; cursor:pointer;">تسجيل الدخول</p>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
 @code {
-
+	private Register Data;
+	private User UserData = new User();
+	private Account AuthData = new Account();
+	private async Task Register()
+	{
+		UserData.Is_Admin = true;
+		UserData.Date_Of_Join = new DateTime();
+		UserData.Date_Of_Birth = DateTime.Now;
+		UserData.Date_Of_Join = DateTime.Now;
+		UserData.Gender = 'M';
+		UserData.Image_Url = "https://img.freepik.com/premium-vector/indian-school-girl-happy-elementary-school-pupil-back-school_71593-1071.jpg?w=2000";
+		Data = new Register
+		{
+			UserData = this.UserData,
+			AuthData = this.AuthData
+		};
+		await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
+	}
 }
