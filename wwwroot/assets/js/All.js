@@ -8,4 +8,5 @@
         //    nav.classList.remove("bg-white", "position-fixed");
         //}
     });
+    
 }
