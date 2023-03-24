@@ -199,7 +199,6 @@
 				<p @onclick='()=>{Nv.NavigateTo("/LogIn");}' class="mt-2" style="color:#fd1b5b; cursor:pointer;">تسجيل الدخول</p>
 			</div>
 		</div>
-
 	</div>
 </div>
 @code {
@@ -226,13 +225,19 @@
 			UserData = this.UserData,
 			AuthData = this.AuthData
 		};
-		if (UserData is object)
+		if (_app.IsAnyNullOrEmpty(UserData) || _app.IsAnyNullOrEmpty(AuthData))
 		{
 			_alert.ShowAlert("املاء البيانات الفارغه", "warn");
 		}
 		else
 		{
-			await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
+			var result = await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
+			var response = await result.Content.ReadFromJsonAsync<BaseResponse>();
+			if (response.Code == "200")
+			{
+				_alert.ShowAlert("تم التسجيل بنجاح", "done");
+			}
+
 		}
 	}
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -246,7 +251,6 @@
 		}
 
 	}
-
 	protected override void OnInitialized()
 	{
 		_app.OnChange += StateHasChanged;
