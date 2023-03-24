@@ -142,7 +142,7 @@
 	}
 
 </style>
-<div class="container-fluid py-4 px-md-4 px-0 d-block" dir="rtl" style="height:850px;">
+<div class="container-fluid py-4 px-md-4 px-0 d-block" dir="rtl" style="height:820px;">
 	<div class="row justify-content-center   align-items-center w-100 m-auto h-100 text-center">
 		<div style="background:#fd1b5b;height:100%;" class="col-md-6 col-xl-5  d-md-flex d-none  h-100 p-md-4 p-xl-5 shadow  flex-column justify-content-center rounded-right">
 			<img style="" class="img-fluid"  src="assets/images/SignUp.svg">
@@ -203,7 +203,7 @@
 	</div>
 </div>
 @code {
-	private Register Data;
+	private Register? Data;
 	private User UserData = new User();
 	private Account AuthData = new Account();
 	private char Gender = 'M';
@@ -226,7 +226,14 @@
 			UserData = this.UserData,
 			AuthData = this.AuthData
 		};
-		await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
+		if (UserData is object)
+		{
+			_alert.ShowAlert("املاء البيانات الفارغه", "warn");
+		}
+		else
+		{
+			await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
+		}
 	}
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -240,5 +247,9 @@
 
 	}
 
-
+	protected override void OnInitialized()
+	{
+		_app.OnChange += StateHasChanged;
+		base.OnInitialized();
+	}
 }

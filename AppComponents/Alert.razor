@@ -1,0 +1,54 @@
+﻿@page "/alert"
+
+<div class="position-fixed top-0 end-0 col-10 col-md-4 mt-5" style="z-index:1050;">
+    @if (_alert.AlertsList.Count > 0)
+    {
+        @foreach (var item in _alert.AlertsList)
+        {
+            switch (item.Type)
+            {
+                case "error":
+                    <div class="text-center alert alert-danger d-flex flex-row align-items-center justify-content-center" role="alert" style="height:40px;">
+                        <div class="w-100">
+                            @item.Massage
+                        </div>
+                    </div>
+                    break;
+                case "warn":
+                    <div class="text-center alert alert-warning d-flex flex-row align-items-center justify-content-center" role="alert" style="height:40px;">
+                        <div class="w-100">
+                            @item.Massage
+                        </div>
+                    </div>
+                    break;
+                case "done":
+                    <div class="text-center alert alert-success d-flex flex-row align-items-center justify-content-center" role="alert" style="height:40px;">
+                        <div class="w-100">
+                            @item.Massage
+                        </div>
+                    </div>
+                    break;
+                case "info":
+                    <div class="text-center alert alert-primary d-flex flex-row align-items-center justify-content-center" role="alert" style="height:40px;">
+                        <div class="w-100">
+                            @item.Massage
+                        </div>
+                    </div>
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+</div>
+
+
+
+@code {
+    protected override void OnInitialized()
+    {
+        _alert.OnChange += StateHasChanged;
+        base.OnInitialized();
+    }
+}
