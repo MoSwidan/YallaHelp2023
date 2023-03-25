@@ -7,10 +7,10 @@
 		<div class="col-md-6 col-xl-5 col-11 p-1 py-5 bg-white rounded-left shadow d-flex flex-column align-items-center justify-content-around h-100">
 			<h1 class="fw-bold fs-1">تسجيل الدخول</h1>
 			<div class="row justify-content-center  p-2 p-md-5" style="width:90%;">
-				<input class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="number" placeholder="رقم الهاتف" />
-				<input class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="number" placeholder="كلمة المرور" />
+				<input @bind="PhoneNumber" @bind:event="oninput" class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="number" placeholder="رقم الهاتف" />
+				<input @bind="Password" @bind:event="oninput" class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="text" placeholder="كلمة المرور" />
 			</div>
-			<button class="w-25 border-0 rounded p-2 text-white" style="background:#fd1b5b; cursor:pointer;">تأكيد</button>
+			<button @onclick="Auth" class="w-25 border-0 rounded p-2 text-white" style="background:#fd1b5b; cursor:pointer;">تأكيد</button>
 			<div class="justify-content-center w-100 p-2">
 				<p class="" style="cursor:pointer;">نسيت كلمة المرور؟</p>
 				<p @onclick='()=>{Nv.NavigateTo("/SignUp");}'  class="mt-2" style="color:#fd1b5b; cursor:pointer;">مستخدم جديد</p>
@@ -20,5 +20,35 @@
 	</div>
 </div>
 @code {
-	
+	private string PhoneNumber = "";
+	private string Password = "";
+	private async Task Auth()
+	{
+		AccountResponse result = new AccountResponse();
+		if (String.IsNullOrEmpty(PhoneNumber) || String.IsNullOrEmpty(Password))
+		{
+			_alert.ShowAlert("املاء البيانات الفارغه", "warn");
+		}
+		else
+		{
+			result = await Http.GetFromJsonAsync<AccountResponse>($"api/User/CheckUserRegistration?PhoneNumber={PhoneNumber}");
+			if (result.Code == "200")
+			{
+				if (result.Data.Password == Password)
+				{
+					_alert.ShowAlert("تم تسجيل الدخول", "done");
+					//Nv.NavigateTo("/SignUp");
+				}
+				else
+				{
+					_alert.ShowAlert("كلمة المرور غير صحيحه", "warn");
+				}
+			}
+			else
+			{
+				_alert.ShowAlert("هذا المستخدم غير أو مسجل أو البيانات غير صحيحه", "warn");
+			}
+
+		}
+	}
 }

@@ -2,9 +2,9 @@
 @using System.Data;
 @using Dapper;
 @using Microsoft.Data.SqlClient;
-@*<Header />*@
+<Header />
 <!-- ======== main started ========= -->
-@*<main class="charity-01-main position-relative" style="margin-top:102px;">
+<main class="charity-01-main position-relative" style="margin-top:102px;">
     <Comments />
     <!-- ============abt-01 Section  Start============ -->
     <BreadCrumb BaseRouteName="الرئيسيه" BaseRouteUrl="/" SubRouteName="المنشورات" />
@@ -272,31 +272,15 @@
     </section>
 
 </main>
-*@
-<h1>
-    @posts.Count()
-    @foreach (var item in posts)
-    {
-        @item
-    }
-</h1>
+
 @code {
     private List<Post> posts = new List<Post>();
-    private async Task get()
-    {
-        string ConnString = "Data Source=.;Initial Catalog=YallaHelp2023213213;Integrated Security=True;";
-        SqlConnection connection = new SqlConnection(ConnString);
-        connection.Open();
-        var result = connection.Query<List<Post>>("select * from [Post]");
-        posts = (List<Post>)result;
-        await InvokeAsync(StateHasChanged);
-        Console.WriteLine("121321");
-    }
+
     //protected override async Task OnAfterRenderAsync(bool firstRender)
     //{
     //    if (firstRender)
     //    {
-    //        await get();
+    //        
     //    }
     //}
 

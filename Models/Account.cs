@@ -8,4 +8,10 @@
         public string? Phone_Number { get; set; }
         public string? Password { get; set; }
     }
+	public class AccountResponse
+	{
+		public string? Meassage { get; set; }
+		public string? Code { get; set; }
+		public Account? Data { get; set; }
+	}
 }
