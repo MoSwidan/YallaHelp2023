@@ -11,4 +11,10 @@
         public DateTime? Date_Of_Join { get; set; }
         public bool? Is_Admin { get; set; }
     }
+    public class UserResponse
+    {
+        public string? Meassage { get; set; }
+        public string? Code { get; set; }
+        public User? Data { get; set; }
+    }
 }

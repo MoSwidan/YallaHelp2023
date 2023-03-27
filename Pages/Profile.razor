@@ -10,14 +10,14 @@
             <!-- ======== profile started ========= -->
             <div class="row shadow bg-light">
                 <div class="mb-3 mb-md-4 col-12 position-relative" style="height:23vh; background-image:url('assets/images/cover.jpg');background-position:center;background-size:cover;background-repeat:no-repeat;">
-                    <img class="img-thumbnail rounded-circle position-absolute " style="right:10%; top:55%; height:130px; width:130px;" src="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=1380&t=st=1670717325~exp=1670717925~hmac=e327f7866e565be149d2f1ec79e5604e42b1dc2c5a0f0eda6f0f84dd247a40bf" />
+                    <img class="img-thumbnail rounded-circle position-absolute " style="right:10%; top:55%; height:130px; width:130px;" src="@_app.AccountData.Image_Url" />
                     
                 </div>
                 <div class="col-12 py-4 py-md-1 px-md-5 px-1 mt-1">
                     <div class="row p-3 px-md-5  mt-md-0 mt-2">
                         <div class="col-md-4 col-12   pe-md-5 pe-4">
                             <h4 class="text-end">
-                                محمد مجدي سويدان
+                               @(_app.AccountData.First_Name +" "+_app.AccountData.Last_Name)
                             </h4>
                         </div>
                         <div class="col-md-8  col-12 my-md-0 mt-4 ">
@@ -471,6 +471,8 @@
                                         </div>
                                     </div>
                                     break;
+                                case "PersonalData":
+                                    break;
                                 default:
                                     <NotFoundPage Message="لا يوجد بيانات" ImgUrl="assets/images/noting.jpg" />
                                     break;
@@ -485,4 +487,11 @@
 </main>
 @code {
     public string? activesection { get; set; } = "Posts";
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            
+        }
+    }
 }

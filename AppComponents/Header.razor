@@ -1,4 +1,4 @@
-﻿  <!-- ======== header started ========= -->
+﻿<!-- ======== header started ========= -->
 <header >
     <nav style="z-index:3080;" class="navbar  navbar-expand-lg navbar-light fixed-top  bg-white shadow">
         <a class="navbar-brand" href="#">
@@ -30,9 +30,12 @@
                 </div>
             </div>
             <ul class="navbar-nav align-items-center ms-md-auto text-center  fw-bold" dir="rtl">
-                <li class="nav-item m-auto ps-md-3">
-                    <img data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1" style="height:60px;width:60px;cursor:pointer;" class=" rounded-circle img-thumbnail " src="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=1380&t=st=1670717325~exp=1670717925~hmac=e327f7866e565be149d2f1ec79e5604e42b1dc2c5a0f0eda6f0f84dd247a40bf" />
-                </li>
+                @if (_app.AccountData.Image_Url != null)
+                {
+                    <li class="nav-item m-auto ps-md-3">
+                        <img data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1" style="height:60px;width:60px;cursor:pointer;" class=" rounded-circle img-thumbnail " src="@_app.AccountData.Image_Url" />
+                    </li>
+                }
                 <li class="nav-item">
                     <a style="cursor:pointer;" class="nav-link" @onclick='()=>Nv.NavigateTo("/")'>
                         الرئيسيه
@@ -57,5 +60,9 @@
 </header>
 
 @code {
-
+    protected override void OnInitialized()
+    {
+        _app.OnChange += StateHasChanged;
+        base.OnInitialized();
+    } 
 }

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using YallaHelpWeb.Shared;
 
 namespace YallaHelp2023.AppService
 {
@@ -21,6 +22,7 @@ namespace YallaHelp2023.AppService
 			}
 			return false;
 		}
-
+		public Account UserAuthData = new Account();
+		public User AccountData = new User();
 	}
 }

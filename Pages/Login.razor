@@ -37,7 +37,10 @@
 				if (result.Data.Password == Password)
 				{
 					_alert.ShowAlert("تم تسجيل الدخول", "done");
-					//Nv.NavigateTo("/SignUp");
+					Nv.NavigateTo("/Blog");
+					_app.UserAuthData = result.Data;
+					await GetUserData();
+					_app.NotifyStateChanged();
 				}
 				else
 				{
@@ -49,6 +52,23 @@
 				_alert.ShowAlert("هذا المستخدم غير أو مسجل أو البيانات غير صحيحه", "warn");
 			}
 
+		}
+	}
+	private async Task GetUserData()
+	{
+		try
+		{
+			UserResponse? result = new UserResponse();
+			result = await Http.GetFromJsonAsync<UserResponse>($"api/User/UserData?UserId={_app.UserAuthData.User_Id}");
+			if (result.Code == "200")
+			{
+				_app.AccountData = result.Data;
+				_app.NotifyStateChanged();
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex.Message);
 		}
 	}
 }
