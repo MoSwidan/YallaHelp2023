@@ -24,5 +24,6 @@ namespace YallaHelp2023.AppService
 		}
 		public Account UserAuthData = new Account();
 		public User AccountData = new User();
+		public bool Loading = false;
 	}
 }

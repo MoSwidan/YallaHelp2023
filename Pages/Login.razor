@@ -24,6 +24,7 @@
 	private string Password = "";
 	private async Task Auth()
 	{
+
 		AccountResponse result = new AccountResponse();
 		if (String.IsNullOrEmpty(PhoneNumber) || String.IsNullOrEmpty(Password))
 		{
@@ -31,16 +32,17 @@
 		}
 		else
 		{
+			_app.Loading = true;
+			_app.NotifyStateChanged();
 			result = await Http.GetFromJsonAsync<AccountResponse>($"api/User/CheckUserRegistration?PhoneNumber={PhoneNumber}");
 			if (result.Code == "200")
 			{
 				if (result.Data.Password == Password)
 				{
 					_alert.ShowAlert("تم تسجيل الدخول", "done");
-					Nv.NavigateTo("/Blog");
 					_app.UserAuthData = result.Data;
 					await GetUserData();
-					_app.NotifyStateChanged();
+					Nv.NavigateTo("/Blog");
 				}
 				else
 				{
@@ -49,10 +51,13 @@
 			}
 			else
 			{
-				_alert.ShowAlert("هذا المستخدم غير أو مسجل أو البيانات غير صحيحه", "warn");
+				_alert.ShowAlert("هذا المستخدم غير مسجل ", "warn");
 			}
 
 		}
+		await Task.Delay(1000);
+		_app.Loading = false;
+		_app.NotifyStateChanged();
 	}
 	private async Task GetUserData()
 	{
@@ -63,7 +68,6 @@
 			if (result.Code == "200")
 			{
 				_app.AccountData = result.Data;
-				_app.NotifyStateChanged();
 			}
 		}
 		catch (Exception ex)

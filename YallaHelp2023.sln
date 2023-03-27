@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YallaHelp2023", "YallaHelp2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YallaHelpHybrid", "..\YallaHelpHybrid\YallaHelpHybrid.csproj", "{19A5B246-F2A4-4BAD-A689-BFC191D4D38C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YallaHelpServer", "..\YallaHelpServer\YallaHelpServer.csproj", "{EB51CEB1-C124-46AA-8504-C49F68AC8FF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YallaHelpServer", "..\YallaHelpServer\YallaHelpServer.csproj", "{EB51CEB1-C124-46AA-8504-C49F68AC8FF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
