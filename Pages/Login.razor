@@ -68,6 +68,7 @@
 			if (result.Code == "200")
 			{
 				_app.AccountData = result.Data;
+				_app.NotifyStateChanged();
 			}
 		}
 		catch (Exception ex)

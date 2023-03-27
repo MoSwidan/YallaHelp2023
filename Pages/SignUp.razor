@@ -189,11 +189,11 @@
 					</label>
 				</div>
 			</div>
-			<div class="row justify-content-center px-4 w-auto mt-2" style="margin-bottom:41px;">
+			@*<div class="row justify-content-center px-4 w-auto mt-2" style="margin-bottom:41px;">
 				<div class="col-12">
-					<input type="date" @bind="UserData.Date_Of_Birth" @bind:event="onchange" class="p-2 px-3 rounded" style="background:#eee;width:290px;"/>
+					<input type="datetime" @bind="UserData.Date_Of_Birth" @bind:event="onchange" class="p-2 px-3 rounded" style="background:#eee;width:290px;" />
 				</div>
-			</div>
+			</div>*@
 			<button @onclick="Register" class="w-25 border-0 rounded p-2 mt-md-0 mt-3 text-white" style="background:#fd1b5b; cursor:pointer;">تأكيد</button>
 			<div class="justify-content-center w-100 p-2">
 				<p @onclick='()=>{Nv.NavigateTo("/LogIn");}' class="mt-2" style="color:#fd1b5b; cursor:pointer;">تسجيل الدخول</p>
@@ -231,13 +231,31 @@
 		}
 		else
 		{
-			var result = await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
-			var response = await result.Content.ReadFromJsonAsync<BaseResponse>();
-			if (response.Code == "200")
+			_app.Loading = true;
+			_app.NotifyStateChanged();
+			AccountResponse result1 = new AccountResponse();
+			result1 = await Http.GetFromJsonAsync<AccountResponse>($"api/User/CheckUserRegistration?PhoneNumber={AuthData.Phone_Number}");
+			if (result1.Code == "200")
 			{
-				_alert.ShowAlert("تم التسجيل بنجاح", "done");
-			}
+				_alert.ShowAlert("هذا المستخدم مسجل ", "warn");
 
+			}
+			else if (result1.Code == "201")
+			{
+				var result = await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
+				var response = await result.Content.ReadFromJsonAsync<BaseResponse>();
+				if (response.Code == "200")
+				{
+					_alert.ShowAlert("تم التسجيل بنجاح", "done");
+				}
+				else
+				{
+					_alert.ShowAlert("حدث خطأ", "error");
+				}
+			}
+			await Task.Delay(1000);
+			_app.Loading = false;
+			_app.NotifyStateChanged();
 		}
 	}
 	protected override async Task OnAfterRenderAsync(bool firstRender)
