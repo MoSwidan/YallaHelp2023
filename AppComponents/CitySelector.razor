@@ -1,0 +1,48 @@
+﻿@if (cities.Count > 0)
+{
+    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+        <option disabled selected>المدينة</option>
+        @foreach (var city in cities)
+        {
+            <option value="@city.City_Id">@city.Name</option>
+        }
+    </select>
+}
+else
+{
+    <select @onclick='()=>{_alert.ShowAlert("أختر المحافظة أولا","warn");}'  class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+        <option disabled selected>المدينة</option>
+    </select>
+}
+
+@code {
+    private List<City> cities = new List<City>();
+    public async Task LoadCitys(string? Governrate_ID)
+    {
+        CityResponse result = new CityResponse();
+        try
+        {
+            result = await Http.GetFromJsonAsync<CityResponse>($"api/City/GetAllCitys");
+            if (result.Code == "200")
+            {
+                if (result.Data != null)
+                {
+                    cities = result.Data;
+                    cities = cities.Where(x => x.Governorate_Id.ToString() == Governrate_ID).ToList<City>();
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+
+        }
+    }
+    [Parameter]
+    public string? Selected_Governrate { get; set; }
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadCitys(Selected_Governrate);
+    }
+}

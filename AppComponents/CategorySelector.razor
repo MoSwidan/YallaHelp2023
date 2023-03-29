@@ -1,0 +1,41 @@
+﻿@if (Categorys.Count > 0)
+{
+    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+        <option disabled selected>الفئة</option>
+        @foreach (var Category in Categorys)
+        {
+            <option value="@Category.Category_Id">@Category.Name</option>
+        }
+    </select>
+}
+else
+{
+    <select disabled class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+        <option disabled selected>الفئة</option>
+    </select>
+}
+
+@code {
+    private List<Category> Categorys = new List<Category>();
+    public async Task LoadCategorys()
+    {
+        CategoryResponse result = new CategoryResponse();
+        try
+        {
+            result = await Http.GetFromJsonAsync<CategoryResponse>($"api/Category/GetAllCategorys");
+            if (result.Code == "200")
+            {
+                if (result.Data != null)
+                {
+                    Categorys = result.Data;
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+
+        }
+    }
+}

@@ -1,0 +1,48 @@
+﻿@if (governrates.Count > 0)
+{
+    <select @onchange="SelectGovernrate" class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+        <option disabled selected>المحافظة</option>
+        @foreach (var governrate in governrates)
+        {
+            <option value="@governrate.Governorate_Id">@governrate.Name</option>
+        }
+    </select>
+}
+else
+{
+    <select disabled class="placeholder form-select text-center px-0" aria-label="Default select example" dir="rtl">
+        <option disabled selected>المحافظة</option>
+    </select>
+}
+
+@code {
+    private List<Governorate> governrates = new List<Governorate>();
+    public async Task LoadGovernorates()
+    {
+        GovernorateResponse result = new GovernorateResponse();
+        try
+        {
+            result = await Http.GetFromJsonAsync<GovernorateResponse>($"api/Governorate/GetAllGovernorates");
+            if (result.Code == "200")
+            {
+                if (result.Data != null)
+                {
+                    governrates = result.Data;
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+
+        }
+    }
+    public string? Selected_Governrate;
+    public async void SelectGovernrate(ChangeEventArgs eventArgs)
+    {
+        Selected_Governrate =  eventArgs?.Value?.ToString();
+        await InvokeAsync(StateHasChanged);
+        _app.NotifyStateChanged();
+    }
+}

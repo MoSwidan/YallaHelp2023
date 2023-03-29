@@ -35,35 +35,16 @@
             <hr />
             <div class="row my-3 justify-content-center">
                 <div class="col-md-3 col-6 text-center my-1">
-                    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
-                        <option disabled selected>الحالة</option>
-                        <option value="1">مفقودة</option>
-                        <option value="2">عثر عليها</option>
-                    </select>
+                    <StatusSelector @ref="Statu" />
                 </div>
                 <div class="col-md-3 col-6 text-center my-1">
-                    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
-                        <option disabled selected>الفئة</option>
-                        <option value="1">مبلغ مالي</option>
-                        <option value="2">سيارات</option>
-                        <option value="3">هواتف محمولة</option>
-                    </select>
+                    <CategorySelector @ref="Categoryes" />
                 </div>
                 <div class="col-md-3 col-6 text-center my-1">
-                    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
-                        <option disabled selected>المدينة</option>
-                        <option value="1">المعادي</option>
-                        <option value="2">القاهرة الجديدة</option>
-                        <option value="3">الرحاب</option>
-                    </select>
+                    <CitySelector @ref="Citys" Selected_Governrate="@Governrates.Selected_Governrate" />
                 </div>
                 <div class="col-md-3 col-6 text-center my-1">
-                    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
-                        <option disabled selected>المحافظة</option>
-                        <option value="1"> القاهرة</option>
-                        <option value="2">حلوان</option>
-                        <option value="3"> القليوبيه</option>
-                    </select>
+                    <GovernrateSelector @ref="Governrates" />
                 </div>
             </div>
             <hr />
@@ -275,13 +256,22 @@
 
 @code {
     private List<Post> posts = new List<Post>();
-
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    if (firstRender)
-    //    {
-    //        
-    //    }
-    //}
+    CitySelector? Citys = new CitySelector();
+    GovernrateSelector? Governrates = new GovernrateSelector();
+    CategorySelector? Categoryes = new CategorySelector();
+    StatusSelector? Statu = new StatusSelector();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Governrates.LoadGovernorates();
+            await Categoryes.LoadCategorys();
+            await Statu.LoadStatus();
+        }
+    }
+    protected override void OnInitialized()
+    {
+        _app.OnChange += StateHasChanged;
+    }
 
 }
