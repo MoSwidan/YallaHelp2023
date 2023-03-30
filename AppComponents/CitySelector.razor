@@ -1,7 +1,9 @@
-﻿@if (cities.Count > 0)
+﻿@using Microsoft.Extensions.Primitives;
+@if (cities.Count > 0)
 {
-    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+    <select @onchange="SelectCity" class="form-select text-center px-md-0 px-1" aria-label="Default select example" dir="rtl">
         <option disabled selected>المدينة</option>
+        <option value="">الكل</option>
         @foreach (var city in cities)
         {
             <option value="@city.City_Id">@city.Name</option>
@@ -10,13 +12,26 @@
 }
 else
 {
-    <select @onclick='()=>{_alert.ShowAlert("أختر المحافظة أولا","warn");}'  class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+    <select disabled  class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
         <option disabled selected>المدينة</option>
     </select>
 }
 
 @code {
-    private List<City> cities = new List<City>();
+    [Parameter]
+    public string? Selected_Governrate { get; set; }
+    public string? Selected_City_Id = "";
+    private List<City>? cities = new List<City>();
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadCitys(Selected_Governrate);
+    }
+    public async void SelectCity(ChangeEventArgs eventArgs)
+    {
+        Selected_City_Id = eventArgs?.Value?.ToString();
+        await InvokeAsync(StateHasChanged);
+        _app.NotifyStateChanged();
+    }
     public async Task LoadCitys(string? Governrate_ID)
     {
         CityResponse result = new CityResponse();
@@ -38,11 +53,5 @@ else
 
 
         }
-    }
-    [Parameter]
-    public string? Selected_Governrate { get; set; }
-    protected override async Task OnParametersSetAsync()
-    {
-        await LoadCitys(Selected_Governrate);
     }
 }

@@ -1,10 +1,11 @@
 ﻿@if (Status.Count > 0)
 {
-    <select class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+    <select @onchange="SelectStatus" class="form-select text-center px-md-0 px-1" aria-label="Default select example" dir="rtl">
         <option disabled selected>الحالة</option>
+        <option value="">الكل</option>
         @foreach (var Statu in Status)
         {
-            <option value="@Statu.Status_Id">@Statu.Name</option>
+            <option  value="@Statu.Status_Id">@Statu.Name</option>
         }
     </select>
 }
@@ -17,6 +18,7 @@ else
 
 @code {
     private List<Status> Status = new List<Status>();
+    public string? Selected_Status_Id = "";
     public async Task LoadStatus()
     {
         StatusResponse result = new StatusResponse();
@@ -38,4 +40,11 @@ else
 
         }
     }
+    public async void SelectStatus(ChangeEventArgs eventArgs)
+    {
+        Selected_Status_Id = eventArgs?.Value?.ToString();
+        await InvokeAsync(StateHasChanged);
+        _app.NotifyStateChanged();
+    }
+
 }

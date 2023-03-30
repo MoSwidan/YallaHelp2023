@@ -1,10 +1,18 @@
 ﻿@if (governrates.Count > 0)
 {
-    <select @onchange="SelectGovernrate" class="form-select text-center px-0" aria-label="Default select example" dir="rtl">
+    <select @onchange="SelectGovernrate" class="form-select text-center px-md-0 px-1" aria-label="Default select example" dir="rtl">
         <option disabled selected>المحافظة</option>
+        <option value="">الكل</option>
         @foreach (var governrate in governrates)
         {
-            <option value="@governrate.Governorate_Id">@governrate.Name</option>
+            if (governrate.Governorate_Id.ToString() == Selected_Governrate_Id)
+            {
+                <option selected value="@governrate.Governorate_Id">@governrate.Name</option>
+            }
+            else
+            {
+                <option  value="@governrate.Governorate_Id">@governrate.Name</option>
+            }
         }
     </select>
 }
@@ -17,6 +25,7 @@ else
 
 @code {
     private List<Governorate> governrates = new List<Governorate>();
+    public string? Selected_Governrate_Id = "";
     public async Task LoadGovernorates()
     {
         GovernorateResponse result = new GovernorateResponse();
@@ -38,10 +47,9 @@ else
 
         }
     }
-    public string? Selected_Governrate;
     public async void SelectGovernrate(ChangeEventArgs eventArgs)
     {
-        Selected_Governrate =  eventArgs?.Value?.ToString();
+        Selected_Governrate_Id = eventArgs?.Value?.ToString();
         await InvokeAsync(StateHasChanged);
         _app.NotifyStateChanged();
     }
