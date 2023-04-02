@@ -7,6 +7,6 @@
         //else if (window.scrollY < 10 && nav.classList.contains("position-fixed") == true) {
         //    nav.classList.remove("bg-white", "position-fixed");
         //}
-    });
-    
+   
 }
+

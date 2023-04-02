@@ -1,18 +1,11 @@
 ﻿@if (governrates.Count > 0)
 {
-    <select @onchange="SelectGovernrate" class="form-select text-center px-md-0 px-1" aria-label="Default select example" dir="rtl">
+    <select id="@Id" @onchange="SelectGovernrate" class="form-select text-center px-md-0 px-1" aria-label="Default select example" dir="rtl">
         <option disabled selected>المحافظة</option>
         <option value="">الكل</option>
         @foreach (var governrate in governrates)
         {
-            if (governrate.Governorate_Id.ToString() == Selected_Governrate_Id)
-            {
-                <option selected value="@governrate.Governorate_Id">@governrate.Name</option>
-            }
-            else
-            {
-                <option  value="@governrate.Governorate_Id">@governrate.Name</option>
-            }
+            <option  value="@governrate.Governorate_Id">@governrate.Name</option>
         }
     </select>
 }
@@ -26,6 +19,8 @@ else
 @code {
     private List<Governorate> governrates = new List<Governorate>();
     public string? Selected_Governrate_Id = "";
+    [Parameter]
+    public string? Id { get; set; }
     public async Task LoadGovernorates()
     {
         GovernorateResponse result = new GovernorateResponse();
@@ -52,5 +47,27 @@ else
         Selected_Governrate_Id = eventArgs?.Value?.ToString();
         await InvokeAsync(StateHasChanged);
         _app.NotifyStateChanged();
+        await localStorage.SetItemAsync(Id, Selected_Governrate_Id);
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                var gov_id = await localStorage.GetItemAsync<string>(Id);
+                if (!string.IsNullOrEmpty(gov_id))
+                {
+                    await JS.InvokeVoidAsync("selectgover", Id, gov_id);
+                    Selected_Governrate_Id = gov_id;
+                    await InvokeAsync(StateHasChanged);
+                    _app.NotifyStateChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

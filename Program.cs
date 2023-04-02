@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using YallaHelp2023;
@@ -11,4 +12,5 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7187") });
 builder.Services.AddScoped<MainService>();
 builder.Services.AddScoped<AlertService>();
+builder.Services.AddBlazoredLocalStorage();
 await builder.Build().RunAsync();
