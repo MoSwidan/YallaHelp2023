@@ -42,6 +42,7 @@
 					_alert.ShowAlert("تم تسجيل الدخول", "done");
 					_app.UserAuthData = result.Data;
 					await GetUserData();
+					await localStorage.SetItemAsync("usdat", (await Crypto.EncryptAsync(new Account { Phone_Number = result.Data.Phone_Number, Password = result.Data.Password })).Value);
 					Nv.NavigateTo("/Blog");
 				}
 				else
