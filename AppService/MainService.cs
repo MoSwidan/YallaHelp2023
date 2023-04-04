@@ -1,5 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Net.Http.Json;
+using System.Reflection;
 using YallaHelpWeb.Shared;
+using static System.Net.WebRequestMethods;
 
 namespace YallaHelp2023.AppService
 {
@@ -25,5 +27,33 @@ namespace YallaHelp2023.AppService
 		public Account UserAuthData = new Account();
 		public User AccountData = new User();
 		public bool Loading = false;
-    }
+		HttpClient Http = new HttpClient { BaseAddress = new Uri("https://localhost:7187") };
+		public async Task AutoLogUser(Account account)
+		{
+			try
+			{
+				var response = await Http.GetFromJsonAsync<AccountResponse>($"api/User/CheckUserRegistration?PhoneNumber={account.Phone_Number}");
+				if (response != null)
+				{
+                    if (account.Password == response.Data.Password)
+					{
+						UserAuthData = response.Data;
+                        NotifyStateChanged();
+                        UserResponse? result = new UserResponse();
+						result = await Http.GetFromJsonAsync<UserResponse>($"api/User/UserData?UserId={account.User_Id}");
+						if (result.Code == "200")
+						{
+                            AccountData = result.Data;
+							NotifyStateChanged();
+						}
+					}
+					
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
+	}
 }

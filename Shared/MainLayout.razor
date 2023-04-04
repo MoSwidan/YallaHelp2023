@@ -43,11 +43,32 @@ else
         IsLoaded = true;
         await InvokeAsync(StateHasChanged);
     }
-
     protected override async void OnInitialized()
     {
         _app.OnChange += StateHasChanged;
         await Loading();
     }
- 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                var user = await localStorage.GetItemAsync<string>("usdat");
+                if (user != null)
+                {
+                    var decrypt = await Crypto.DecryptAsync<Account>(user);
+                    if (decrypt.Phone_Number != null)
+                    {
+                        await _app.AutoLogUser(decrypt);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+    }
 }

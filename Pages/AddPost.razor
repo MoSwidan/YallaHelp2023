@@ -24,9 +24,10 @@
             <!-- ======== body started ========= -->
             <div class="row mt-2 shadow bg-light  px-3 ">
                 <div class="col-12 bg-light">
+
                     <section class="bg-03 pt-4">
                         <div class="container">
-                            <div class="head-001 text-center">
+                            <div class="head-001 text-center mb-3">
                                 <i class="fal fs-1 mb-2 fa-smile-plus text-dark"></i>
                                 <h2 class="fs-2 fw-bold">أضف منشور</h2>
                                 <p>
@@ -35,23 +36,26 @@
                                     </q>
                                 </p>
                             </div>
-                            <div class="row my-3 mb-4 mt-5 justify-content-center">
+                            <div class="row justify-content-center">
+                                <img src="@(imgsrc)" style="height:30vh;width:350px;border-radius:20px;"/>
+                            </div>
+                            <div class="row my-3 mb-4 mt-1 justify-content-center">
                                 <div class="col-md-12 col-12 position-relative">
                                     <input class="w-100 text-center border p-2 px-3 rounded" type="text" placeholder="عنوان المنشور" />
                                 </div>
                             </div>
                             <div class="row my-3 justify-content-center">
                                 <div class="col-md-6 col-12 text-center my-1">
-                                    <StatusSelector @ref="Statu" />
+                                    <StatusSelector ShowAllOption="false" @ref="Statu" />
                                 </div>
                                 <div class="col-md-6 col-12 text-center my-1">
-                                    <CategorySelector @ref="Categoryes"/>
+                                    <CategorySelector ShowAllOption="false" @ref="Categoryes" />
                                 </div>
                                 <div class="col-md-6 col-12 text-center my-1">
-                                    <GovernrateSelector @ref="Governrates" />
+                                    <GovernrateSelector ShowAllOption="false" Id="addpost" @ref="Governrates" />
                                 </div>
                                 <div class="col-md-6 col-12 text-center my-1">
-                                    <CitySelector @ref="Citys" Selected_Governrate="@Governrates.Selected_Governrate_Id" />
+                                    <CitySelector @ref="Citys" ShowAllOption="false" Selected_Governrate="@Governrates.Selected_Governrate_Id" />
                                 </div>
                                 
                             </div>
@@ -64,10 +68,11 @@
                             </div>
                             <div class="row my-3 mb-4 mt-1 justify-content-center">
                                 <div class="col-md-8 col-12 position-relative">
-                                    <button class="btn btn-secondary w-100 text-center border p-2 px-3 rounded">
+                                    <label for="imageUpload" class="btn btn-secondary w-100 text-center border p-2 px-3 rounded">
                                         <i class="fa fa-image ms-1"></i>
                                         أضف صورة
-                                    </button>
+                                    </label>
+                                    <input type='file' id="imageUpload" accept="image/*" hidden/>
                                 </div>
                             </div>
                             <div class="row my-3 mb-4 mt-1 justify-content-center">
@@ -101,6 +106,14 @@
     GovernrateSelector? Governrates = new GovernrateSelector();
     CategorySelector? Categoryes = new CategorySelector();
     StatusSelector? Statu = new StatusSelector();
+    private string? imgsrc = "https://img.freepik.com/free-vector/image-upload-concept-landing-page_23-2148310293.jpg?w=1380&t=st=1680605684~exp=1680606284~hmac=0993387ba567b9cf6ee2c1860a793efb103f126183f9823067133d64578615af";
+    private DotNetObjectReference<Pages.AddPost>? dotNetObjectReference;
+    [JSInvokable]
+    public async Task GetImgValue(string imgdata)
+    {
+        imgsrc = imgdata;
+        await InvokeAsync(StateHasChanged);
+    }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -108,6 +121,9 @@
             await Governrates.LoadGovernorates();
             await Categoryes.LoadCategorys();
             await Statu.LoadStatus();
+            await JS.InvokeVoidAsync("main");
+            dotNetObjectReference = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("JsFunctions.SuccessFunc", dotNetObjectReference);
         }
     }
     protected override void OnInitialized()

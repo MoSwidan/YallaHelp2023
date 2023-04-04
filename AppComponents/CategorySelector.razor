@@ -2,7 +2,10 @@
 {
     <select @onchange="SelectCategory" class="form-select text-center px-md-0 px-1" aria-label="Default select example" dir="rtl">
         <option disabled selected>الفئة</option>
-        <option value="">الكل</option>
+        @if (ShowAllOption)
+        {
+            <option value="">الكل</option>
+        }
         @foreach (var Category in Categorys)
         {
             <option  value="@Category.Category_Id">@Category.Name</option>
@@ -19,6 +22,8 @@ else
 @code {
     private List<Category> Categorys = new List<Category>();
     public string? Selected_Category_Id = "";
+    [Parameter]
+    public bool ShowAllOption { get; set; }
     public async Task LoadCategorys()
     {
         CategoryResponse result = new CategoryResponse();

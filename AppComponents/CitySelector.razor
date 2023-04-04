@@ -3,7 +3,10 @@
 {
     <select @onchange="SelectCity" class="form-select text-center px-md-0 px-1" aria-label="Default select example" dir="rtl">
         <option disabled selected>المدينة</option>
-        <option value="">الكل</option>
+        @if (ShowAllOption)
+        {
+            <option value="">الكل</option>
+        }
         @foreach (var city in cities)
         {
             <option value="@city.City_Id">@city.Name</option>
@@ -22,6 +25,8 @@ else
     public string? Selected_Governrate { get; set; }
     public string? Selected_City_Id = "";
     private List<City>? cities = new List<City>();
+    [Parameter]
+    public bool ShowAllOption { get; set; }
     protected override async Task OnParametersSetAsync()
     {
         await LoadCitys(Selected_Governrate);

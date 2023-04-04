@@ -8,7 +8,7 @@
 			<h1 class="fw-bold fs-1">تسجيل الدخول</h1>
 			<div class="row justify-content-center  p-2 p-md-5" style="width:90%;">
 				<input @bind="PhoneNumber" @bind:event="oninput" class="fw-bold mb-3 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="number" placeholder="رقم الهاتف" />
-				<input @bind="Password" @bind:event="oninput" class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="text" placeholder="كلمة المرور" />
+				<input @bind="Password" @bind:event="oninput" class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="password" placeholder="كلمة المرور" />
 			</div>
 			<button @onclick="Auth" class="w-25 border-0 rounded p-2 text-white" style="background:#fd1b5b; cursor:pointer;">تأكيد</button>
 			<div class="justify-content-center w-100 p-2">
@@ -42,7 +42,7 @@
 					_alert.ShowAlert("تم تسجيل الدخول", "done");
 					_app.UserAuthData = result.Data;
 					await GetUserData();
-					await localStorage.SetItemAsync("usdat", (await Crypto.EncryptAsync(new Account { Phone_Number = result.Data.Phone_Number, Password = result.Data.Password })).Value);
+					await localStorage.SetItemAsync("usdat", (await Crypto.EncryptAsync(new Account { Phone_Number = result.Data.Phone_Number, Password = result.Data.Password, User_Id = result.Data.User_Id })).Value);
 					Nv.NavigateTo("/Blog");
 				}
 				else
