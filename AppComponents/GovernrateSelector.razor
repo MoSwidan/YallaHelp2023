@@ -49,7 +49,7 @@ else
     }
     public async void SelectGovernrate(ChangeEventArgs eventArgs)
     {
-        Selected_Governrate_Id = eventArgs?.Value?.ToString();
+        Selected_Governrate_Id = Convert.ToString(eventArgs?.Value);
         await InvokeAsync(StateHasChanged);
         _app.NotifyStateChanged();
         await localStorage.SetItemAsync(Id, Selected_Governrate_Id);

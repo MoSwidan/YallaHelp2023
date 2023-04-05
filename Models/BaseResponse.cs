@@ -8,8 +8,8 @@ namespace YallaHelpWeb.Shared
 {
 	public class BaseResponse
 	{
-		public string? Meassage { get; set; }
-		public string? Code { get; set; }
-		public dynamic? Data { get; set; }
-	}
+        public string? Meassage { get; set; }
+        public string? Code { get; set; }
+        public dynamic? Data { get; set; }
+    }
 }

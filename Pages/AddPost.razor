@@ -1,4 +1,5 @@
 ﻿@page "/addPost"
+@using System.Net;
 <Header />
 <main class="charity-01-main" style="margin-top:102px;" dir="rtl">
     <!-- ======== Profile started ========= -->
@@ -24,7 +25,6 @@
             <!-- ======== body started ========= -->
             <div class="row mt-2 shadow bg-light  px-3 ">
                 <div class="col-12 bg-light">
-
                     <section class="bg-03 pt-4">
                         <div class="container">
                             <div class="head-001 text-center mb-3">
@@ -36,14 +36,19 @@
                                     </q>
                                 </p>
                             </div>
-                            <div class="row justify-content-center">
-                                <img src="@(imgsrc)" style="height:30vh;width:350px;border-radius:20px;"/>
+                            <!--img preview-->
+                            <div  class="row justify-content-center">
+                                <label for="imageUpload" style="width:250px;">
+                                    <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_GxMZME.json" speed="1" style="width:250px; height:250px;" loop autoplay></lottie-player>
+                                </label>
                             </div>
+                            <!--tittle-->
                             <div class="row my-3 mb-4 mt-1 justify-content-center">
                                 <div class="col-md-12 col-12 position-relative">
-                                    <input class="w-100 text-center border p-2 px-3 rounded" type="text" placeholder="عنوان المنشور" />
+                                    <input @bind="PostTittle" @bind:event="oninput" class="w-100 text-center border p-2 px-3 rounded" type="text" placeholder="عنوان المنشور" />
                                 </div>
                             </div>
+                            <!--selectors-->
                             <div class="row my-3 justify-content-center">
                                 <div class="col-md-6 col-12 text-center my-1">
                                     <StatusSelector ShowAllOption="false" @ref="Statu" />
@@ -57,33 +62,31 @@
                                 <div class="col-md-6 col-12 text-center my-1">
                                     <CitySelector @ref="Citys" ShowAllOption="false" Selected_Governrate="@Governrates.Selected_Governrate_Id" />
                                 </div>
-                                
                             </div>
+                            <!--describe-->
                             <div class="row my-3 mb-4 mt-2 justify-content-center">
                                 <div class="col-md-12 col-12 position-relative">
-                                    <textarea class="w-100 text-center border p-2 px-3 rounded" placeholder="وصف المنشور">
+                                    <textarea @bind="PostContent" @bind:event="oninput" class="w-100 text-center border p-2 px-3 rounded" placeholder="وصف المنشور">
 
                                     </textarea>
                                 </div>
                             </div>
+                            <!--add image-->
                             <div class="row my-3 mb-4 mt-1 justify-content-center">
                                 <div class="col-md-8 col-12 position-relative">
-                                    <label for="imageUpload" class="btn btn-secondary w-100 text-center border p-2 px-3 rounded">
-                                        <i class="fa fa-image ms-1"></i>
-                                        أضف صورة
-                                    </label>
                                     <input type='file' id="imageUpload" accept="image/*" hidden/>
                                 </div>
                             </div>
+                            <!--confirm-->
                             <div class="row my-3 mb-4 mt-1 justify-content-center">
                                 <div class="col-md-4 col-12 position-relative">
-                                    <button class="btn btn-primary w-100 text-center border p-2 px-3 rounded">
+                                    <button @onclick="ConfirmPost" class="btn btn-primary w-100 text-center border p-2 px-3 rounded">
                                         <i class="fa fa-marker ms-1"></i>
                                         نشر
                                     </button>
                                 </div>
                                 <div class="col-md-4 mt-md-0 mt-3 col-12 position-relative">
-                                    <button class="btn btn-danger w-100 text-center border p-2 px-3 rounded">
+                                    <button @onclick='()=>Nv.NavigateTo("/Profile")' class="btn btn-danger w-100 text-center border p-2 px-3 rounded">
                                         <i class="fa fa-times ms-1"></i>
                                         الغاء
                                     </button>
@@ -91,7 +94,6 @@
                             </div>
                         </div>
                     </section>
-
                 </div>
             </div>
         </div>
@@ -106,7 +108,7 @@
     GovernrateSelector? Governrates = new GovernrateSelector();
     CategorySelector? Categoryes = new CategorySelector();
     StatusSelector? Statu = new StatusSelector();
-    private string? imgsrc = "https://img.freepik.com/free-vector/image-upload-concept-landing-page_23-2148310293.jpg?w=1380&t=st=1680605684~exp=1680606284~hmac=0993387ba567b9cf6ee2c1860a793efb103f126183f9823067133d64578615af";
+    private string? imgsrc = "";
     private DotNetObjectReference<Pages.AddPost>? dotNetObjectReference;
     [JSInvokable]
     public async Task GetImgValue(string imgdata)
@@ -124,10 +126,93 @@
             await JS.InvokeVoidAsync("main");
             dotNetObjectReference = DotNetObjectReference.Create(this);
             await JS.InvokeVoidAsync("JsFunctions.SuccessFunc", dotNetObjectReference);
+            await JS.InvokeVoidAsync("getLocation");
         }
     }
     protected override void OnInitialized()
     {
         _app.OnChange += StateHasChanged;
+    }
+    private string PostTittle = "";
+    private string PostContent = "";
+    private async Task ConfirmPost()
+    {
+        try
+        {
+            if (String.IsNullOrEmpty(Governrates?.Selected_Governrate_Id) || String.IsNullOrEmpty(Categoryes?.Selected_Category_Id) || String.IsNullOrEmpty(Citys?.Selected_City_Id) || String.IsNullOrEmpty(Statu?.Selected_Status_Id))
+            {
+                _alert.ShowAlert("املاء البيانات الفارغه", "warn");
+            }
+            else
+            {
+                _app.Loading = true;
+                _app.NotifyStateChanged();
+                var lon = await localStorage.GetItemAsync<string>("lon");
+                var lat = await localStorage.GetItemAsync<string>("lat");
+                if (lon != null && lat != null)
+                {
+                    Post post = new Post
+                    {
+                        Post_Id = Guid.NewGuid(),
+                        Governrate_Id = Guid.Parse(Governrates?.Selected_Governrate_Id),
+                        Category_Id = Guid.Parse(Categoryes?.Selected_Category_Id),
+                        City_Id = Guid.Parse(Citys?.Selected_City_Id),
+                        Status_Id = Guid.Parse(Statu?.Selected_Status_Id),
+                        User_Id = _app.AccountData.User_Id ?? new Guid(),
+                        Device_Ipv4 = "192.168.1.1",
+                        Img_Url = imgsrc,
+                        Is_Reviewed = false,
+                        Post_Content = PostContent,
+                        Post_Tittle = PostTittle,
+                        Time_Stamp = DateTime.Now,
+                        Longitude = lat,
+                        Latitude = lat
+                    };
+                    if (_app.IsAnyNullOrEmpty(post))
+                    {
+                        _alert.ShowAlert("املاء البيانات الفارغه", "warn");
+                    }
+                    else
+                    {
+                        var response = await Http.PostAsJsonAsync<Post>("api/Post/AddPost", post);
+                        var responseStatusCode = response.StatusCode;
+                        var responseBody = await response.Content.ReadAsStringAsync();
+                        if (!string.IsNullOrWhiteSpace(responseBody))
+                        {
+                            var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(responseBody);
+                            if (deserilaize.Meassage == "Ok")
+                            {
+                                _alert.ShowAlert("تم النشر بالنجاح", "done");
+                            }
+                            else
+                            {
+                                _alert.ShowAlert($"حدث خطاء", "error");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    await JS.InvokeVoidAsync("getLocation");
+                    _alert.ShowAlert("أعطي اذن الوصول للموقع", "warn");
+                }
+
+
+            } 
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.StackTrace);
+            Console.WriteLine(ex.Source);
+            _alert.ShowAlert($"{ex.Message}", "error");
+        }
+        _app.Loading = false;
+        _app.NotifyStateChanged();
+    }
+    private class Location
+    {
+        public object? latitude { get; set; }
+        public object? longitude { get; set; }
     }
 }

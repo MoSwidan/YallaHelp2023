@@ -38,16 +38,16 @@
             <!--Filters-->
             <div class="row my-3 justify-content-center">
                 <div class="col-md-3 col-6 text-center my-1">
-                    <StatusSelector @ref="Statu" />
+                    <StatusSelector ShowAllOption="true" @ref="Statu" />
                 </div>
                 <div class="col-md-3 col-6 text-center my-1">
-                    <CategorySelector @ref="Categoryes" />
+                    <CategorySelector ShowAllOption="true" @ref="Categoryes" />
                 </div>
                 <div class="col-md-3 col-6 text-center my-1">
-                    <CitySelector @ref="Citys" Selected_Governrate="@Governrates?.Selected_Governrate_Id" />
+                    <CitySelector ShowAllOption="true" @ref="Citys" Selected_Governrate="@Governrates?.Selected_Governrate_Id" />
                 </div>
                 <div class="col-md-3 col-6 text-center my-1">
-                    <GovernrateSelector @ref="Governrates" Id="gov"/>
+                    <GovernrateSelector ShowAllOption="true" @ref="Governrates" Id="gov"/>
                 </div>
             </div>
             <hr />

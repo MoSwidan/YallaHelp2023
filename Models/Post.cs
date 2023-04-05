@@ -8,13 +8,14 @@
         public Guid Governrate_Id { get; set; }
         public Guid Status_Id { get; set; }
         public Guid Category_Id { get; set; }
-		public string? Img_Url { get; set; }
-		public string? PostTittle { get; set; }
-        public string? PostContent { get; set; }
-        public DateTime? TimeStamp { get; set; }
-        public string? Location { get; set; }
-        public string? DeviceIpv4 { get; set; }
-        public bool? IsReviewed { get; set; }
+        public string? Post_Tittle { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
+        public string? Post_Content { get; set; }
+        public string? Img_Url { get; set; }
+        public DateTime? Time_Stamp { get; set; }
+        public string? Device_Ipv4 { get; set; }
+        public bool? Is_Reviewed { get; set; }
     }
     public class PostView
     {

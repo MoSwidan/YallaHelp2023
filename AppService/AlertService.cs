@@ -12,7 +12,6 @@
             AlertsList.Remove(alert);
             this.NotifyStateChanged();
         }
-
         public async void ShowAlert(string? message, string? type)
         {
             alert _alertitem = new alert()
@@ -24,7 +23,6 @@
             this.NotifyStateChanged();
             await Removealert(_alertitem,5000);
         }
-
     }
     public class alert
     {
