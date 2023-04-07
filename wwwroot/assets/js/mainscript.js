@@ -25,6 +25,6 @@
         }
     }
     function CallCsharpreturn() {
-        obj.invokeMethodAsync('GetImgValue', result)
+        obj.invokeMethodAsync('GetImgValue', result);
     }
 }

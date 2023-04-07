@@ -161,7 +161,7 @@
                         User_Id = _app.AccountData.User_Id ?? new Guid(),
                         Device_Ipv4 = "192.168.1.1",
                         Img_Url = imgsrc,
-                        Is_Reviewed = false,
+                        Is_Reviewed = true,
                         Post_Content = PostContent,
                         Post_Tittle = PostTittle,
                         Time_Stamp = DateTime.Now,
@@ -183,6 +183,7 @@
                             if (deserilaize.Meassage == "Ok")
                             {
                                 _alert.ShowAlert("تم النشر بالنجاح", "done");
+                                Nv.NavigateTo("/Blog");
                             }
                             else
                             {

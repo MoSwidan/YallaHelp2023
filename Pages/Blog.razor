@@ -103,6 +103,8 @@
     {
         if (firstRender)
         {
+            _app.Loading = true;
+            _app.NotifyStateChanged();
             await Governrates?.LoadGovernorates();
             await Categoryes?.LoadCategorys();
             await Statu?.LoadStatus();
@@ -123,6 +125,8 @@
 
 
             }
+            _app.Loading = false;
+            _app.NotifyStateChanged();
         }
     }
     protected override void OnInitialized()
