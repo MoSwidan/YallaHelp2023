@@ -1,4 +1,4 @@
-﻿<article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+﻿<article class="_kl_cd mt-0 position-relative shadow" dir="rtl" >
     <!--Tools Toggle Btn-->
     <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
         <i onclick="let x = document.getElementById('@(postData.Post_Id)');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 bg-white  rounded" style="padding:4px 2px;"></i>
@@ -36,12 +36,12 @@
         </div>
     </div>
     <!--Post Img-->
-    <div class="_i-tr" style="height:220px;">
+    <div class="_i-tr" style="height:200px;width:300px;">
         <img class="img-fluid" src="@(postData?.Img_Url.Contains("http") == true ? postData.Img_Url : postData?.Img_Url.Contains("data") == true ? postData.Img_Url:"https://img.freepik.com/free-vector/images-concept-illustration_114360-298.jpg?w=826&t=st=1680175433~exp=1680176033~hmac=741faaf6a1db84c4e635eef15fdc707a55d9b4fdbb1c187625162873fe94f813")">
     </div>
     <!--Post Tittle-->
     <div class="_oi_er_we ">
-        <h3 style="cursor:pointer;" @onclick='()=>Nv.NavigateTo("/Post")'>@postData?.Post_Tittle</h3>
+        <h3 style="cursor:pointer;" class="text-truncate" @onclick='()=>Nv.NavigateTo("/Post")'>@postData?.Post_Tittle</h3>
         <p class="text-truncate">
             @postData?.Post_Content
         </p>

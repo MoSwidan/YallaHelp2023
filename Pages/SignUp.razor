@@ -153,7 +153,7 @@
 				<div class="container">
 					<div class="avatar-upload">
 						<div class="avatar-edit">
-							<input type='file' id="imageUpload" accept="image/*" />
+							<input type='file' @onchange="GetImgValue" id="imageUpload" accept="image/*" />
 							<label for="imageUpload"></label>
 						</div>
 						<div class="avatar-preview" style="height:150px;width:150px;background-position: initial;">
@@ -209,9 +209,19 @@
 	private string? imgsrc = "/user.png";
 	private DotNetObjectReference<Pages.SignUp>? dotNetObjectReference;
 	[JSInvokable]
-	public async Task GetImgValue(string imgdata)
+	public async Task GetImgValue()
 	{
-		imgsrc = imgdata;
+		await Task.Delay(1000);
+		Console.WriteLine("work");
+		imgsrc = await localStorage.GetItemAsync<string>("img");
+		if (!string.IsNullOrEmpty(imgsrc))
+		{
+			_alert.ShowAlert("تم تحميل الصورة", "done");
+		}
+		else
+		{
+			_alert.ShowAlert("حدث خطاء اثناء تحميل الصورة", "warn");
+		}
 		await InvokeAsync(StateHasChanged);
 	}
 	private async Task Register()

@@ -52,7 +52,7 @@
             </div>
             <hr />
             <!--Posts-->
-            <div class="row justify-content-center text-center align-items-center">
+            <div class="row justify-content-center text-center align-items-start">
                 @if (ShowData)
                 {
                     if (postsList?.Data.FindAll(x => x.Governrate_Id.ToString().Contains(Governrates.Selected_Governrate_Id) && x.City_Id.ToString().Contains(Citys.Selected_City_Id) && x.Status_Id.ToString().Contains(Statu.Selected_Status_Id) && x.Category_Id.ToString().Contains(Categoryes.Selected_Category_Id) && x.Post_Tittle.Contains(Serach) && x.Post_Content.Contains(Serach)).ToList().Count > 0)
@@ -69,7 +69,7 @@
                     }
                     @foreach (var post in postsList?.Data.FindAll(x => x.Governrate_Id.ToString().Contains(Governrates.Selected_Governrate_Id) && x.City_Id.ToString().Contains(Citys.Selected_City_Id) && x.Status_Id.ToString().Contains(Statu.Selected_Status_Id) && x.Category_Id.ToString().Contains(Categoryes.Selected_Category_Id) && x.Post_Tittle.Contains(Serach) && x.Post_Content.Contains(Serach)))
                     {
-                        <div class="p-0 mx-1" style="max-width:300px;">
+                        <div class="p-0 mx-1" style="width:300px;">
                             <PostComponent postData="post" />
                         </div>
                     }  

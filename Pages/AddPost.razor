@@ -37,6 +37,12 @@
                                 </p>
                             </div>
                             <!--img preview-->
+                            @if (!string.IsNullOrEmpty(imgsrc))
+                            {
+                                <div class="row justify-content-center rounded m-auto" style="height:200px;width:350px;">
+                                    <img src="@imgsrc" class="img-fluid" style="border-radius:10px;" />
+                                </div>
+                            }
                             <div  class="row justify-content-center">
                                 <label for="imageUpload" style="width:250px;">
                                     <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_GxMZME.json" speed="1" style="width:250px; height:250px;" loop autoplay></lottie-player>
@@ -73,7 +79,7 @@
                             </div>
                             <!--add image-->
                             <div class="row my-3 mb-4 mt-1 justify-content-center">
-                                <div class="col-md-8 col-12 position-relative">
+                                <div  class="col-md-8 col-12 position-relative">
                                     <input @onchange="GetImgValue" type='file' id="imageUpload" accept="image/*" hidden />
                                 </div>
                             </div>
