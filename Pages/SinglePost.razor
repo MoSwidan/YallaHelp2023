@@ -2,6 +2,7 @@
 <Header />
 @if (ShowData)
 {
+    <PageTitle>@(postDetails?.Data?.Post_Tittle)</PageTitle>
     <!-- ======== main started ========= -->
     <main class="charity-01-main position-relative" style="margin-top:102px;">
     <Comments />
@@ -128,7 +129,7 @@
                 <div class="col-md-6 order-md-1 order-0 col-12 bg-light">
                     <div class="row align-content-center justify-content-center p-2">
                         <div class="col-12 rounded shadow-sm mb-2 p-0">
-                            <img src="@(postDetails.Data?.Img_Url)" />
+                                <img src="@(postDetails.Data?.Img_Url)" style="width:100%;border-radius: 10px;" />
                         </div>
                         <div class="col-12  text-secondary rounded text-end shadow-sm  mt-2 border p-3">
                             <h6 class="fw-bold fs-5">
@@ -179,39 +180,36 @@ else
     <NotFoundPage ImgUrl="assets/images/404.jpg" />
 }
 @code {
-    StringValues I;
+    StringValues postref;
     PostDetailsResponse? postDetails = new PostDetailsResponse();
     private bool ShowData = false;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            var uri = Nv.ToAbsoluteUri(Nv.Uri);
-            QueryHelpers.ParseQuery(uri.Query).TryGetValue("I", out I);
-           if (I.ToString != null)
-           {
-                _app.Loading = true;
-                _app.NotifyStateChanged();
-                try
+            _app.Loading = true;
+            _app.NotifyStateChanged();
+            try
+            {
+                var uri = Nv.ToAbsoluteUri(Nv.Uri);
+                QueryHelpers.ParseQuery(uri.Query).TryGetValue("postref", out postref);
+                //var decrypt = await Crypto.DecryptAsync<string>(postref);
+                postDetails = await Http.GetFromJsonAsync<PostDetailsResponse>($"api/Post/GetPostDetails?PostId={postref}");
+                if (postDetails?.Code == "200")
                 {
-                    var decrypt = await Crypto.DecryptAsync<Guid>(I.ToString());
-                    postDetails = await Http.GetFromJsonAsync<PostDetailsResponse>($"api/Post/GetPostDetails?PostId={decrypt}");
-                    if (postDetails?.Code == "200")
+                    if (postDetails.Data != null)
                     {
-                        if (postDetails.Data != null)
-                        {
-                            ShowData = true;
-                            await InvokeAsync(StateHasChanged);
-                        }
+                        ShowData = true;
+                        await InvokeAsync(StateHasChanged);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                _app.Loading = false;
-                _app.NotifyStateChanged();
-           }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            _app.Loading = false;
+            _app.NotifyStateChanged();
         }
     }
 }

@@ -3,13 +3,17 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
+using TextCopy;
 using YallaHelp2023;
 using YallaHelp2023.AppService;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+var serviceCollection = builder.Services;
+#region InjectClipboard
+serviceCollection.InjectClipboard();
+#endregion
 var configuration = builder.Configuration.Build();
 var Api = configuration.GetConnectionString("ApiConnection");
-
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri($"{Api}") });

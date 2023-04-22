@@ -37,7 +37,12 @@
                 </p>
                 <div class="btn-002">
                   <ul>
-                    <li style="cursor:pointer;" @onclick='()=>{Nv.NavigateTo("/LogIn");}'><a>تسجيل الدخول</a></li>
+                    @if (_app.AccountData.First_Name == null)
+                    {
+                       <li style="cursor:pointer;" @onclick='()=>{Nv.NavigateTo("/LogIn");}'><a>تسجيل الدخول</a></li>             
+                    }else{
+                       <li style="opacity:0.5;" ><a>تسجيل الدخول</a></li>     
+                    }
                     <li style="cursor:pointer;" @onclick='()=>{Nv.NavigateTo("/SignUp");}'><a>مستخدم جديد</a></li>
                   </ul>
                 </div>
@@ -330,5 +335,11 @@
   </main>
 
 
-
+  @code{
+    protected override void OnInitialized()
+    {
+        _app.OnChange += StateHasChanged;
+        base.OnInitialized();
+    }
+  }
 

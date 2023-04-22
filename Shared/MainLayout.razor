@@ -17,27 +17,18 @@ else
 {
     <div class="container-fluid text-center" style="height:100vh;overflow:hidden;">
         <div class="row justify-content-center align-content-center h-100 align-items-center" style="overflow:hidden;">
-           <div class="loadingio-spinner-heart-u7c83x2dxkn p-0">
-                <div class="ldio-82f56hyj5wn">
-                    <div>
-                        <div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="pulse p-0"></div>
-            <div class="position-absolute fs-5 fw-bold slide-top " style="top:62%; left:auto;"> لا تتوقف أبدا عن مساعدة الاخرين </div>
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_ifmmib8b.json" speed="1" style="width:220px; height:220px;" loop autoplay></lottie-player>
+            <div class="position-absolute fs-5 fw-bold slide-top mt-4" style="top:62%; left:auto;"> لا تتوقف أبدا عن مساعدة الاخرين </div>
         </div>
     </div>
    
 }
 
 @code{
-    private bool IsLoaded = false;
+    private static bool IsLoaded = false;
     public async Task Loading()
     {
-        await Task.Delay(2500);
+        await Task.Delay(21500);
         IsLoaded = true;
         await InvokeAsync(StateHasChanged);
     }

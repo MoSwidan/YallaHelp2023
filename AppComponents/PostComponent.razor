@@ -20,15 +20,14 @@
                 <span class="text-dark"> تعديل المنشور </span>
             </div>
         </div>
-        <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-
+        @*<div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
             <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
                 <i class="fal fa-stars ps-2 fs-5"></i>
                 <span class="text-dark">حذف من المفضلة</span>
             </div>
-        </div>
+        </div>*@
         <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-            <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+            <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>{CopyTextToClipboard($"{Nv.ToAbsoluteUri(Nv.Uri).AbsoluteUri.ToString().Replace("/Blog","")+$"/Post?postref={postData.Post_Id}"}");}'>
                 <i class="fal fa-copy ps-2 fs-5"></i>
                 <span class="text-dark"> نسخ الرابط </span>
             </div>
@@ -76,8 +75,13 @@
     public PostView? postData { get; set; } = new PostView();
     private async void NavigatePost(Guid id)
     {
-        var encrypt = (await Crypto.EncryptAsync(postData?.Post_Id)).Value;
-        Nv.NavigateTo($"/Post?I={encrypt}");
+        Nv.NavigateTo($"/Post?postref={id}");
+    }
+    public Task CopyTextToClipboard(string Content)
+    {
+        _alert.ShowAlert("تم النسخ الي الحافظة", "done");
+        _app.NotifyStateChanged();
+        return Clipboard.SetTextAsync(Content);
     }
 }
 

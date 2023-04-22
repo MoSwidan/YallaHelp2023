@@ -8,6 +8,7 @@
 @using Microsoft.JSInterop
 @using Microsoft.AspNetCore.WebUtilities
 @using Microsoft.Extensions.Primitives
+@using TextCopy;
 @using YallaHelp2023
 @using YallaHelp2023.Shared
 @using YallaHelp2023.AppComponents
@@ -23,3 +24,5 @@
 @inject MainService _app
 @inject AlertService _alert
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject IClipboard Clipboard
+
