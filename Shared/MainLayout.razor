@@ -17,8 +17,8 @@ else
 {
     <div class="container-fluid text-center" style="height:100vh;overflow:hidden;">
         <div class="row justify-content-center align-content-center h-100 align-items-center" style="overflow:hidden;">
-            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_ifmmib8b.json" speed="1" style="width:220px; height:220px;" loop autoplay></lottie-player>
-            <div class="position-absolute fs-5 fw-bold slide-top mt-4" style="top:62%; left:auto;"> لا تتوقف أبدا عن مساعدة الاخرين </div>
+            <lottie-player src="animations/heartbeat.json" speed="1" style="width:220px; height:220px;" loop autoplay></lottie-player>
+            <div class="position-absolute fs-5 fw-bold slide-top mt-4" style="top:65vh; left:auto;"> لا تتوقف أبدا عن مساعدة الاخرين </div>
         </div>
     </div>
    
@@ -28,7 +28,7 @@ else
     private static bool IsLoaded = false;
     public async Task Loading()
     {
-        await Task.Delay(21500);
+        await Task.Delay(5000);
         IsLoaded = true;
         await InvokeAsync(StateHasChanged);
     }

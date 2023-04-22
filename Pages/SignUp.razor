@@ -1,4 +1,5 @@
 ﻿@page "/SignUp"
+<PageTitle>مستخدم جديد</PageTitle>
 <style>
 	.wrapper {
 		display: inline-flex;
@@ -169,7 +170,7 @@
 				<input class="fw-bold mb-2 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="AuthData.Phone_Number" @bind:event="oninput"  style="background:#eee;" type="number" placeholder="رقم الهاتف" />
 				<input class="fw-bold mb-2 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="AuthData.Email" @bind:event="oninput" style="background:#eee;" type="email" placeholder="البريد الالكتروني" />
 				<input class="fw-bold mb-2 border-0 p-2 w-100 text-center shadow-sm rounded text-dark" @bind="AuthData.Password" @bind:event="oninput"  style="background:#eee;" type="password" placeholder="كلمة المرور" />
-				<input class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" type="password" placeholder="تأكيد كلمة المرور" />
+				<input class="fw-bold border-0 p-2 w-100 text-center shadow-sm rounded text-dark" style="background:#eee;" @bind="Password" type="password" placeholder="تأكيد كلمة المرور" />
 			</div>
 			<div class="row justify-content-center px-4 w-auto mt-1">
 				<div class="wrapper col-9 col-md-12">
@@ -196,7 +197,14 @@
 			</div>*@
 			<button @onclick="Register" class="w-25 border-0 rounded p-2 mt-md-0 mt-3 text-white" style="background:#fd1b5b; cursor:pointer;">تأكيد</button>
 			<div class="justify-content-center w-100 p-2">
-				<p @onclick='()=>{Nv.NavigateTo("/LogIn");}' class="mt-2" style="color:#fd1b5b; cursor:pointer;">تسجيل الدخول</p>
+				@if (_app.AccountData.First_Name == null)
+                {
+					<p @onclick='()=>{Nv.NavigateTo("/LogIn");}' class="mt-2" style="color:#fd1b5b; cursor:pointer;">تسجيل الدخول</p>
+				}
+				else
+				{
+					<p class="mt-2" style="color:#fd1b5b;  opacity:0.5;">تسجيل الدخول</p>
+                }
 			</div>
 		</div>
 	</div>
@@ -207,7 +215,8 @@
 	private Account AuthData = new Account();
 	private char Gender = 'M';
 	private string? imgsrc = "/user.png";
-	private DotNetObjectReference<Pages.SignUp>? dotNetObjectReference;
+	private string? Password = "";
+	//private DotNetObjectReference<Pages.SignUp>? dotNetObjectReference;
 	[JSInvokable]
 	public async Task GetImgValue()
 	{
@@ -241,31 +250,38 @@
 		}
 		else
 		{
-			_app.Loading = true;
-			_app.NotifyStateChanged();
-			AccountResponse result1 = new AccountResponse();
-			result1 = await Http.GetFromJsonAsync<AccountResponse>($"api/User/CheckUserRegistration?PhoneNumber={AuthData.Phone_Number}");
-			if (result1.Code == "200")
+			if (Password == AuthData.Password)
 			{
-				_alert.ShowAlert("هذا المستخدم مسجل ", "warn");
+				_app.Loading = true;
+				_app.NotifyStateChanged();
+				AccountResponse result1 = new AccountResponse();
+				result1 = await Http.GetFromJsonAsync<AccountResponse>($"api/User/CheckUserRegistration?PhoneNumber={AuthData.Phone_Number}");
+				if (result1.Code == "200")
+				{
+					_alert.ShowAlert("هذا المستخدم مسجل ", "warn");
 
+				}
+				else if (result1.Code == "201")
+				{
+					var result = await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
+					var response = await result.Content.ReadFromJsonAsync<BaseResponse>();
+					if (response.Code == "200")
+					{
+						_alert.ShowAlert("تم التسجيل بنجاح", "done");
+					}
+					else
+					{
+						_alert.ShowAlert("حدث خطأ", "error");
+					}
+				}
+				await Task.Delay(1000);
+				_app.Loading = false;
+				_app.NotifyStateChanged();
 			}
-			else if (result1.Code == "201")
+			else
 			{
-				var result = await Http.PostAsJsonAsync("api/User/RegisterUser", Data);
-				var response = await result.Content.ReadFromJsonAsync<BaseResponse>();
-				if (response.Code == "200")
-				{
-					_alert.ShowAlert("تم التسجيل بنجاح", "done");
-				}
-				else
-				{
-					_alert.ShowAlert("حدث خطأ", "error");
-				}
+				_alert.ShowAlert("كلمة المرور غير متطابقة", "warn");
 			}
-			await Task.Delay(1000);
-			_app.Loading = false;
-			_app.NotifyStateChanged();
 		}
 	}
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -274,8 +290,8 @@
 		if (firstRender)
 		{
 			await JS.InvokeVoidAsync("main");
-			dotNetObjectReference = DotNetObjectReference.Create(this);
-			await JS.InvokeVoidAsync("JsFunctions.SuccessFunc", dotNetObjectReference);
+			//dotNetObjectReference = DotNetObjectReference.Create(this);
+			//await JS.InvokeVoidAsync("JsFunctions.SuccessFunc", dotNetObjectReference);
 		}
 
 	}
