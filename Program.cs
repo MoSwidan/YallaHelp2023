@@ -2,16 +2,17 @@ using Blazor.SubtleCrypto;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
 using YallaHelp2023;
 using YallaHelp2023.AppService;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+var configuration = builder.Configuration.Build();
+var Api = configuration.GetConnectionString("ApiConnection");
+
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7187") });
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://yallahelp.getorders.net") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri($"{Api}") });
 builder.Services.AddScoped<MainService>();
 builder.Services.AddScoped<AlertService>();
 builder.Services.AddSubtleCrypto(opt =>

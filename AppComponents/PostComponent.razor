@@ -41,7 +41,7 @@
     </div>
     <!--Post Tittle-->
     <div class="_oi_er_we ">
-        <h3 style="cursor:pointer;" class="text-truncate" @onclick='()=>Nv.NavigateTo("/Post")'>@postData?.Post_Tittle</h3>
+        <h3 style="cursor:pointer;" class="text-truncate" @onclick="()=>NavigatePost(postData.Post_Id)">@postData?.Post_Tittle</h3>
         <p class="text-truncate">
             @postData?.Post_Content
         </p>
@@ -74,9 +74,10 @@
 @code {
     [Parameter]
     public PostView? postData { get; set; } = new PostView();
-    //protected override async Task OnParametersSetAsync()
-    //{
-        
-    //}
+    private async void NavigatePost(Guid id)
+    {
+        var encrypt = (await Crypto.EncryptAsync(postData?.Post_Id)).Value;
+        Nv.NavigateTo($"/Post?I={encrypt}");
+    }
 }
 

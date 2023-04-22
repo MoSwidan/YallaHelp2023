@@ -1,15 +1,14 @@
 ﻿@page "/Post"
 <Header />
-
-<!-- ======== main started ========= -->
-<main class="charity-01-main position-relative" style="margin-top:102px;">
+@if (ShowData)
+{
+    <!-- ======== main started ========= -->
+    <main class="charity-01-main position-relative" style="margin-top:102px;">
     <Comments />
     <!-- ============abt-01 Section  Start============ -->
-    <BreadCrumb BaseRouteName="الرئيسيه" BaseRouteUrl="/" SubRouteName="المنشورات" SubSubRouteName="سيارة مفقودة" SubRouteUrl="Blog"/>
+    <BreadCrumb BaseRouteName="الرئيسيه" BaseRouteUrl="/" SubRouteName="المنشورات" SubSubRouteName="@(postDetails?.Data?.Post_Tittle)" SubRouteUrl="/Blog"/>
     <!-- ========bg-03 started ========= -->
-   
-    <section class="bg-03 " dir="rtl">
-        
+    <section class="bg-03 " dir="rtl" style="min-height:100vh;">
         <div class="m-auto" style="width:80vw;">
             <div class="row ">
                 <div class="col-md-3 order-md-0 order-1 col-12 bg-light ">
@@ -22,9 +21,8 @@
                             <hr />
                             <div class="col-12 px-0 rounded text-end">
                                 <div class="col-12 px-0 m-0">
-                                    <img class="rounded-circle px-0" style="height:50px;width:50px;" src="https://img.freepik.com/free-photo/medium-shot-happy-man-smiling_23-2148221808.jpg?w=1380&t=st=1670615915~exp=1670616515~hmac=0674c5d5b2c0548cf79781e691e6c005b881c802f8a48bda69850f34eef94f4c" />
-                                    <span class="pe-1 fw-bold">أدهم سيف النصر</span>
-                                    
+                                    <img class="rounded-circle px-0" style="height:50px;width:50px;" src="@(postDetails?.Data?.Image_Url)" />
+                                    <span class="pe-1 fw-bold">@(postDetails?.Data?.First_Name + " " + postDetails?.Data?.Last_Name)</span>
                                 </div>
                             </div>
                             
@@ -40,42 +38,44 @@
                                 <span class="fw-bold">
                                     وقت النشر :
                                 </span>
-                                10:30 ص
+                                <span>
+                                    @(postDetails?.Data?.Time_Stamp?.ToString("dd-MM-yyyy - hh:mm tt"))
+                                </span>
                             </div>
                             <div class="col-12  p-0 my-2">
                                 <i class="fas fa-filter ps-1 fs-5"></i>
                                 <span class="fw-bold">
                                     الفئة :
                                 </span>
-                                سيارات
+                                @(postDetails.Data?.Category)
                             </div>
                             <div class="col-12  p-0 my-2">
                                 <i class="far fa-eye ps-1 fs-5"></i>
                                 <span class="fw-bold">
                                     الحالة :
                                 </span>
-                                مفقودة
+                                @(postDetails.Data?.Status)
                             </div>
-                            <div class="col-12  p-0 my-2">
+                            @*<div class="col-12  p-0 my-2">
                                 <i class="far fa-money-bill-wave ps-1 fs-5"></i>
                                 <span class="fw-bold">
                                     يوجد مكافأة :
                                 </span>
                                 نعم
-                            </div>
+                            </div>*@
                             <div class="col-12  p-0 my-2">
                                 <i class="far fa-map-marked-alt ps-1 fs-5"></i>
                                 <span class="fw-bold">
                                     المحافظة :
                                 </span>
-                                القاهرة
+                                @(postDetails.Data?.Governrate)
                             </div>
                             <div class="col-12 m-0 p-0 my-2">
                                 <i class="far fa-map-marker-alt ps-2 fs-5"></i>
                                 <span class="fw-bold">
                                     المدينة :
                                 </span>
-                                مدينة نصر
+                                @(postDetails.Data?.City)
                             </div>
                             <div class="col-12 m-0 p-0 my-2" onclick="document.getElementById('comments').classList.toggle('d-none')">
                                 <i class="far fa-comment-dots ps-2 fs-5"></i>
@@ -105,21 +105,21 @@
                                 <span class="fw-bold">
                                     رقم الهاتف :
                                 </span>
-                                01124651160
+                                @(postDetails.Data?.Phone_Number)
                             </div>
-                            <div class="col-12  p-0 my-2">
+                            @*<div class="col-12  p-0 my-2">
                                 <i class="fab fa-whatsapp ps-1 fs-5"></i>
                                 <span class="fw-bold">
                                     واتس أب  :
                                 </span>
                                 01124651160
-                            </div>
+                            </div>*@
                             <div class="col-12  p-0 my-2">
                                 <i class="far fa-envelope ps-1 fs-5"></i>
                                 <span class="fw-bold">
                                     الايميل  :
                                 </span>
-                                Support@yallahelp.com
+                                @(postDetails.Data?.Email)
                             </div>
                         </div>
                         
@@ -128,7 +128,7 @@
                 <div class="col-md-6 order-md-1 order-0 col-12 bg-light">
                     <div class="row align-content-center justify-content-center p-2">
                         <div class="col-12 rounded shadow-sm mb-2 p-0">
-                            <img src="https://img.freepik.com/free-psd/white-car-isolated_176382-1481.jpg?w=1380&t=st=1670047416~exp=1670048016~hmac=7d26a38dbb3213f290076d1f4a722ae20d2357d5155fafbc35cb18f42443fb78" />
+                            <img src="@(postDetails.Data?.Img_Url)" />
                         </div>
                         <div class="col-12  text-secondary rounded text-end shadow-sm  mt-2 border p-3">
                             <h6 class="fw-bold fs-5">
@@ -137,11 +137,7 @@
                             </h6>
                             <hr/>
                             <p class="p-3">
-                                تم فقد السيارة مساء يوم  الخميس في مدينة السادس من أكتوبر من أمام مول مصر
-                                تم فقد السيارة مساء يوم  الخميس في مدينة السادس من أكتوبر من أمام مول مصر
-                                تم فقد السيارة مساء يوم  الخميس في مدينة السادس من أكتوبر من أمام مول مصر
-                                تم فقد السيارة مساء يوم  الخميس في مدينة السادس من أكتوبر من أمام مول مصر
-
+                                @(postDetails.Data?.Post_Content)
                             </p>
                         </div>
                     </div>
@@ -176,8 +172,46 @@
             </div>
         </div>
     </section>
-</main>
-
+    </main>
+}
+else
+{
+    <NotFoundPage ImgUrl="assets/images/404.jpg" />
+}
 @code {
-
+    StringValues I;
+    PostDetailsResponse? postDetails = new PostDetailsResponse();
+    private bool ShowData = false;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var uri = Nv.ToAbsoluteUri(Nv.Uri);
+            QueryHelpers.ParseQuery(uri.Query).TryGetValue("I", out I);
+           if (I.ToString != null)
+           {
+                _app.Loading = true;
+                _app.NotifyStateChanged();
+                try
+                {
+                    var decrypt = await Crypto.DecryptAsync<Guid>(I.ToString());
+                    postDetails = await Http.GetFromJsonAsync<PostDetailsResponse>($"api/Post/GetPostDetails?PostId={decrypt}");
+                    if (postDetails?.Code == "200")
+                    {
+                        if (postDetails.Data != null)
+                        {
+                            ShowData = true;
+                            await InvokeAsync(StateHasChanged);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                _app.Loading = false;
+                _app.NotifyStateChanged();
+           }
+        }
+    }
 }

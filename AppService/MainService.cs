@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Reflection;
 using Blazored.LocalStorage;
+using Microsoft.Extensions.Configuration;
 using YallaHelpWeb.Shared;
 using static System.Net.WebRequestMethods;
 
@@ -9,9 +10,13 @@ namespace YallaHelp2023.AppService
     public class MainService
     {
 		public ILocalStorageService localStorageService;
-        public MainService(ILocalStorageService localStorageService) { 
+		public IConfiguration configuration;
+		public HttpClient Http;
+        public MainService(ILocalStorageService localStorageService , IConfiguration _configuration) { 
 			this.localStorageService = localStorageService;
-		}
+			this.configuration = _configuration;
+			this.Http = new HttpClient { BaseAddress = new Uri($"{configuration.GetConnectionString("ApiConnection")}") };
+        }
         public void NotifyStateChanged() => OnChange?.Invoke();
         public event Action? OnChange;
 		public bool IsAnyNullOrEmpty(object myObject)
@@ -31,8 +36,7 @@ namespace YallaHelp2023.AppService
 		}
 		public Account UserAuthData = new Account();
 		public User AccountData = new User();
-		public bool Loading = false;
-		HttpClient Http = new HttpClient { BaseAddress = new Uri("https://yallahelp.getorders.net") };
+        public bool Loading = false;
 		public async Task AutoLogUser(Account account)
 		{
 			try
