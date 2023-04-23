@@ -56,7 +56,12 @@
                 {
                     if (postsList?.Data.FindAll(x => x.Governrate_Id.ToString().Contains(Governrates.Selected_Governrate_Id) && x.City_Id.ToString().Contains(Citys.Selected_City_Id) && x.Status_Id.ToString().Contains(Statu.Selected_Status_Id) && x.Category_Id.ToString().Contains(Categoryes.Selected_Category_Id) && x.Post_Tittle.Contains(Serach) && x.Post_Content.Contains(Serach)).ToList().Count > 0)
                     {
-
+                        @foreach (var post in postsList?.Data.FindAll(x => x.Governrate_Id.ToString().Contains(Governrates.Selected_Governrate_Id) && x.City_Id.ToString().Contains(Citys.Selected_City_Id) && x.Status_Id.ToString().Contains(Statu.Selected_Status_Id) && x.Category_Id.ToString().Contains(Categoryes.Selected_Category_Id) && x.Post_Tittle.Contains(Serach) && x.Post_Content.Contains(Serach)))
+                        {
+                            <div class="p-0 mx-1" style="width:300px;">
+                                <PostComponent postData="post" />
+                            </div>
+                        } 
                     }
                     else
                     {
@@ -66,20 +71,15 @@
                             لا يوجد نتائج لبحثك
                         </h5>
                     }
-                    @foreach (var post in postsList?.Data.FindAll(x => x.Governrate_Id.ToString().Contains(Governrates.Selected_Governrate_Id) && x.City_Id.ToString().Contains(Citys.Selected_City_Id) && x.Status_Id.ToString().Contains(Statu.Selected_Status_Id) && x.Category_Id.ToString().Contains(Categoryes.Selected_Category_Id) && x.Post_Tittle.Contains(Serach) && x.Post_Content.Contains(Serach)))
-                    {
-                        <div class="p-0 mx-1" style="width:300px;">
-                            <PostComponent postData="post" />
-                        </div>
-                    }  
+                    
                 }
                 else
                 {
                     <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_GlZGOi.json" speed="1" style="width:270px; height:270px;" loop autoplay>
-                        </lottie-player>
-                        <h5>
-                            لا يوجد  منشورات
-                        </h5>
+                    </lottie-player>
+                    <h5>
+                        لا يوجد  منشورات
+                    </h5>
                 }
             </div>
         </div>

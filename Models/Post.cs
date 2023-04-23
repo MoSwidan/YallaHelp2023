@@ -13,7 +13,7 @@
         public string? Longitude { get; set; }
         public string? Post_Content { get; set; }
         public string? Img_Url { get; set; }
-        public DateTime? Time_Stamp { get; set; }
+        public string? Time_Stamp { get; set; }
         public string? Device_Ipv4 { get; set; }
         public bool? Is_Reviewed { get; set; }
     }

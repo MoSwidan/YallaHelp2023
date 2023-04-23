@@ -181,7 +181,7 @@
                         Is_Reviewed = true,
                         Post_Content = PostContent,
                         Post_Tittle = PostTittle,
-                        Time_Stamp = DateTime.Now,
+                        Time_Stamp = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}",
                         Longitude = lat,
                         Latitude = lat
                     };
@@ -204,6 +204,8 @@
                             }
                             else
                             {
+                                Console.WriteLine(deserilaize.Meassage);
+                                Console.WriteLine(deserilaize.Code);
                                 _alert.ShowAlert($"حدث خطاء", "error");
                             }
                         }
