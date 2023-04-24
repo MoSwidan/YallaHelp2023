@@ -4,20 +4,21 @@
         <span>تعليق</span>
     </div>
     <div class="col-6 text-start ">
-        5
-        <span>أعجبني</span>
+
+            @(LikesList?.Data?.Count() > 0 ? $"{LikesList?.Data?.Count()}":"0")
+            <span>أعجبني</span>
+        
     </div>
 </div>
 <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
     <div class="col-6 text-center" onclick="document.getElementById('comments').classList.toggle('d-none')">
-
         <i class="fal fa-comment-dots ps-2 fs-5"></i>
         التعليقات
     </div>
     @if (_app.AccountData.First_Name != null)
     {
-        <div class="col-6 text-center border-right">
-            <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+        <div class="col-6 text-center border-right" style="color:@(LikesList?.Data?.Where(x=>x.User_Id == _app.AccountData.User_Id).FirstOrDefault().User_Id != null ? "blue":"");" @onclick="AddLike">
+            <i class="@(LikesList?.Data?.Where(x=>x.User_Id == _app.AccountData.User_Id).FirstOrDefault().User_Id != null ? "fal":"fa") fa-thumbs-up ps-2 fs-5" ></i>
             <span>أعجبني</span>
         </div>
     }
@@ -32,9 +33,79 @@
 </div>
 
 @code {
+    private bool ShowData = false;
+    [Parameter]
+    public Guid PostId { get; set; }
+    private LikeResponse? LikesList = new LikeResponse();
     protected override void OnInitialized()
     {
         _app.OnChange += StateHasChanged;
         base.OnInitialized();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //Get Post Likes
+            await GetPostLikes();
+        }
+    }
+    private async Task GetPostLikes()
+    {
+        try
+        {
+            @if (PostId != null)
+            {
+                LikesList = await Http.GetFromJsonAsync<LikeResponse>($"api/Like/GetPostLikes?postid={PostId}");
+                if (LikesList?.Code == "200")
+                {
+                    if (LikesList?.Data?.Count > 0)
+                    {
+                        await InvokeAsync(StateHasChanged);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+    }
+    private async Task AddLike()
+    {
+        try
+        {
+            Like like = new Like
+            {
+                Post_Id = PostId,
+                User_Id = _app.AccountData.User_Id,
+                TimeStamp = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}",
+                Like_Id = new Guid()
+            };
+            var response = await Http.PostAsJsonAsync<Like>("api/Like/AddPostLikes", like);
+            var responseStatusCode = response.StatusCode;
+            var responseBody = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrWhiteSpace(responseBody))
+            {
+                var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(responseBody);
+                if (deserilaize.Meassage == "Ok")
+                {
+                    _alert.ShowAlert("تم إضافة إعجاب بنجاح", "done");
+                    await GetPostLikes();
+                    await InvokeAsync(StateHasChanged);
+                }
+                else
+                {
+                    Console.WriteLine(deserilaize.Meassage);
+                    Console.WriteLine(deserilaize.Code);
+                    _alert.ShowAlert($"حدث خطاء", "error");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            
+        }
     }
 }
