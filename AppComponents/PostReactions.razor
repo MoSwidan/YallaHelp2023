@@ -1,0 +1,40 @@
+﻿<div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
+    <div class="col-6 text-end">
+        10
+        <span>تعليق</span>
+    </div>
+    <div class="col-6 text-start ">
+        5
+        <span>أعجبني</span>
+    </div>
+</div>
+<div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
+    <div class="col-6 text-center" onclick="document.getElementById('comments').classList.toggle('d-none')">
+
+        <i class="fal fa-comment-dots ps-2 fs-5"></i>
+        التعليقات
+    </div>
+    @if (_app.AccountData.First_Name != null)
+    {
+        <div class="col-6 text-center border-right">
+            <i class="fal fa-thumbs-up ps-2 fs-5"></i>
+            <span>أعجبني</span>
+        </div>
+    }
+    else
+    {
+        <div class="col-6 text-center border-right" @onclick='()=>_alert.ShowAlert("قم بتسجيل الدخول أولا","warn")'>
+            <i class="fal fa-thumbs-up ps-2 fs-5" style="opacity:0.4;"></i>
+            <span style="opacity:0.4;">أعجبني</span>
+        </div>
+    }
+
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        _app.OnChange += StateHasChanged;
+        base.OnInitialized();
+    }
+}

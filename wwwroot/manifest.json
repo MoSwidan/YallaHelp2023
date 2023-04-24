@@ -1,6 +1,6 @@
 {
-  "name": "YallaHelp2023",
-  "short_name": "YallaHelp2023",
+  "name": "YallaHelp",
+  "short_name": "YallaHelp",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -10,7 +10,7 @@
     {
       "src": "icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "500x500"
     },
     {
       "src": "icon-192.png",
