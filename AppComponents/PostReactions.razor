@@ -1,32 +1,30 @@
 ﻿<div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
-    <div class="col-6 text-end">
-        10
+    <div class="col-6 text-end p-0">
+        0
         <span>تعليق</span>
     </div>
-    <div class="col-6 text-start ">
-
-            @(LikesList?.Data?.Count() > 0 ? $"{LikesList?.Data?.Count()}":"0")
-            <span>أعجبني</span>
-        
+    <div class="col-6 text-start p-0">
+        @(LikesList?.Data?.Count() > 0 ? $"{LikesList?.Data?.Count()}":"0")
+        <span>أعجبني</span>
     </div>
 </div>
 <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
-    <div class="col-6 text-center" onclick="document.getElementById('comments').classList.toggle('d-none')">
+    <div class="col-6 text-center" style="cursor:pointer;" onclick="document.getElementById('comments').classList.toggle('d-none')">
         <i class="fal fa-comment-dots ps-2 fs-5"></i>
-        التعليقات
+        <span style="font-size: 14px;">التعليقات</span>
     </div>
     @if (_app.AccountData.First_Name != null)
     {
-        <div class="col-6 text-center border-right" style="color:@(LikesList?.Data?.Where(x=>x.User_Id == _app.AccountData.User_Id).FirstOrDefault().User_Id != null ? "blue":"");" @onclick="AddLike">
-            <i class="@(LikesList?.Data?.Where(x=>x.User_Id == _app.AccountData.User_Id).FirstOrDefault().User_Id != null ? "fal":"fa") fa-thumbs-up ps-2 fs-5" ></i>
-            <span>أعجبني</span>
+        <div class="col-6 text-center border-right @(CheckLike == true ? "text-primary":" ")" style="cursor:pointer;" @onclick="ToggleLike">
+            <i class="@(CheckLike == true ? "fa":"fal") fa-thumbs-up ps-2 fs-5"></i>
+            <span style="font-size: 14px;">أعجبني</span>
         </div>
     }
     else
     {
         <div class="col-6 text-center border-right" @onclick='()=>_alert.ShowAlert("قم بتسجيل الدخول أولا","warn")'>
             <i class="fal fa-thumbs-up ps-2 fs-5" style="opacity:0.4;"></i>
-            <span style="opacity:0.4;">أعجبني</span>
+            <span style="opacity:0.4;font-size: 14px;">أعجبني</span>
         </div>
     }
 
@@ -36,6 +34,7 @@
     private bool ShowData = false;
     [Parameter]
     public Guid PostId { get; set; }
+    private bool CheckLike = false;
     private LikeResponse? LikesList = new LikeResponse();
     protected override void OnInitialized()
     {
@@ -72,7 +71,7 @@
         }
 
     }
-    private async Task AddLike()
+    private async Task ToggleLike()
     {
         try
         {
@@ -89,9 +88,17 @@
             if (!string.IsNullOrWhiteSpace(responseBody))
             {
                 var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(responseBody);
-                if (deserilaize.Meassage == "Ok")
+                if (deserilaize.Code == "200")
                 {
-                    _alert.ShowAlert("تم إضافة إعجاب بنجاح", "done");
+                    if (deserilaize.Meassage == "Add")
+                    {
+                        _alert.ShowAlert("تم إضافة إعجاب للمنشور", "done");
+                        CheckLike = true;
+                    }else if (deserilaize.Meassage == "Remove")
+                    {
+                        _alert.ShowAlert("تم إلغاء الاعجاب بالمنشور", "done");
+                        CheckLike = false;
+                    }
                     await GetPostLikes();
                     await InvokeAsync(StateHasChanged);
                 }
