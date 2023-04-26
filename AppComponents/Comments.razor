@@ -1,4 +1,4 @@
-﻿<div dir="rtl" class="container-fluid scrollarea d-none" style="position:fixed;z-index:3060;top:0%;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:scroll;" id="comments">
+﻿<div dir="rtl" class="container-fluid scrollarea d-none" style="position:fixed;z-index:3060;top:0%;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:scroll;" id="@PostId">
     <div class="justify-content-center rounded align-content-center row h-100 w-100" style="position:absolute;top:20%;">
         <div class="d-flex flex-column  col-md-8 postion-fixed h-100">
             <div class="coment-bottom  bg-light  p-2 px-2">
@@ -59,5 +59,46 @@
 </div>
 
 @code {
+    [Parameter]
+    public Guid PostId { get; set; }
+    protected override async Task OnParametersSetAsync()
+    {
+        if (PostId != null)
+        {
+            await GetPostComments();
+        }
+    }
+    private async Task GetPostComments()
+    {
+        try
+        {
+            @if (PostId != null)
+            {
+                LikesList = await Http.GetFromJsonAsync<LikeResponse>($"api/Like/GetPostLikes?postid={PostId}");
+                if (LikesList?.Code == "200")
+                {
+                    if (LikesList?.Data?.Count > 0)
+                    {
+                        var checkuserlike = LikesList?.Data?.Where(x => x.User_Id == _app.UserAuthData.User_Id).First().User_Id;
+                        if (checkuserlike != null)
+                        {
+                            CheckLike = true;
+                        }
+                        else
+                        {
+                            CheckLike = false;
+                        }
+                    }
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+    }
 
 }

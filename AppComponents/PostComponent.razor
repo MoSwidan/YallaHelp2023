@@ -22,12 +22,25 @@
                 </div>
             </div>
         }
-        @*<div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-            <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                <i class="fal fa-stars ps-2 fs-5"></i>
-                <span class="text-dark">حذف من المفضلة</span>
+        @if (_app.AccountData.First_Name != null)
+        {
+            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                @if (postData.Favorite_id == Guid.Empty)
+                {
+                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>AddToFavorites()'>
+                        <i class="fal fa-stars ps-2 fs-5"></i>
+                        <span class="text-dark">أضف إلي المفضلة</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=> RemoveFromFavorites()'>
+                        <i class="fal fa-star ps-2 fs-5"></i>
+                        <span class="text-dark">حذف من المفضلة</span>
+                    </div>
+                }
             </div>
-        </div>*@
+        }
         <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
             <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>{CopyTextToClipboard($"{Nv.ToAbsoluteUri(Nv.Uri).AbsoluteUri.ToString().Replace("/Blog","")+$"/Post?postref={postData.Post_Id}"}");}'>
                 <i class="fal fa-copy ps-2 fs-5"></i>
@@ -50,13 +63,88 @@
     <!--Post Comments & Likes-->
     <PostReactions  PostId="postData.Post_Id"/>
 </article>
+<Comments PostId="postData.Post_Id"/>
 
 @code {
     [Parameter]
     public PostView? postData { get; set; } = new PostView();
-    private async void NavigatePost(Guid id)
+    private void NavigatePost(Guid id)
     {
         Nv.NavigateTo($"/Post?postref={id}");
+    }
+    private async Task AddToFavorites()
+    {
+        try
+        {
+            Favorite Favorite = new Favorite
+            {
+                Post_Id = postData?.Post_Id,
+                User_Id = _app.AccountData.User_Id,
+                TimeStamp = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}",
+                Favorite_Id = new Guid()
+            };
+            var response = await Http.PostAsJsonAsync<Favorite>("api/Favorite/AddPostToFavorite", Favorite);
+            var responseStatusCode = response.StatusCode;
+            var responseBody = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrWhiteSpace(responseBody))
+            {
+                var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(responseBody);
+                if (deserilaize.Code == "200")
+                {
+                    if (deserilaize.Meassage == "Ok")
+                    {
+                        _alert.ShowAlert("تم إضافة المنشور إلي المفضله", "done");
+                        _app.NotifyStateChanged();
+                    }
+                    else
+                    {
+                        _alert.ShowAlert("حدث خطأ", "error");
+                        Console.WriteLine(deserilaize.Meassage);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            
+        }
+    }
+    private async Task RemoveFromFavorites()
+    {
+        try
+        {
+            Favorite Favorite = new Favorite
+            {
+                Post_Id = postData?.Post_Id,
+                User_Id = _app.AccountData.User_Id,
+                TimeStamp = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}",
+                Favorite_Id = postData.Favorite_id
+            };
+            var response = await Http.PostAsJsonAsync<Favorite>("api/Favorite/RemoveFaviortePost", Favorite);
+            var responseStatusCode = response.StatusCode;
+            var responseBody = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrWhiteSpace(responseBody))
+            {
+                var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(responseBody);
+                if (deserilaize.Code == "200")
+                {
+                    if (deserilaize.Meassage == "Ok")
+                    {
+                        _alert.ShowAlert("تم حذف المنشور من المفضله", "done");
+                        _app.NotifyStateChanged();
+                    }
+                    else
+                    {
+                        _alert.ShowAlert("حدث خطأ", "error");
+                        Console.WriteLine(deserilaize.Meassage);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
     public Task CopyTextToClipboard(string Content)
     {

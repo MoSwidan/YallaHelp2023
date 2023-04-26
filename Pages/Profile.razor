@@ -82,7 +82,7 @@
                     <i class="fal fa-list-alt ps-1"></i>
                     المنشورات
                 </span>
-                <span @onclick='()=>{activesection = "Saved";GetPosts($"api/Post/GetUserFaviortePosts?UserId={_app.UserAuthData.User_Id}",false);}' class="btn  mx-1  text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                <span @onclick='()=>{activesection = "Saved";GetPosts($"api/Favorite/GetUserFaviortePosts?UserId={_app.UserAuthData.User_Id}",false);}' class="btn  mx-1  text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
                     <i class="fal fa-star ps-1"></i>
                     المنشورات المفضلة
                 </span>

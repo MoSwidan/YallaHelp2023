@@ -4,12 +4,12 @@
         <span>تعليق</span>
     </div>
     <div class="col-6 text-start p-0">
-        @(LikesList?.Data?.Count() > 0 ? $"{LikesList?.Data?.Count()}":"0")
+        @LikesList?.Data?.Count
         <span>أعجبني</span>
     </div>
 </div>
 <div class="w-100 row text-center bg-white m-0 rounded-bottom p-2  border-top">
-    <div class="col-6 text-center" style="cursor:pointer;" onclick="document.getElementById('comments').classList.toggle('d-none')">
+    <div class="col-6 text-center" style="cursor:pointer;" onclick="document.getElementById('@PostId').classList.toggle('d-none')">
         <i class="fal fa-comment-dots ps-2 fs-5"></i>
         <span style="font-size: 14px;">التعليقات</span>
     </div>
@@ -35,17 +35,17 @@
     [Parameter]
     public Guid PostId { get; set; }
     private bool CheckLike = false;
+    public int? LikesCount { get; set; }
     private LikeResponse? LikesList = new LikeResponse();
     protected override void OnInitialized()
     {
         _app.OnChange += StateHasChanged;
         base.OnInitialized();
     }
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnParametersSetAsync()
     {
-        if (firstRender)
+        if (PostId != null)
         {
-            //Get Post Likes
             await GetPostLikes();
         }
     }
@@ -60,10 +60,20 @@
                 {
                     if (LikesList?.Data?.Count > 0)
                     {
-                        await InvokeAsync(StateHasChanged);
+                        var checkuserlike = LikesList?.Data?.Where(x => x.User_Id == _app.UserAuthData.User_Id).First().User_Id;
+                        if (checkuserlike != null)
+                        {
+                            CheckLike = true;
+                        }
+                        else
+                        {
+                            CheckLike = false;
+                        }
                     }
+                    await InvokeAsync(StateHasChanged);
                 }
             }
+            
         }
         catch (Exception ex)
         {
