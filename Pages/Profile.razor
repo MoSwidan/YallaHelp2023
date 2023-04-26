@@ -107,20 +107,30 @@
                                     <div class="row justify-content-center align-items-center">
                                         @if (ShowData)
                                         {
-                                            @foreach (var post in postsList?.Data)
+                                            if (postsList?.Data.Count < 1)
                                             {
-                                                <div class="p-0 mx-1" style="max-width:300px;">
-                                                    <PostComponent postData="post" />
-                                                </div>
+                                                <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_GlZGOi.json" speed="1" style="width:270px; height:270px;" loop autoplay>
+                                                </lottie-player>
+                                                <h5 class="text-center">
+                                                    لا يوجد  منشورات سابقه
+                                                </h5>
+                                            }else{
+                                                @foreach (var post in postsList?.Data)
+                                                {
+                                                    <div class="p-0 mx-1" style="max-width:300px;">
+                                                        <PostComponent postData="post" />
+                                                    </div>
+                                                }
                                             }
                                         }
                                         else
                                         {
-                                            <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_GlZGOi.json" speed="1" style="width:270px; height:270px;" loop autoplay>
-                                            </lottie-player>
-                                            <h5 class="text-center">
-                                                لا يوجد  منشورات سابقه
-                                            </h5>
+                                            <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
+                                                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_usmfx6bp.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
+                                                <div class="fs-5 text-center mt-1" style="">
+                                                    جاري تحميل المنشوارت 
+                                                </div>
+                                            </div>
                                         }
                                     </div>
                                     break;
@@ -129,6 +139,14 @@
                                         <div class="row justify-content-center align-items-center">
                                             @if (ShowData)
                                             {
+                                                if (postsList?.Data.Count < 1)
+                                                {
+                                                    <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_GlZGOi.json" speed="1" style="width:270px; height:270px;" loop autoplay>
+                                                    </lottie-player>
+                                                    <h5 class="text-center">
+                                                        لا يوجد  منشورات محفوظة
+                                                    </h5>
+                                                }
                                                 @foreach (var post in postsList?.Data)
                                                 {
                                                     <div class="p-0 mx-1" style="max-width:300px;">
@@ -138,11 +156,12 @@
                                             }
                                             else
                                             {
-                                                <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_GlZGOi.json" speed="1" style="width:270px; height:270px;" loop autoplay>
-                                                </lottie-player>
-                                                <h5 class="text-center">
-                                                    لا يوجد  منشورات محفوظة
-                                                </h5>
+                                                <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
+                                                    <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_usmfx6bp.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
+                                                    <div class="fs-5 text-center mt-1" style="">
+                                                        جاري تحميل المنشوارت المفضلة
+                                                    </div>
+                                                </div>
                                             }
                                         </div>
                                     </div>
@@ -152,20 +171,32 @@
                                         <div class="row justify-content-center align-items-center">
                                             @if (ShowData)
                                             {
-                                                @foreach (var post in postsList?.Data)
+                                                if (postsList?.Data.Count < 1)
                                                 {
-                                                    <div class="p-0 mx-1" style="max-width:300px;">
-                                                        <PostComponent postData="post" />
-                                                    </div>
+                                                    <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_GlZGOi.json" speed="1" style="width:270px; height:270px;" loop autoplay>
+                                                    </lottie-player>
+                                                    <h5 class="text-center">
+                                                        لا يوجد  منشورات مميزة
+                                                    </h5>
+                                                }
+                                                else
+                                                {
+                                                    @foreach (var post in postsList?.Data)
+                                                    {
+                                                        <div class="p-0 mx-1" style="max-width:300px;">
+                                                            <PostComponent postData="post" />
+                                                        </div>
+                                                    }
                                                 }
                                             }
                                             else
                                             {
-                                                <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_GlZGOi.json" speed="1" style="width:270px; height:270px;" loop autoplay>
-                                                </lottie-player>
-                                                <h5 class="text-center">
-                                                    لا يوجد  منشورات مميزة
-                                                </h5>
+                                                <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
+                                                    <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_usmfx6bp.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
+                                                    <div class="fs-5 text-center mt-1" style="">
+                                                        جاري تحميل المنشورات المميزة
+                                                    </div>
+                                                </div>
                                             }
                                         </div>
                                     </div>
@@ -251,19 +282,10 @@
         try
         {
             postsList = await Http.GetFromJsonAsync<PostResponse>(url);
-            if (postsList?.Code == "200")
+            if (postsList?.Meassage == "Ok")
             {
-                if (postsList?.Data?.Count > 0)
-                {
-                    ShowData = true;
-                    await InvokeAsync(StateHasChanged);
-                }
-                else
-                {
-                    ShowData = false;
-                    await InvokeAsync(StateHasChanged);
-
-                }
+                ShowData = true;
+                await InvokeAsync(StateHasChanged);
             }
             else
             {
@@ -283,11 +305,23 @@
             _app.NotifyStateChanged();
         }
     }
+    protected override void OnInitialized()
+    {
+        _app.OnChange += StateHasChanged;
+        base.OnInitialized();
+    }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-           await  GetPosts($"api/Post/GetUserPosts?UserId={_app.UserAuthData.User_Id}",true);
+            if (_app.AccountData.First_Name != null)
+            {
+                await GetPosts($"api/Post/GetUserPosts?UserId={_app.UserAuthData.User_Id}", true);
+            }
+        }
+        if (_app.AccountData.First_Name == null)
+        {
+            Nv.NavigateTo("/");
         }
     }
 }

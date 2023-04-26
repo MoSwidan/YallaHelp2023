@@ -145,6 +145,10 @@
             //await JS.InvokeVoidAsync("JsFunctions.SuccessFunc", dotNetObjectReference);
             await JS.InvokeVoidAsync("getLocation");
         }
+        if (_app.AccountData.First_Name == null)
+        {
+            Nv.NavigateTo("/");
+        }
     }
     protected override void OnInitialized()
     {

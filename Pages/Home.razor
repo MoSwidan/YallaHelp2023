@@ -40,11 +40,11 @@
                   <ul>
                     @if (_app.AccountData.First_Name == null)
                     {
-                       <li style="cursor:pointer;" @onclick='()=>{Nv.NavigateTo("/LogIn");}'><a>تسجيل الدخول</a></li>             
+                       <li class="rounded" style="cursor:pointer;" @onclick='()=>{Nv.NavigateTo("/LogIn");}'><a>تسجيل الدخول</a></li>             
                     }else{
-                       <li style="opacity:0.5;" ><a>تسجيل الدخول</a></li>     
+                       <li class="rounded" style="opacity:0.5;" ><a>تسجيل الدخول</a></li>     
                     }
-                    <li style="cursor:pointer;" @onclick='()=>{Nv.NavigateTo("/SignUp");}'><a>مستخدم جديد</a></li>
+                    <li class="rounded" style="cursor:pointer;" @onclick='()=>{Nv.NavigateTo("/SignUp");}'><a>مستخدم جديد</a></li>
                   </ul>
                 </div>
               </div>

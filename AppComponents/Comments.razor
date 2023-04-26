@@ -1,59 +1,90 @@
-﻿<div dir="rtl" class="container-fluid scrollarea d-none" style="position:fixed;z-index:3060;top:0%;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:scroll;" id="@PostId">
-    <div class="justify-content-center rounded align-content-center row h-100 w-100" style="position:absolute;top:20%;">
-        <div class="d-flex flex-column  col-md-8 postion-fixed h-100">
-            <div class="coment-bottom  bg-light  p-2 px-2">
-                <div class="row  pt-2 me-1 justify-content-center  text-end">          
-                     <i onclick="document.getElementById('comments').classList.toggle('d-none')" class="fa fa-times text-danger fs-3" style="cursor:pointer;"></i>                    
+﻿<style>
+    #commentsview::-webkit-scrollbar {
+        width: 10px;
+        height: 7px;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    #commentsview::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: #fd1b5b;
+        border-radius: 10px;
+        border: 4px solid transparent;
+        background-clip: padding-box;
+    }
+
+    #commentsview::-webkit-scrollbar-thumb:hover {
+        border: 0;
+    }
+
+    #commentsview::-webkit-scrollbar-track {
+        background: transparent;
+    }
+</style>
+<div dir="rtl" class="container-fluid scrollarea d-none " style="position:fixed;z-index:3060;top:0;left:0;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:hidden;" id="@(PostId.ToString()+_app.AccountData.User_Id.ToString())">
+    <div class="justify-content-center rounded align-content-center row  w-100" style="position:absolute;top:13vh;height:86%;">
+        <div class="d-flex flex-column  col-md-8 postion-fixed  h-100">
+            <div class="coment-bottom  bg-light  p-2 px-2 rounded-top">
+                <div class="row  pt-2 me-1 justify-content-center  text-end">
+                    <i onclick="document.getElementById('@(PostId.ToString()+_app.AccountData.User_Id.ToString())').classList.toggle('d-none')" class="fa fa-times text-danger fs-3" style="cursor:pointer;"></i>
                 </div>
                 <hr/>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                    <img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38">
-                    <input type="text" class="form-control mx-3" placeholder="أضف تعليق">
-                    <button class="btn btn-primary" type="button">
-                        تأكيد
+@*                    <img class="img-fluid img-responsive rounded-circle mr-2" src="@_app.AccountData.Image_Url" style="width:45px;height:45px;">
+*@                  <input type="text" class="form-control mx-3" @bind="CommentContent" @bind:event="oninput" placeholder="أضف تعليق">
+                    <button @onclick='()=>AddComment()' class="bg-secondary text-white px-2 py-0 text-center rounded border-0" style="font-size:13px;width:70px;" type="button">
+                        نشر
                     </button>
                 </div>
             </div>
-
-            <div class="coment-bottom  bg-light p-1 px-2">
-                <div class="commented-section  text-dark shadow rounded my-3 p-2">
-                    <div class="d-flex flex-column align-items-start commented-user ">
-                        <div class="row w-100 align-items-center justify-content-start ">
-                            <div style="width:60px;" class=" ms-2 me-3 p-0">
-                                <img style="height:60px;width:60px;" class="rounded-circle" src="https://img.freepik.com/free-photo/medium-shot-happy-man-smiling_23-2148221808.jpg?w=1380&t=st=1670615915~exp=1670616515~hmac=0674c5d5b2c0548cf79781e691e6c005b881c802f8a48bda69850f34eef94f4c">
+            <div id="commentsview" class="coment-bottom  bg-light p-1 px-2 rounded-bottom" style="overflow-y:scroll;overflow-x:hidden;">
+                @if (ShowData)
+                {
+                    @if (CommentsList.Data.Count > 0)
+                    {
+                        @foreach (var comment in CommentsList.Data)
+                        {
+                            <div class="commented-section  text-dark shadow rounded bg-white my-3 p-2">
+                                <div class="d-flex flex-column align-items-start commented-user ">
+                                    <div class="row w-100 align-items-center justify-content-start pt-2 pe-2">
+                                        <div style="width:45px;" class=" ms-2 me-3 p-0">
+                                            <img style="height:45px;width:45px;" class="rounded-circle" src="@comment.Image_Url">
+                                        </div>
+                                        <div class="col-6 text-end  p-0 ">
+                                            <p class="text-end fw-bold p-0 mb-0 me-1" style="font-size:13px;">@(comment.First_Name + " " + comment.Last_Name)</p>
+                                            <p class="pt-1 px-0 m-0" style="font-size:11px;">
+                                                <DateDiffreanceCalc Time_Stamp="@comment.TimeStamp" />
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-end  mt-2 mb-1 px-2 p-1 bg-light py-2  text-dark" style="font-size:15px;">
+                                    @comment.Comment_Content
+                                </div>
                             </div>
-                            <div class="col-6 text-end  p-0 ">
-                                <p class="fw-bold text-end fw-bold p-0 me-1"> أحمد صلاح حسيب</p>
-                                <p class="pt-1 px-0 m-0" style="font-size:12px;">12/10/2022 10:50 ص</p>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
+                            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_6PnLAF.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
+                            <div class="fs-5 text-center mt-1" style="">
+                                لا يوجد تعليقات
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="col-12 text-end pe-2 my-3  p-2   text-secondary">
-                        لقد رأيت هذا في مكان قريب من القاهرة في محطة
-                    </div>
-                </div>
-                <div class="commented-section  text-dark shadow rounded my-3 p-2">
-                    <div class="d-flex flex-column align-items-start commented-user ">
-                        <div class="row w-100 align-items-center justify-content-start ">
-                            <div style="width:60px;" class=" ms-2 me-3 p-0">
-                                <img style="height:60px;width:60px;" class="rounded-circle" src="https://img.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-18743.jpg?w=1380&t=st=1670717325~exp=1670717925~hmac=e327f7866e565be149d2f1ec79e5604e42b1dc2c5a0f0eda6f0f84dd247a40bf">
-                            </div>
-                            <div class="col-6 text-end  p-0 ">
-                                <p class="fw-bold text-end fw-bold p-0 me-1"> أحمد صلاح حسيب</p>
-                                <p class="pt-1 px-0 m-0" style="font-size:12px;">12/10/2022 10:50 ص</p>
-                            </div>
+                    }
+                }
+                else
+                {
+                    <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
+                        <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_usmfx6bp.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
+                        <div class="fs-5 text-center mt-1" style="">
+                            جاري تحميل التعليقات...
                         </div>
                     </div>
-
-                    <div class="col-12 text-end pe-2 my-3  p-2   text-secondary">
-                        لقد رأيت هذا في مكان قريب من القاهرة في محطة
-                    </div>
-                </div>
-
-
+                }
             </div>
-            
         </div>
     </div>
 </div>
@@ -61,35 +92,31 @@
 @code {
     [Parameter]
     public Guid PostId { get; set; }
-    protected override async Task OnParametersSetAsync()
+    private string CommentContent = "";
+    public CommentResponse? CommentsList = new CommentResponse();
+    private bool ShowData = false;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (PostId != null)
+        if (firstRender)
         {
-            await GetPostComments();
+            //await GetPostComments();
         }
     }
-    private async Task GetPostComments()
+    public async Task GetPostComments()
     {
         try
         {
             @if (PostId != null)
             {
-                LikesList = await Http.GetFromJsonAsync<LikeResponse>($"api/Like/GetPostLikes?postid={PostId}");
-                if (LikesList?.Code == "200")
+                CommentsList = await Http.GetFromJsonAsync<CommentResponse>($"api/Comment/GetPostComments?postid={PostId}&userid={_app.AccountData.User_Id}");
+                if (CommentsList?.Meassage == "Ok")
                 {
-                    if (LikesList?.Data?.Count > 0)
-                    {
-                        var checkuserlike = LikesList?.Data?.Where(x => x.User_Id == _app.UserAuthData.User_Id).First().User_Id;
-                        if (checkuserlike != null)
-                        {
-                            CheckLike = true;
-                        }
-                        else
-                        {
-                            CheckLike = false;
-                        }
-                    }
+                    ShowData = true;
                     await InvokeAsync(StateHasChanged);
+                }
+                else
+                {
+                    ShowData = false;
                 }
             }
 
@@ -100,5 +127,49 @@
         }
 
     }
+    private async Task AddComment()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(CommentContent))
+            {
+                Comment Comment = new Comment
+                {
+                    Post_Id = PostId,
+                    User_Id = _app.AccountData.User_Id,
+                    TimeStamp = $"{DateTime.Now.ToLongDateString()} {DateTime.Now.ToLongTimeString()}",
+                    Comment_Id = new Guid(),
+                    Comment_Content = CommentContent
+                };
+                var response = await Http.PostAsJsonAsync<Comment>("api/Comment/AddPostComment", Comment);
+                var responseStatusCode = response.StatusCode;
+                var responseBody = await response.Content.ReadAsStringAsync();
+                if (!string.IsNullOrWhiteSpace(responseBody))
+                {
+                    var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(responseBody);
+                    if (deserilaize.Code == "200")
+                    {
 
+                        _alert.ShowAlert("تم إضافة تعليق", "done");
+                        await GetPostComments();
+                        _app.NotifyStateChanged();
+                    }
+                    else
+                    {
+                        _alert.ShowAlert($"حدث خطاء", "error");
+
+                    }
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+            else
+            {
+                _alert.ShowAlert("أضف تعليق أولا", "warn");
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
 }

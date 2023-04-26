@@ -27,14 +27,14 @@
             <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
                 @if (postData.Favorite_id == Guid.Empty)
                 {
-                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>AddToFavorites()'>
+                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>AddToFavorites(postData)'>
                         <i class="fal fa-stars ps-2 fs-5"></i>
                         <span class="text-dark">أضف إلي المفضلة</span>
                     </div>
                 }
                 else
                 {
-                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=> RemoveFromFavorites()'>
+                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=> RemoveFromFavorites(postData)'>
                         <i class="fal fa-star ps-2 fs-5"></i>
                         <span class="text-dark">حذف من المفضلة</span>
                     </div>
@@ -63,7 +63,6 @@
     <!--Post Comments & Likes-->
     <PostReactions  PostId="postData.Post_Id"/>
 </article>
-<Comments PostId="postData.Post_Id"/>
 
 @code {
     [Parameter]
@@ -72,7 +71,7 @@
     {
         Nv.NavigateTo($"/Post?postref={id}");
     }
-    private async Task AddToFavorites()
+    private async Task AddToFavorites(PostView post)
     {
         try
         {
@@ -94,6 +93,7 @@
                     if (deserilaize.Meassage == "Ok")
                     {
                         _alert.ShowAlert("تم إضافة المنشور إلي المفضله", "done");
+                        post.Favorite_id = Guid.NewGuid();
                         _app.NotifyStateChanged();
                     }
                     else
@@ -106,10 +106,10 @@
         }
         catch (Exception ex)
         {
-            
+
         }
     }
-    private async Task RemoveFromFavorites()
+    private async Task RemoveFromFavorites(PostView post)
     {
         try
         {
@@ -131,6 +131,7 @@
                     if (deserilaize.Meassage == "Ok")
                     {
                         _alert.ShowAlert("تم حذف المنشور من المفضله", "done");
+                        post.Favorite_id = Guid.Empty;
                         _app.NotifyStateChanged();
                     }
                     else
@@ -153,4 +154,3 @@
         return Clipboard.SetTextAsync(Content);
     }
 }
-

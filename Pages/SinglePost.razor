@@ -39,38 +39,8 @@
                                 <span class="fw-bold">
                                     وقت النشر :
                                 </span>
-                                <span>
-                                    
-                                    @if (((DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp))).Days < 1.0d)
-                                    {
-                                        @switch (Convert.ToDouble((DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp)).Hours))
-                                        {
-                                            case < 1:
-                                                @($"منذ {((DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp)).Minutes)} دقيقه")
-                                                break;
-                                            case >= 1:
-                                                @($"منذ {(DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp)).Hours} ساعة")
-                                                break;                                                                                             
-                                            default:
-                                                break;
-                                        }     
-                                    }else{
-                                        @switch (Convert.ToDouble((DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp)).Days))
-                                        {
-                                            case > 365:
-                                                @($"منذ {((DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp)).Days / 365)} سنه")
-                                                break;
-                                            case > 30:
-                                                @($"منذ {((DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp)).Days / 30)} شهر")
-                                                break;
-                                            case < 30:
-                                                @($"منذ {(DateTime.Now - DateTime.Parse(postDetails?.Data?.Time_Stamp)).Days} يوم")
-                                                break;                                                                                  
-                                            default:
-                                                break;
-                                        }
-                                    }
-                                        
+                                <span>       
+                                    <DateDiffreanceCalc Time_Stamp="@postDetails.Data?.Time_Stamp"/>    
                                 </span>
                             </div>
                             <div class="col-12  p-0 my-2">
