@@ -92,6 +92,7 @@
 @code {
     [Parameter]
     public Guid PostId { get; set; }
+    public int CommentsCount { get; set; }
     private string CommentContent = "";
     public CommentResponse? CommentsList = new CommentResponse();
     private bool ShowData = false;
@@ -112,6 +113,10 @@
                 if (CommentsList?.Meassage == "Ok")
                 {
                     ShowData = true;
+                    if (CommentsList.Data != null)
+                    {
+                        CommentsCount = CommentsList.Data.Count;
+                    }
                     await InvokeAsync(StateHasChanged);
                 }
                 else

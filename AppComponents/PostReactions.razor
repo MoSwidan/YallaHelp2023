@@ -1,6 +1,6 @@
 ﻿<div class="w-100 row text-center bg-white m-0 rounded-bottom p-2" style="font-size:13px;">
     <div class="col-6 text-end p-0">
-        @CommentsCount
+        @comment.CommentsCount
         <span>تعليق</span>
     </div>
     <div class="col-6 text-start p-0">
@@ -36,7 +36,6 @@
     public Guid PostId { get; set; }
     private bool ShowData = false;
     Comments comment = new Comments();
-    public int CommentsCount { get; set; }
     private bool CheckLike = false;
     public int? LikesCount { get; set; }
     private LikeResponse? LikesList = new LikeResponse();
@@ -52,11 +51,6 @@
             await GetPostLikes();
         }
         await comment.GetPostComments();
-        if (comment.CommentsList.Data != null)
-        {
-            CommentsCount = comment.CommentsList.Data.Count;
-            await InvokeAsync(StateHasChanged);
-        }
     }
     private async Task GetPostLikes()
     {
