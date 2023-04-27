@@ -203,7 +203,7 @@
                             var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<BaseResponse>(responseBody);
                             if (deserilaize.Meassage == "Ok")
                             {
-                                _alert.ShowAlert("تم النشر بالنجاح", "done");
+                                _alert.ShowAlert("تم النشر بنجاح", "done");
                                 Nv.NavigateTo("/Blog");
                             }
                             else
