@@ -1,51 +1,32 @@
 ﻿<style>
     #commentsview::-webkit-scrollbar {
-        width: 10px;
-        height: 7px;
-        background-color: white;
-        border-radius: 10px;
+        display:none;
     }
 
-    #commentsview::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: #fd1b5b;
-        border-radius: 10px;
-        border: 4px solid transparent;
-        background-clip: padding-box;
-    }
-
-    #commentsview::-webkit-scrollbar-thumb:hover {
-        border: 0;
-    }
-
-    #commentsview::-webkit-scrollbar-track {
-        background: transparent;
-    }
 </style>
-<div dir="rtl" class="container-fluid scrollarea d-none " style="position:fixed;z-index:3060;top:0;left:0;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:hidden;" id="@(PostId.ToString()+_app.AccountData.User_Id.ToString())">
-    <div class="justify-content-center rounded align-content-center row  w-100" style="position:absolute;top:13vh;height:86%;">
-        <div class="d-flex flex-column  col-md-8 postion-fixed  h-100">
-            <div class="coment-bottom  bg-light  p-2 px-2 rounded-top">
+<div dir="rtl" class="container-fluid scrollarea d-none p-0" style="position:fixed;z-index:3080;top:0;left:0;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:hidden;" id="@(PostId.ToString()+_app.AccountData.User_Id.ToString())">
+    <div class="justify-content-center rounded align-content-center row p-0 m-auto w-100" style="position:absolute;top:0vh;height:100%;">
+        <div class="d-flex flex-column justify-content-md-center col-md-8 col-lg-6  postion-fixed p-0 h-100">
+            <div class="coment-bottom  bg-light  p-2 px-2">
                 <div class="row  pt-2 me-1 justify-content-center  text-end">
                     <i onclick="document.getElementById('@(PostId.ToString()+_app.AccountData.User_Id.ToString())').classList.toggle('d-none')" class="fa fa-times text-danger fs-3" style="cursor:pointer;"></i>
                 </div>
                 <hr/>
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-@*                    <img class="img-fluid img-responsive rounded-circle mr-2" src="@_app.AccountData.Image_Url" style="width:45px;height:45px;">
-*@                  <input type="text" class="form-control mx-3" @bind="CommentContent" @bind:event="oninput" placeholder="أضف تعليق">
-                    <button @onclick='()=>AddComment()' class="bg-secondary text-white px-2 py-0 text-center rounded border-0" style="font-size:13px;width:70px;" type="button">
+                 <input type="text" class="form-control mx-3" @bind="CommentContent" @bind:event="oninput" placeholder="أضف تعليق">
+                    <button @onclick='()=>AddComment()' class="bg-secondary text-white ms-3 px-2 py-0 text-center rounded border-0" style="font-size:13px;width:70px;" type="button">
                         نشر
                     </button>
                 </div>
             </div>
-            <div id="commentsview" class="coment-bottom  bg-light p-1 px-2 rounded-bottom" style="overflow-y:scroll;overflow-x:hidden;">
+            <div id="commentsview" class="coment-bottom  bg-light p-0" style="overflow-y:scroll;overflow-x:hidden;height:100%;">
                 @if (ShowData)
                 {
                     @if (CommentsList.Data.Count > 0)
                     {
                         @foreach (var comment in CommentsList.Data)
                         {
-                            <div class="commented-section  text-dark shadow rounded bg-white my-3 p-2">
+                            <div class="commented-section mx-3 text-dark shadow rounded bg-white my-3 p-2">
                                 <div class="d-flex flex-column align-items-start commented-user ">
                                     <div class="row w-100 align-items-center justify-content-start pt-2 pe-2">
                                         <div style="width:45px;" class=" ms-2 me-3 p-0">
@@ -91,18 +72,11 @@
 
 @code {
     [Parameter]
-    public Guid PostId { get; set; }
+    public Guid? PostId { get; set; }
     public int CommentsCount { get; set; }
     private string CommentContent = "";
     public CommentResponse? CommentsList = new CommentResponse();
     private bool ShowData = false;
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            //await GetPostComments();
-        }
-    }
     public async Task GetPostComments()
     {
         try
@@ -177,4 +151,6 @@
 
         }
     }
+
+
 }
