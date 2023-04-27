@@ -10,7 +10,10 @@
     <div class="container-fluid px-0 m-0 @(_app.Loading  == true ? "d-none":"")">
         @Body
     </div>
-    <Footer/>
+    @if (!_app.Loading)
+    {
+        <Footer />
+    }
     
 }
 else

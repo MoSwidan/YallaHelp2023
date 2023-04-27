@@ -1,36 +1,75 @@
 ﻿@page "/alert"
+<style>
+    .alert {
+        color:white !important;
+        opacity:1;
+        border:none;
+        font-size:18px;
+        margin:10px auto;
+        user-select:none;
+        top:0px;
+    }
+
+    .alert-warning {
+        background-color:orange !important;
+    }
+
+    .alert-danger {
+        background-color: darkred !important;
+    }
+
+    .alert-success {
+        background-color: green !important;
+    }
+
+    .alert-primary {
+        background-color: blue !important;
+    }
+</style>
 @if (_alert.AlertsList.Count > 0)
 {
-    <div class="position-fixed top-0 end-0 col-12 col-md-4 mt-5" style="z-index:3091;">
+    <div class="position-fixed top-0 end-0 col-12  mt-0" style="z-index:3091;">
         @foreach (var item in _alert.AlertsList)
         {
             switch (item.Type)
             {
                 case "error":
-                    <div class="text-center alert alert-danger d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
-                        <div class="w-100">
+                    <div class="text-center alert shadow col-xl-3 col-lg-4 col-md-6 col-12 alert-danger d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
+                        <div class="" style="width:90%;">
                             @item.Massage
+                        </div>
+                        <div class="" @onclick='()=>RemoveAlert(item)' style="width:20px;cursor:pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 1024 1024"><path fill="white" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z" /></svg>
                         </div>
                     </div>
                     break;
                 case "warn":
-                    <div class="text-center alert alert-warning d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
-                        <div class="w-100">
+                    <div class="text-center alert shadow col-xl-3 col-lg-4 col-md-6 col-12 alert-warning d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
+                        <div class="" style="width:90%;">
                             @item.Massage
+                        </div>
+                        <div class="" @onclick='()=>RemoveAlert(item)' style="width:20px;cursor:pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 1024 1024"><path fill="white" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z" /></svg>
                         </div>
                     </div>
                     break;
                 case "done":
-                    <div class="text-center alert alert-success d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
-                        <div class="w-100">
+                    <div class="text-center alert shadow col-xl-3 col-lg-4 col-md-6 col-12 alert-success d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
+                        <div class="" style="width:90%;">
                             @item.Massage
+                        </div>
+                        <div class="" @onclick='()=>RemoveAlert(item)' style="width:20px;cursor:pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 1024 1024"><path fill="white" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z" /></svg>
                         </div>
                     </div>
                     break;
                 case "info":
-                    <div class="text-center alert alert-primary d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
-                        <div class="w-100">
+                    <div class="text-center alert shadow col-xl-3 col-lg-4 col-md-6 col-12 alert-primary d-flex flex-row align-items-center justify-content-center" role="alert" style="height:50px;">
+                        <div class="" style="width:90%;">
                             @item.Massage
+                        </div>
+                        <div class="" @onclick='()=>RemoveAlert(item)' style="width:20px;cursor:pointer;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 1024 1024"><path fill="white" d="M195.2 195.2a64 64 0 0 1 90.496 0L512 421.504 738.304 195.2a64 64 0 0 1 90.496 90.496L602.496 512 828.8 738.304a64 64 0 0 1-90.496 90.496L512 602.496 285.696 828.8a64 64 0 0 1-90.496-90.496L421.504 512 195.2 285.696a64 64 0 0 1 0-90.496z" /></svg>
                         </div>
                     </div>
                     break;
@@ -47,5 +86,9 @@
     {
         _alert.OnChange += StateHasChanged;
         base.OnInitialized();
+    }
+    private void RemoveAlert(alert alert)
+    {
+        _alert.AlertsList.Remove(alert);
     }
 }

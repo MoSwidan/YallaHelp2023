@@ -78,15 +78,15 @@
             </div>
             <!-- ======== scrollbar started ========= -->
             <div class="d-flex flex-row bg-light my-2 shadow px-2 justify-content-md-center align-content-center py-3  scrollarea" style=" width:100%;height:70px;overflow-x:scroll;">
-                <span @onclick='()=>{activesection = "Posts";GetPosts($"api/Post/GetUserPosts?UserId={_app.UserAuthData.User_Id}",false);}' class="btn  ms-1 text-white text-center d-inline-block  rounded-pill h-100" style=" background:#fd1b5b;">
+                <span @onclick='()=>{activesection = "Posts";GetPosts($"api/Post/GetUserPosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  ms-1 text-white text-center d-inline-block  rounded-pill h-100" style=" background:#fd1b5b;">
                     <i class="fal fa-list-alt ps-1"></i>
                     المنشورات
                 </span>
-                <span @onclick='()=>{activesection = "Saved";GetPosts($"api/Favorite/GetUserFaviortePosts?UserId={_app.UserAuthData.User_Id}",false);}' class="btn  mx-1  text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                <span @onclick='()=>{activesection = "Saved";GetPosts($"api/Favorite/GetUserFaviortePosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  mx-1  text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
                     <i class="fal fa-star ps-1"></i>
                     المنشورات المفضلة
                 </span>
-                <span @onclick='()=>{activesection = "Stared";GetPosts($"api/Post/GetUserSpecialPosts?UserId={_app.UserAuthData.User_Id}",false);}' class="btn  mx-1 text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                <span @onclick='()=>{activesection = "Stared";GetPosts($"api/Post/GetUserSpecialPosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  mx-1 text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
                     <i class="fal fa-stars ps-1"></i>
                     المنشورات المميزة
                 </span>
@@ -125,12 +125,9 @@
                                         }
                                         else
                                         {
-                                            <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
-                                                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_usmfx6bp.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
-                                                <div class="fs-5 text-center mt-1" style="">
-                                                    جاري تحميل المنشوارت 
-                                                </div>
-                                            </div>
+                                            <PostPlaceHolder />
+                                            <PostPlaceHolder />
+                                            <PostPlaceHolder />
                                         }
                                     </div>
                                     break;
@@ -156,12 +153,9 @@
                                             }
                                             else
                                             {
-                                                <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
-                                                    <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_usmfx6bp.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
-                                                    <div class="fs-5 text-center mt-1" style="">
-                                                        جاري تحميل المنشوارت المفضلة
-                                                    </div>
-                                                </div>
+                                                <PostPlaceHolder />
+                                                <PostPlaceHolder />
+                                                <PostPlaceHolder />
                                             }
                                         </div>
                                     </div>
@@ -191,12 +185,9 @@
                                             }
                                             else
                                             {
-                                                <div class="row justify-content-center align-content-center h-100 align-items-center py-4" style="overflow:hidden;">
-                                                    <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_usmfx6bp.json" speed="1" style="width:220px; height:120px;" loop autoplay></lottie-player>
-                                                    <div class="fs-5 text-center mt-1" style="">
-                                                        جاري تحميل المنشورات المميزة
-                                                    </div>
-                                                </div>
+                                                <PostPlaceHolder />
+                                                <PostPlaceHolder />
+                                                <PostPlaceHolder />
                                             }
                                         </div>
                                     </div>
@@ -273,11 +264,11 @@
     private bool ShowData = false;
     private async Task GetPosts(string url,bool load)
     {
+        ShowData = false;
+        await InvokeAsync(StateHasChanged);
         if (load)
         {
-            _app.Loading = true;
-            _app.NotifyStateChanged();
-            await Task.Delay(2000);
+            await Task.Delay(3000);
         }
         try
         {
@@ -301,7 +292,6 @@
         }
         if (load)
         {
-            _app.Loading = false;
             _app.NotifyStateChanged();
         }
     }

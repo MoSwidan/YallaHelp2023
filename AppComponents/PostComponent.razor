@@ -1,68 +1,69 @@
-﻿<article class="_kl_cd mt-0 position-relative shadow" dir="rtl" >
-    <!--Tools Toggle Btn-->
-    <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
-        <i onclick="let x = document.getElementById('@(postData.Post_Id)');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 bg-white  rounded" style="padding:4px 2px;"></i>
-    </div>
-    <!--Post Tools-->
-    <div id="@postData.Post_Id" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
-        <hr class="mt-5 text-dark" />
-        <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
-            <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
-                <span class="text-dark">ابلاغ عن مخالفة</span>
-            </div>
-
+﻿
+<article class="_kl_cd mt-0 position-relative shadow" dir="rtl">
+        <!--Tools Toggle Btn-->
+        <div class="text-center p-2 rounded position-absolute" style="z-index:3050; top:5px; right:10px;cursor:pointer;color:#fd1b5b;">
+            <i onclick="let x = document.getElementById('@(postData.Post_Id)');x.classList.toggle('d-none');x.classList.toggle('slide-bottom');" class="fal fa-ellipsis-v-alt fs-3 bg-white  rounded" style="padding:4px 2px;"></i>
         </div>
-        @if (postData.User_Id == _app.AccountData.User_Id)
-        {
-            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+        <!--Post Tools-->
+        <div id="@postData.Post_Id" class="d-none text-center p-2 pt-3 rounded position-absolute w-100 bg-white h-100" style="user-select:none; z-index:1050; top:0px; right:0px;cursor:pointer;color:#fd1b5b;">
+            <hr class="mt-5 text-dark" />
+            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-3 " dir="rtl">
                 <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
-                    <i class="fal fa-pen-nib ps-2 fs-5"></i>
-                    <span class="text-dark"> تعديل المنشور </span>
+                    <i class="fal fa-exclamation-circle ps-2 fs-5"></i>
+                    <span class="text-dark">ابلاغ عن مخالفة</span>
                 </div>
-            </div>
-        }
-        @if (_app.AccountData.First_Name != null)
-        {
-            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-                @if (postData.Favorite_id == Guid.Empty)
-                {
-                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>AddToFavorites(postData)'>
-                        <i class="fal fa-stars ps-2 fs-5"></i>
-                        <span class="text-dark">أضف إلي المفضلة</span>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=> RemoveFromFavorites(postData)'>
-                        <i class="fal fa-star ps-2 fs-5"></i>
-                        <span class="text-dark">حذف من المفضلة</span>
-                    </div>
-                }
-            </div>
-        }
-        <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
-            <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>{CopyTextToClipboard($"{Nv.ToAbsoluteUri(Nv.Uri).AbsoluteUri.ToString().Replace("/Blog","")+$"/Post?postref={postData.Post_Id}"}");}'>
-                <i class="fal fa-copy ps-2 fs-5"></i>
-                <span class="text-dark"> نسخ الرابط </span>
-            </div>
 
+            </div>
+            @if (postData.User_Id == _app.AccountData.User_Id)
+            {
+                <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                    <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;">
+                        <i class="fal fa-pen-nib ps-2 fs-5"></i>
+                        <span class="text-dark"> تعديل المنشور </span>
+                    </div>
+                </div>
+            }
+            @if (_app.AccountData.First_Name != null)
+            {
+                <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                    @if (postData.Favorite_id == Guid.Empty)
+                    {
+                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>AddToFavorites(postData)'>
+                            <i class="fal fa-stars ps-2 fs-5"></i>
+                            <span class="text-dark">أضف إلي المفضلة</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=> RemoveFromFavorites(postData)'>
+                            <i class="fal fa-star ps-2 fs-5"></i>
+                            <span class="text-dark">حذف من المفضلة</span>
+                        </div>
+                    }
+                </div>
+            }
+            <div class="row w-100 m-0 p-2 bg-light rounded shadow mt-2" dir="rtl">
+                <div class="col-12 text-end  ps-1 my-2" style="font-size:18px;" @onclick='()=>{CopyTextToClipboard($"{Nv.ToAbsoluteUri(Nv.Uri).AbsoluteUri.ToString().Replace("/Blog","")+$"/Post?postref={postData.Post_Id}"}");}'>
+                    <i class="fal fa-copy ps-2 fs-5"></i>
+                    <span class="text-dark"> نسخ الرابط </span>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <!--Post Img-->
-    <div class="_i-tr" style="height:200px;width:300px;">
-        <img class="img-fluid" src="@(postData?.Img_Url.Contains("http") == true ? postData.Img_Url : postData?.Img_Url.Contains("data") == true ? postData.Img_Url:"https://img.freepik.com/free-vector/images-concept-illustration_114360-298.jpg?w=826&t=st=1680175433~exp=1680176033~hmac=741faaf6a1db84c4e635eef15fdc707a55d9b4fdbb1c187625162873fe94f813")">
-    </div>
-    <!--Post Tittle-->
-    <div class="_oi_er_we ">
-        <h3 style="cursor:pointer;" class="text-truncate" @onclick="()=>NavigatePost(postData.Post_Id)">@postData?.Post_Tittle</h3>
-        <p class="text-truncate">
-            @postData?.Post_Content
-        </p>
-    </div>
-    <!--Post Comments & Likes-->
-    <PostReactions  PostId="postData.Post_Id"/>
-</article>
+        <!--Post Img-->
+        <div class="_i-tr" style="height:200px;width:300px;">
+            <img class="img-fluid" src="@(postData?.Img_Url.Contains("http") == true ? postData.Img_Url : postData?.Img_Url.Contains("data") == true ? postData.Img_Url:"https://img.freepik.com/free-vector/images-concept-illustration_114360-298.jpg?w=826&t=st=1680175433~exp=1680176033~hmac=741faaf6a1db84c4e635eef15fdc707a55d9b4fdbb1c187625162873fe94f813")">
+        </div>
+        <!--Post Tittle-->
+        <div class="_oi_er_we ">
+            <h3 style="cursor:pointer;" class="text-truncate" @onclick="()=>NavigatePost(postData.Post_Id)">@postData?.Post_Tittle</h3>
+            <p class="text-truncate">
+                @postData?.Post_Content
+            </p>
+        </div>
+        <!--Post Comments & Likes-->
+        <PostReactions PostId="postData.Post_Id" />
+    </article>
 
 @code {
     [Parameter]

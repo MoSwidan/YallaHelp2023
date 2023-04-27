@@ -6,174 +6,174 @@
     <PageTitle>@(postDetails?.Data?.Post_Tittle)</PageTitle>
     <!-- ======== main started ========= -->
     <main class="charity-01-main position-relative" style="margin-top:102px;">
-    <Comments />
-    <!-- ============abt-01 Section  Start============ -->
-    <BreadCrumb BaseRouteName="الرئيسيه" BaseRouteUrl="/" SubRouteName="المنشورات" SubSubRouteName="@(postDetails?.Data?.Post_Tittle)" SubRouteUrl="/Blog"/>
-    <!-- ========bg-03 started ========= -->
-    <section class="bg-03 " dir="rtl" style="min-height:100vh;">
-        <div class="m-auto" style="width:80vw;"> @*order-xxl-0*@
-            <div class="row ">
-                <div class="col-xl-3 col-lg-6 order-xl-0 order-1   col-12 bg-light ">
-                    <div class="row align-content-center justify-content-center p-2">
-                        <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
-                            <h6 class="fw-bold fs-5">
-                                <i class="far fa-user ps-1"></i>
-                                تم النشر بواسطة
-                            </h6>
-                            <hr />
-                            <div class="col-12 px-0 rounded text-end">
-                                <div class="col-12 px-0 m-0">
-                                    <img class="rounded-circle px-0" style="height:50px;width:50px;" src="@(postDetails?.Data?.Image_Url)" />
-                                    <span class="pe-1 fw-bold">@(postDetails?.Data?.First_Name + " " + postDetails?.Data?.Last_Name)</span>
+        <Comments />
+        <!-- ============abt-01 Section  Start============ -->
+        <BreadCrumb BaseRouteName="الرئيسيه" BaseRouteUrl="/" SubRouteName="المنشورات" SubSubRouteName="@(postDetails?.Data?.Post_Tittle)" SubRouteUrl="/Blog"/>
+        <!-- ========bg-03 started ========= -->
+        <section class="bg-03 " dir="rtl" style="min-height:100vh;">
+            <div class="m-auto" style="width:80vw;"> @*order-xxl-0*@
+                <div class="row ">
+                    <div class="col-xl-3 col-lg-6 order-xl-0 order-1   col-12 bg-light ">
+                        <div class="row align-content-center justify-content-center p-2">
+                            <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
+                                <h6 class="fw-bold fs-5">
+                                    <i class="far fa-user ps-1"></i>
+                                    تم النشر بواسطة
+                                </h6>
+                                <hr />
+                                <div class="col-12 px-0 rounded text-end">
+                                    <div class="col-12 px-0 m-0">
+                                        <img class="rounded-circle px-0" style="height:50px;width:50px;" src="@(postDetails?.Data?.Image_Url)" />
+                                        <span class="pe-1 fw-bold">@(postDetails?.Data?.First_Name + " " + postDetails?.Data?.Last_Name)</span>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
+                                <h6 class=" fw-bold fs-5">
+                                    <i class="fas fa-info-circle ps-1"></i>
+                                    بيانات المنشور 
+                                </h6>
+                                <hr />
+                                <div class="col-12  p-0 my-2">
+                                    <i class="fas fa-clock ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        وقت النشر :
+                                    </span>
+                                    <span>       
+                                        <DateDiffreanceCalc Time_Stamp="@postDetails.Data?.Time_Stamp"/>    
+                                    </span>
+                                </div>
+                                <div class="col-12  p-0 my-2">
+                                    <i class="fas fa-filter ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        الفئة :
+                                    </span>
+                                    @(postDetails.Data?.Category)
+                                </div>
+                                <div class="col-12  p-0 my-2">
+                                    <i class="far fa-eye ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        الحالة :
+                                    </span>
+                                    @(postDetails.Data?.Status)
+                                </div>
+                                @*<div class="col-12  p-0 my-2">
+                                    <i class="far fa-money-bill-wave ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        يوجد مكافأة :
+                                    </span>
+                                    نعم
+                                </div>*@
+                                <div class="col-12  p-0 my-2">
+                                    <i class="far fa-map-marked-alt ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        المحافظة :
+                                    </span>
+                                    @(postDetails.Data?.Governrate)
+                                </div>
+                                <div class="col-12 m-0 p-0 my-2">
+                                    <i class="far fa-map-marker-alt ps-2 fs-5"></i>
+                                    <span class="fw-bold">
+                                        المدينة :
+                                    </span>
+                                    @(postDetails.Data?.City)
+                                </div>
+                                <div class="col-12 m-0 p-0 my-2" onclick="document.getElementById('comments').classList.toggle('d-none')">
+                                        <i class="far fa-comment-dots ps-2 fs-5" onclick="document.getElementById('@(postDetails.Data?.Post_Id.ToString()+_app.AccountData.User_Id.ToString())').classList.toggle('d-none')"></i>
+                                    <span class="fw-bold">
+                                        التعليقات :
+                                    </span>
+                                    @comment.CommentsCount 
+                                </div>
+                                <div class="col-12 m-0 p-0 my-2">
+                                    <i class="far fa-thumbs-up ps-2 fs-5"></i>
+                                    <span class="fw-bold">
+                                        الاعجاب :
+                                    </span>
+                                        @LikesCount
                                 </div>
                             </div>
-                            
-                        </div>
-                        <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
-                            <h6 class=" fw-bold fs-5">
-                                <i class="fas fa-info-circle ps-1"></i>
-                                بيانات المنشور 
-                            </h6>
-                            <hr />
-                            <div class="col-12  p-0 my-2">
-                                <i class="fas fa-clock ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    وقت النشر :
-                                </span>
-                                <span>       
-                                    <DateDiffreanceCalc Time_Stamp="@postDetails.Data?.Time_Stamp"/>    
-                                </span>
-                            </div>
-                            <div class="col-12  p-0 my-2">
-                                <i class="fas fa-filter ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    الفئة :
-                                </span>
-                                @(postDetails.Data?.Category)
-                            </div>
-                            <div class="col-12  p-0 my-2">
-                                <i class="far fa-eye ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    الحالة :
-                                </span>
-                                @(postDetails.Data?.Status)
-                            </div>
-                            @*<div class="col-12  p-0 my-2">
-                                <i class="far fa-money-bill-wave ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    يوجد مكافأة :
-                                </span>
-                                نعم
-                            </div>*@
-                            <div class="col-12  p-0 my-2">
-                                <i class="far fa-map-marked-alt ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    المحافظة :
-                                </span>
-                                @(postDetails.Data?.Governrate)
-                            </div>
-                            <div class="col-12 m-0 p-0 my-2">
-                                <i class="far fa-map-marker-alt ps-2 fs-5"></i>
-                                <span class="fw-bold">
-                                    المدينة :
-                                </span>
-                                @(postDetails.Data?.City)
-                            </div>
-                            <div class="col-12 m-0 p-0 my-2" onclick="document.getElementById('comments').classList.toggle('d-none')">
-                                    <i class="far fa-comment-dots ps-2 fs-5" onclick="document.getElementById('@(postDetails.Data?.Post_Id.ToString()+_app.AccountData.User_Id.ToString())').classList.toggle('d-none')"></i>
-                                <span class="fw-bold">
-                                    التعليقات :
-                                </span>
-                                @comment.CommentsCount 
-                            </div>
-                            <div class="col-12 m-0 p-0 my-2">
-                                <i class="far fa-thumbs-up ps-2 fs-5"></i>
-                                <span class="fw-bold">
-                                    الاعجاب :
-                                </span>
-                                    @LikesCount
-                            </div>
-                        </div>
-                        <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
+                            <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
                             
                             
-                            <h6 class="fw-bold fs-5">
-                                <i class="far fa-address-card ps-1"></i>
-                                تواصل مع الناشر 
-                            </h6>
-                            <hr />
-                            <div class="col-12  p-0 my-2">
-                                <i class="fal fa-phone ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    رقم الهاتف :
-                                </span>
-                                @(postDetails.Data?.Phone_Number)
+                                <h6 class="fw-bold fs-5">
+                                    <i class="far fa-address-card ps-1"></i>
+                                    تواصل مع الناشر 
+                                </h6>
+                                <hr />
+                                <div class="col-12  p-0 my-2">
+                                    <i class="fal fa-phone ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        رقم الهاتف :
+                                    </span>
+                                    @(postDetails.Data?.Phone_Number)
+                                </div>
+                                @*<div class="col-12  p-0 my-2">
+                                    <i class="fab fa-whatsapp ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        واتس أب  :
+                                    </span>
+                                    01124651160
+                                </div>*@
+                                <div class="col-12  p-0 my-2">
+                                    <i class="far fa-envelope ps-1 fs-5"></i>
+                                    <span class="fw-bold">
+                                        الايميل  :
+                                    </span>
+                                    @(postDetails.Data?.Email)
+                                </div>
                             </div>
-                            @*<div class="col-12  p-0 my-2">
-                                <i class="fab fa-whatsapp ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    واتس أب  :
-                                </span>
-                                01124651160
-                            </div>*@
-                            <div class="col-12  p-0 my-2">
-                                <i class="far fa-envelope ps-1 fs-5"></i>
-                                <span class="fw-bold">
-                                    الايميل  :
-                                </span>
-                                @(postDetails.Data?.Email)
-                            </div>
-                        </div>
                         
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-12 order-xl-1 order-2  col-12 bg-light">
-                    <div class="row align-content-center justify-content-center p-2">
-                        <div class="col-12 rounded shadow-sm mb-2 p-0">
-                                <img src="@(postDetails.Data?.Img_Url)" style="width:100%;border-radius: 10px;" />
-                        </div>
-                        <div class="col-12  text-secondary rounded text-end shadow-sm  mt-2 border p-3">
-                            <h6 class="fw-bold fs-5">
-                                <i class="far fa-file-alt ps-1"></i>
-                                التفاصيل
-                            </h6>
-                            <hr/>
-                            <p class="p-3">
-                                @(postDetails.Data?.Post_Content)
-                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 order-xl-2 order-0   col-12 bg-light ">
-                    <div class="row align-content-center justify-content-center p-2">
-                        <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
-                            <h6 class="fw-bold fs-5">
-                                <i class="fas fa-bullhorn"></i>
-                                مساحة اعلانية 
-                            </h6>
-                            <hr />
-                            <div class="col-12 m-auto rounded bg-dark p-0 ">
-                                <img class="img-fluid rounded" style="height:200px;width:100%;" src="https://img.freepik.com/free-photo/stylish-asian-girl-making-announcement-megaphone-shouting-with-speakerphone-smiling-inviting_1258-94912.jpg?w=1800&t=st=1682345478~exp=1682346078~hmac=5497f009e0b7410b65d8fbc74c89803cfe9c0576cd8a6fb099b14a295d103fcf" />
+                    <div class="col-xl-6 col-lg-12 order-xl-1 order-2  col-12 bg-light">
+                        <div class="row align-content-center justify-content-center p-2">
+                            <div class="col-12 rounded shadow-sm mb-2 p-0">
+                                    <img src="@(postDetails.Data?.Img_Url)" style="width:100%;border-radius: 10px;" />
                             </div>
-
-                        </div>
-                        <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
-                            <h6 class="fw-bold fs-5">
-                                <i class="fas fa-bullhorn"></i>
-                                مساحة اعلانية
-                            </h6>
-                            <hr />
-                            <div class="col-12 m-auto rounded bg-dark p-0 ">
-                                <img class="img-fluid rounded" style="height:200px;width:100%;" src="https://img.freepik.com/free-vector/internet-marketing-agency-banner-digital-business_107791-2448.jpg?w=1800&t=st=1682345471~exp=1682346071~hmac=d6ca44256c4783afed139ccad86461137193e6460ee9a62c261f71726a3871ce" />
+                            <div class="col-12  text-secondary rounded text-end shadow-sm  mt-2 border p-3">
+                                <h6 class="fw-bold fs-5">
+                                    <i class="far fa-file-alt ps-1"></i>
+                                    التفاصيل
+                                </h6>
+                                <hr/>
+                                <p class="p-3">
+                                    @(postDetails.Data?.Post_Content)
+                                </p>
                             </div>
-
                         </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 order-xl-2 order-0   col-12 bg-light ">
+                        <div class="row align-content-center justify-content-center p-2">
+                            <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
+                                <h6 class="fw-bold fs-5">
+                                    <i class="fas fa-bullhorn"></i>
+                                    مساحة اعلانية 
+                                </h6>
+                                <hr />
+                                <div class="col-12 m-auto rounded bg-dark p-0 ">
+                                    <img class="img-fluid rounded" style="height:200px;width:100%;" src="https://img.freepik.com/free-photo/stylish-asian-girl-making-announcement-megaphone-shouting-with-speakerphone-smiling-inviting_1258-94912.jpg?w=1800&t=st=1682345478~exp=1682346078~hmac=5497f009e0b7410b65d8fbc74c89803cfe9c0576cd8a6fb099b14a295d103fcf" />
+                                </div>
+
+                            </div>
+                            <div class="col-12 text-secondary rounded text-end shadow-sm  mt-2 border p-3">
+                                <h6 class="fw-bold fs-5">
+                                    <i class="fas fa-bullhorn"></i>
+                                    مساحة اعلانية
+                                </h6>
+                                <hr />
+                                <div class="col-12 m-auto rounded bg-dark p-0 ">
+                                    <img class="img-fluid rounded" style="height:200px;width:100%;" src="https://img.freepik.com/free-vector/internet-marketing-agency-banner-digital-business_107791-2448.jpg?w=1800&t=st=1682345471~exp=1682346071~hmac=d6ca44256c4783afed139ccad86461137193e6460ee9a62c261f71726a3871ce" />
+                                </div>
+
+                            </div>
                         
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     </main>
 }
 else
@@ -226,14 +226,7 @@ else
             @if (postDetails != null)
             {
                 LikesList = await Http.GetFromJsonAsync<LikeResponse>($"api/Like/GetPostLikes?postid={postDetails.Data?.Post_Id}");
-                if (LikesList?.Code == "200")
-                {
-                    if (LikesList?.Data?.Count > 0)
-                    {
-                        LikesCount = LikesList.Data.Count;
-                    }
-                    await InvokeAsync(StateHasChanged);
-                }
+                LikesCount = LikesList.Data.Count;
             }
 
         }
