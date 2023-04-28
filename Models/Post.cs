@@ -23,6 +23,7 @@
         public string? Status { get; set; }
         public string? Category { get; set; }
         public Guid Favorite_id { get; set; }
+        public string? TimeStamp { get; set; }
         public string? City { get; set; }
     }
     public class PostResponse : BaseDto

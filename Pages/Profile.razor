@@ -78,19 +78,19 @@
             </div>
             <!-- ======== scrollbar started ========= -->
             <div class="d-flex flex-row bg-light my-2 shadow px-2 justify-content-md-center align-content-center py-3  scrollarea" style=" width:100%;height:70px;overflow-x:scroll;">
-                <span @onclick='()=>{activesection = "Posts";GetPosts($"api/Post/GetUserPosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  ms-1 text-white text-center d-inline-block  rounded-pill h-100" style=" background:#fd1b5b;">
+                <span @onclick='()=>{activesection = "Posts";GetPosts($"api/Post/GetUserPosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  ms-1 text-white text-center d-inline-block  rounded-pill h-100 @(activesection == "Posts" ? "bg-info":"")" style=" background:#fd1b5b;">
                     <i class="fal fa-list-alt ps-1"></i>
                     المنشورات
                 </span>
-                <span @onclick='()=>{activesection = "Saved";GetPosts($"api/Favorite/GetUserFaviortePosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  mx-1  text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                <span @onclick='()=>{activesection = "Saved";GetPosts($"api/Favorite/GetUserFaviortePosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  mx-1  text-white text-center d-inline-block   rounded-pill h-100 @(activesection == "Saved" ? "bg-info":"")" style="background:#fd1b5b;">
                     <i class="fal fa-star ps-1"></i>
                     المنشورات المفضلة
                 </span>
-                <span @onclick='()=>{activesection = "Stared";GetPosts($"api/Post/GetUserSpecialPosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  mx-1 text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                <span @onclick='()=>{activesection = "Stared";GetPosts($"api/Post/GetUserSpecialPosts?UserId={_app.UserAuthData.User_Id}",true);}' class="btn  mx-1 text-white text-center d-inline-block   rounded-pill h-100 @(activesection == "Stared" ? "bg-info":"")" style="background:#fd1b5b;">
                     <i class="fal fa-stars ps-1"></i>
                     المنشورات المميزة
                 </span>
-                <span @onclick='()=>activesection = "PersonalData"' class="btn   mx-1 text-white text-center d-inline-block   rounded-pill h-100" style="background:#fd1b5b;">
+                <span @onclick='()=>activesection = "PersonalData"' class="btn   mx-1 text-white text-center d-inline-block   rounded-pill h-100 @(activesection == "PersonalData" ? "bg-info":"")" style="background:#fd1b5b;">
                     <i class="fal fa-user-edit ps-1"></i>
                     البيانات الشخصيه
                 </span>
@@ -115,7 +115,7 @@
                                                     لا يوجد  منشورات سابقه
                                                 </h5>
                                             }else{
-                                                @foreach (var post in postsList?.Data)
+                                                @foreach (var post in postsList?.Data.OrderByDescending(x => Convert.ToDateTime(x.Time_Stamp)))
                                                 {
                                                     <div class="p-0 mx-1" style="max-width:300px;">
                                                         <PostComponent postData="post" />
@@ -144,7 +144,7 @@
                                                         لا يوجد  منشورات محفوظة
                                                     </h5>
                                                 }
-                                                @foreach (var post in postsList?.Data)
+                                                @foreach (var post in postsList?.Data.OrderBy(x => Convert.ToDateTime(x.TimeStamp)))
                                                 {
                                                     <div class="p-0 mx-1" style="max-width:300px;">
                                                         <PostComponent postData="post" />
