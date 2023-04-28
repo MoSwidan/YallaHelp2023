@@ -80,7 +80,7 @@
                                     @(postDetails.Data?.City)
                                 </div>
                                 <div class="col-12 m-0 p-0 my-2" onclick="document.getElementById('comments').classList.toggle('d-none')">
-                                        <i class="far fa-comment-dots ps-2 fs-5" onclick="document.getElementById('@(postDetails.Data?.Post_Id.ToString()+_app.AccountData.User_Id.ToString())').classList.toggle('d-none')"></i>
+                                    <i class="far fa-comment-dots ps-2 fs-5" onclick="document.getElementById('@(postDetails.Data?.Post_Id.ToString()+"app")').classList.toggle('d-none')"></i>
                                     <span class="fw-bold">
                                         التعليقات :
                                     </span>
