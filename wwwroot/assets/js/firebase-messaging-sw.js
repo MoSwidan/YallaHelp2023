@@ -9,7 +9,7 @@
     appId: "1:934942546356:web:c4803d90741c72e9637ae1",
     measurementId: "G-QR29BM5N3B"
 });
-const messaging = firebase.messaging();
+//const messaging = firebase.messaging();
 
 //messaging.onBackgroundMessage(function (payload) {
 //    console.log('Received background message ', payload);
