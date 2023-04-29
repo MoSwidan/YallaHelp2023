@@ -244,29 +244,26 @@
     <script src="/assets/js/All.js"></script>
     <script src="/assets/js/Lottie.js"></script>
     <script src="/assets/js/mainscript.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.2.0/firebase-messaging-compat.js"></script>
+    <script src="/firebase-messaging-sw.js"></script>
     <script type="module">
-        import { initializeApp } from "/firebase/app";
-        import { getMessaging } from "/firebase/messaging";
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
+        firebase.initializeApp({
             apiKey: "AIzaSyCv98SooqkAZZckfMLWcX_fLcGeFVLW0zk",
             authDomain: "yallahelp-7c04d.firebaseapp.com",
+            databaseURL: 'https://yallahelp-7c04d.firebaseio.com',
+            messagingSenderId: '934942546356',
             projectId: "yallahelp-7c04d",
             storageBucket: "yallahelp-7c04d.appspot.com",
             messagingSenderId: "934942546356",
             appId: "1:934942546356:web:c4803d90741c72e9637ae1",
             measurementId: "G-QR29BM5N3B"
-        };
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        // Initialize Firebase Cloud Messaging and get a reference to the service
-        const messaging = getMessaging(app);
-        getToken(messaging, { vapidKey: '"BKNepSMtN-RY4c1jHUt24sepqaUiv5HYDk4ZlFZRO1h5UumyIUugMLN9kq6xFxmQmi6zq0n0zjrNQElY5SQvtF0"' }).then((currentToken) => {
+        });
+        const messaging = firebase.messaging();
+        messaging.getToken({ vapidKey: 'BKNepSMtN-RY4c1jHUt24sepqaUiv5HYDk4ZlFZRO1h5UumyIUugMLN9kq6xFxmQmi6zq0n0zjrNQElY5SQvtF0' }).then((currentToken) => {
             if (currentToken) {
                 // Send the token to your server and update the UI if necessary
-                console.log(currentToken);
-                console.log("work");
+                localStorage.setItem("google", currentToken)
             } else {
                 // Show permission request UI
                 console.log('No registration token available. Request permission to generate one.');
