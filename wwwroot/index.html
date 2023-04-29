@@ -261,7 +261,6 @@
             appId: "1:934942546356:web:c4803d90741c72e9637ae1",
             measurementId: "G-QR29BM5N3B"
         });
-        const messaging = firebase.messaging();
         messaging.getToken({ vapidKey: 'BKNepSMtN-RY4c1jHUt24sepqaUiv5HYDk4ZlFZRO1h5UumyIUugMLN9kq6xFxmQmi6zq0n0zjrNQElY5SQvtF0' }).then((currentToken) => {
             if (currentToken) {
                 // Send the token to your server and update the UI if necessary
