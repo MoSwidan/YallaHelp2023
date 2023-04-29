@@ -55,29 +55,6 @@ else
                     if (decrypt.Phone_Number != null)
                     {
                         await _app.AutoLogUser(decrypt);
-                        var google = await localStorage.GetItemAsync<string>("google");
-                        NotificationModel notificationModel = new NotificationModel
-                        {
-                            DeviceId = google,
-                            IsAndroiodDevice = true,
-                            Title = "YallaHelp",
-                            Body = "تسجيل دخول أوتوماتيكي"
-                        };
-                        var response = await Http.PostAsJsonAsync<NotificationModel>("api/notification/send", notificationModel);
-                        var responseStatusCode = response.StatusCode;
-                        var responseBody = await response.Content.ReadAsStringAsync();
-                        if (!string.IsNullOrWhiteSpace(responseBody))
-                        {
-                            var deserilaize = Newtonsoft.Json.JsonConvert.DeserializeObject<ResponseModel>(responseBody);
-                            if (deserilaize.IsSuccess)
-                            {
-                                _alert.ShowAlert("تم", "done");
-                            }
-                            else
-                            {
-                                _alert.ShowAlert($" خطاء", "error");
-                            }
-                        }
                     }
                 }
             }
