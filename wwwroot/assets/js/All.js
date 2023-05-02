@@ -64,3 +64,11 @@ function showError(error) {
     }
     alert(result[0]);
 }
+function textAreaAdjust(element) {
+    if (element.value != '') {
+        element.style.height = "1px";
+        element.style.height = (10 + element.scrollHeight) + "px";
+    } else {
+        element.style.height = "33px";
+    }
+}
