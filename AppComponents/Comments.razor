@@ -18,13 +18,14 @@
     }
 </style>
 <div dir="rtl" class="container-fluid scrollarea d-none p-0" style="position:fixed;z-index:3080;top:0;left:0;height:100vh;background-color:rgba(0,0,0,0.5);overflow-y:hidden;" id="@(PostId.ToString()+"app")">
-    <div class="justify-content-center rounded align-content-center row p-0 m-auto w-100" style="position:absolute;top:0vh;height:100%;">
-        <div class="d-flex flex-column bg-light justify-content-md-center col-md-8 col-lg-6  postion-fixed p-0 h-100">
+    <div class="justify-content-center  align-content-center row p-0 m-auto w-100" style="position:absolute;bottom:0vh;height:80%;">
+        <div class="d-flex flex-column bg-light justify-content-md-center col-md-8 col-lg-6  postion-fixed p-0 h-100" style="border-radius:50px 50px 0px 0px;">
             <div class="coment-bottom p-2 px-2">
-                <div class="row  pt-2 me-1 justify-content-center  text-end">
-                    <i onclick="document.getElementById('@(PostId.ToString()+"app")').classList.toggle('d-none')" class="fa fa-times text-danger fs-3" style="cursor:pointer;"></i>
+                <div id="commentshide" class="row  pt-2 me-1" ontouchend="document.getElementById('@(PostId.ToString()+"app")').classList.toggle('d-none')">
+                    <div class="col-3 border m-auto" style="cursor:pointer;" onclick="document.getElementById('@(PostId.ToString()+"app")').classList.toggle('d-none')">
+
+                    </div>
                 </div>
-                <hr style="opacity:0.1;"/>
             </div>           
             <div id="commentsview" class="coment-bottom   p-0" style="overflow-y:scroll;overflow-x:hidden;height:100%;">
                 @if (ShowData)
@@ -33,21 +34,21 @@
                     {
                         @foreach (var comment in CommentsList.Data)
                         {
-                            <div class="commented-section mx-3 text-dark shadow rounded bg-white my-3 p-2">
+                            <div class="commented-section mx-3 text-dark  rounded my-1 p-2">
                                 <div class="d-flex flex-column align-items-start commented-user ">
                                     <div class="row w-100 align-items-center justify-content-start pt-2 pe-2">
                                         <div style="width:45px;" class=" ms-2 me-3 p-0">
                                             <img style="height:45px;width:45px;" class="rounded-circle" src="@comment.Image_Url">
                                         </div>
                                         <div class="col-6 text-end  p-0 ">
-                                            <p class="text-end fw-bold p-0 mb-0 me-1" style="font-size:13px;">@(comment.First_Name + " " + comment.Last_Name)</p>
-                                            <p class="pt-1 px-0 m-0" style="font-size:11px;">
+                                            <p class="text-end  p-0 mb-0 me-1" style="font-size:12px;">@(comment.First_Name + " " + comment.Last_Name)</p>
+                                            <p class="pt-1  pe-1 m-0" style="font-size:10px;">
                                                 <DateDiffreanceCalc Time_Stamp="@comment.TimeStamp" />
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-end  mt-2 mb-1 px-2 p-1 bg-light py-2  text-dark" style="font-size:15px;">
+                                <div class="col-12 text-end  mt-2 mb-1 px-2 p-1 bg-white shadow-sm  py-2  text-dark" style="font-size:13px;line-height:22px; border-radius:10px;">
                                     @comment.Comment_Content
                                 </div>
                             </div>
